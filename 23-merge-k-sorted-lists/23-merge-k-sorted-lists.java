@@ -47,13 +47,17 @@ class Solution {
         return dum.next;
         
     }
+    public ListNode mergeKLists(ListNode[] lists , int si , int ei){
+        if(si>=ei)return si>ei?null:lists[si];
+            
+           int mid = (si+ei)/2;
+            
+            return mergeTwo(mergeKLists(lists,si,mid),mergeKLists(lists,mid+1,ei));
+        }
+    
     
     public ListNode mergeKLists(ListNode[] lists) {
-        ListNode ans=null;
-        for(ListNode l:lists){
-           ans= mergeTwo(ans,l);
-        }
-        
-        return ans;
+      int n = lists.length;
+        return mergeKLists(lists,0,n-1);
     }
 }
