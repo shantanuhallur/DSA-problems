@@ -20,6 +20,7 @@ class Solution {
     }
     
     public ListNode reverseBetween(ListNode head, int left, int right) {
+        if(head==null||head.next==null|| left==right)return head;
        int idx = 1;
         ListNode prev = null , curr = head;
         
