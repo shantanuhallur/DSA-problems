@@ -24,7 +24,7 @@ class Solution {
         ListNode prev = null , curr = head;
         
         while(curr!=null){
-            while(curr!=null&& idx>=left && idx<= right){
+            while(idx>=left && idx<= right){
                 ListNode forw=curr.next;
                 curr.next = null;
                 addFirst(curr);
