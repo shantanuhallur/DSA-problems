@@ -14,62 +14,56 @@ class Node {
 */
 
 class Solution {
-    public Node copyRandomList(Node head) {
-         if(head==null)return head;
-        
-        HashMap<Node,Node> map = new HashMap<>();
+    
+    private void addNode(Node head){
         Node curr = head;
+        while(curr != null){
+            Node forw = curr.next;
+            Node copyNode = new Node(curr.val);
+            
+            curr.next = copyNode;
+            copyNode.next = forw;
+            
+            curr = curr.next.next;
+        }
+    }
+    
+    private void updateRandom(Node head){
+       Node curr = head;
+        
+        while(curr != null){
+            curr.next.random = curr.random==null?null:curr.random.next;
+            
+            curr = curr.next.next;
+        } 
+    }
+    
+    private Node reOrder(Node head){
+        
         Node dummy = new Node(-1);
-        Node prev = dummy;
+        Node curr = head , prev = dummy;
         
         while(curr!=null){
-            Node node = new Node(curr.val);
-            prev.next = node;
-            map.put(curr,node);
+            prev.next = curr.next;
+            curr.next = curr.next.next;
+            
             prev = prev.next;
             curr=curr.next;
-        }
+        }    
         
-        dummy = dummy.next;
-        Node c1 = head;
+        return dummy.next;
+    }
+    
+    public Node copyRandomList(Node head) {
+        if(head==null)return head;
         
         
-        while(c1!=null){
-            Node copyNode = map.get(c1);
-            copyNode.random = (map.get(c1.random))!=null?map.get(c1.random):null;
-             
-            c1 = c1.next;
-            
-            
-        }
+        addNode(head);
+        updateRandom(head);
+        return reOrder(head);
         
-        return dummy;
+       
         
-//         HashMap<Node,Node> map = new HashMap<>();
-//         Node curr = head;
-//         Node nHead = new Node(-1);
-//         Node prev = nHead;
-
-//         while(curr!=null){
-//             Node node = new Node(curr.val); 
-//             prev.next = node;
-//             map.put(curr,node);
-//             prev= prev.next;
-//             curr = curr.next;
-//         }
-
-//         nHead = nHead.next;
-//         Node c1 = head;
-//         Node c2 = nHead;
-
-//         while(c1!=null){
-//             c2.random = (map.get(c1.random)!=null ? map.get(c1.random) : null );
-            
-//             c1=c1.next;
-//             c2=c2.next;
-
-//         }
-
-//         return nHead;
+        
     }
 }
