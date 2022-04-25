@@ -32,12 +32,15 @@ class Solution {
         
         dummy = dummy.next;
         Node c1 = head;
-        Node c2 = dummy;
+        
         
         while(c1!=null){
-            c2.random = (map.get(c1.random))!=null?map.get(c1.random):null;
+            Node copyNode = map.get(c1);
+            copyNode.random = (map.get(c1.random))!=null?map.get(c1.random):null;
+             
             c1 = c1.next;
-            c2 = c2.next;
+            
+            
         }
         
         return dummy;
