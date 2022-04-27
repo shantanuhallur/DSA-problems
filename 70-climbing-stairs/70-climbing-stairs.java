@@ -1,23 +1,22 @@
-class Solution {
     
-    public int climbtairs (int n ,int[] dp){
-        if(n<0){
-            return 0;
+class Solution {
+
+    public int climbstairs (int N ,int[] dp){
+        for(int i=0;i<=N;i++){
+                 if(i<=1){
+                    dp[i]=1;
+                    continue;
+                 }
+                
+                    dp[i] =dp[i-1] + dp[i-2];
+                 
         }
-        if(n==0){
-            return dp[0]=1;
-        }
-        if(dp[n]!=0){
-            return dp[n];
-        }
-        
-        
-        
-        
-        return dp[n]=climbtairs (n -1 , dp) + climbtairs (n -2 , dp);
+            return dp[N];
     }
+        
+    
     public int climbStairs(int n) {
             int[] dp = new int[n+1];
-           return climbtairs(n,dp);
+           return climbstairs(n,dp);
     }
 }
