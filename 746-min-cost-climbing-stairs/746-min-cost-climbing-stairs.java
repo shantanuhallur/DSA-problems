@@ -20,8 +20,8 @@ class Solution {
                  continue;
              }
 
-        int fcall = minCostClimbingStairs(cost,dp,n-1);
-        int scall = minCostClimbingStairs(cost,dp,n-2);   
+        int fcall = dp[n-1];
+        int scall = dp[n-2];   
         int ans = Math.min(fcall,scall) + (n==cost.length?0:cost[n]);
          
          dp[n] = ans;
