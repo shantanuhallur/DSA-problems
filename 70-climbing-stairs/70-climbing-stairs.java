@@ -1,17 +1,12 @@
     
 class Solution {
 
-    public int climbstairs (int N ,int[] dp){
-        for(int i=0;i<=N;i++){
-                 if(i<=1){
-                    dp[i]=1;
-                    continue;
-                 }
-                
-                    dp[i] =dp[i-1] + dp[i-2];
-                 
-        }
-            return dp[N];
+    public int climbstairs (int n ,int[] dp){
+       if(n<=2) return dp[n]=n==1?1:2;
+        
+        if(dp[n] != 0) return dp[n];
+        
+        return dp[n] = climbstairs(n-1,dp)+climbstairs(n-2,dp);
     }
         
     
