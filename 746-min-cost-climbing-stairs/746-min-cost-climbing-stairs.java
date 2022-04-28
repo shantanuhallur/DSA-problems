@@ -14,7 +14,7 @@ class Solution {
         
          dp[n] = Math.min(fcall,scall) ;
         if(n<cost.length){
-            dp[n]+=cost[n];
+            dp[n]+=cost[n]; //cost of getting jumped on last stair is 0;
         }
         return dp[n];
     }
