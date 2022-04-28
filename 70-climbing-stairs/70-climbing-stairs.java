@@ -2,7 +2,7 @@
 class Solution {
 
     private int climbstairs (int n ,int[] dp){
-       if(n<=2) return dp[n]=n==1?1:2;
+       if(n<=1) return dp[n]=1;
         
         if(dp[n] != 0) return dp[n];
         
@@ -11,8 +11,8 @@ class Solution {
         
      private int climbstairs_tab(int N,int[] dp){
         for(int n=0;n<=N;n++){
-            if(n<=2) {
-                dp[n]=n==2?2:1;
+            if(n<=1) {
+                dp[n]=1;
                 continue;
             }
             
