@@ -4,9 +4,7 @@ class Solution {
         int min=Integer.MAX_VALUE;
         
         for(int i:nums){
-            if(i<min){
-                min = i;
-            }
+            min = Math.min(i,min);
         }
         
         for(int i :nums){
