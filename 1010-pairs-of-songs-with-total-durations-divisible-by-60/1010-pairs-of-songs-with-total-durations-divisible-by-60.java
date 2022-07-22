@@ -1,18 +1,21 @@
 class Solution {
     public int numPairsDivisibleBy60(int[] time) {
-        int[] freq = new int[60];
-        int ans=0;
-        for(int t:time){
-            int val = t%60;
-            
+        int[] mfreq = new int[60];
+        int Pairs = 0;
+        for(int i:time){
+            int val = i%60; //IMP
             if(val==0){
-                ans += freq[val];
+                Pairs += mfreq[val];
             }
             else{
-                ans += freq[60-val];
+                //Pairing current number with 60-value section 
+                Pairs += mfreq[60-val];
             }
-            freq[val]++;
+            //track of numbers in that modulo section. Adding current number for future pairs.
+            mfreq[val]++;
         }
-        return ans;
+        
+        return Pairs;
+        
     }
 }
