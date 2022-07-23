@@ -1,46 +1,30 @@
 class Solution {
     public int maxChunksToSorted(int[] arr) {
-        int[] minfrmR = new int[arr.length];
-        
-        minfrmR[arr.length-1] = arr[arr.length-1];
-        
-        int min = minfrmR[arr.length-1];
-        
-        for(int i=arr.length-2;i>=0;i--){
-         minfrmR[i] = Math.min(minfrmR[i+1],arr[i]);   
-        }
-        
-        
-        // for(int i=arr.length-2;i>=0;i--){
-        //     int val = arr[i];
-        //     if(val<min){
-        //         minfrmR[i] = val;
-        //         min=val;
-        //     }
-        //     else{
-        //             minfrmR[i] = min;      
-        //        }
-        // }
-        
-        int res =0;
-        int max = Integer.MIN_VALUE;
-//         for(int i=0;i<arr.length-1;i++){
-//             if(arr[i]>max){
-//                 max=arr[i];
-//             }
+        int[] lmin = new int[arr.length];
+        int currMin = Integer.MAX_VALUE;
+        for(int i=arr.length-1;i>=0;i--){
+            if(i== arr.length-1){
+                lmin[i]=arr[i];
+                currMin = arr[i];
+            }
+            if(arr[i]<currMin){
+                currMin = arr[i];
+            }
             
-//             if(max<=minfrmR[i+1]){
-//                 res++;
-//             }
-//         }
-        
+            lmin[i]=currMin;
+        }
+        int currMin2 = Integer.MIN_VALUE;
+        int res=0;
         for(int i=0;i<arr.length-1;i++){
-            max = Math.max(max,arr[i]);
-            if(max<=minfrmR[i+1]){
+            if(arr[i]>currMin2){
+                currMin2=arr[i];
+            }
+            
+            if(currMin2<=lmin[i+1]){
                 res++;
+                
             }
         }
-        
         return res+1;
     }
 }
