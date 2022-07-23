@@ -7,12 +7,12 @@ class Solution {
         }
         List<Integer> ans = new ArrayList<>();
         int max=Integer.MIN_VALUE;
-        int count=0;
+        int prev=-1;
         for(int i=0;i<arr.length;i++){
              max = Math.max(m.get(arr[i]),max);    
             if(i==max){
-                ans.add(i+1-count);
-                count = i+1;
+                ans.add(i-prev);
+                prev = i;
             }
         }
         return ans;
