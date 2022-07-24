@@ -27,7 +27,6 @@ class Solution {
                 min =nums[i];   
             }
         }
-        System.out.print(min+" " +max);
         return (end-st)+1;
     }
 }
