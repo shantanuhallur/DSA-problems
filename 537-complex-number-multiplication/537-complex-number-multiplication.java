@@ -4,7 +4,7 @@ class Solution {
         
         //num2 = c + di
         
-        //res = Real :- [(a*c) -(b*d)] + Img :- (a*d + c*b)i
+        //res = Real :- (a*c -b*d) + Img :- (a*d + c*b)i
         
         int a = Integer.parseInt(num1.substring(0,num1.indexOf('+')));
         int b = Integer.parseInt(num1.substring(num1.indexOf('+')+1,num1.length()-1));
