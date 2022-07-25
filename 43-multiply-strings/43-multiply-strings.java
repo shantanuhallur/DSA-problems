@@ -8,7 +8,7 @@ class Solution {
         int i = l2 - 1;
         int pf = 0;
         while(i >= 0){
-            int ival = num2.charAt(i)-'0';
+            int ival = i>=0?num2.charAt(i)-'0':0;
             i--;
             
             int j = l1 - 1;
