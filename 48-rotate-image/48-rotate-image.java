@@ -20,6 +20,10 @@ class Solution {
                 right--;
             }
         }
+        
+        // for(int[] arr:matrix){
+        //     Collections.reverse(Arrays.asList(arr));
+        // }
        
     }
 }
