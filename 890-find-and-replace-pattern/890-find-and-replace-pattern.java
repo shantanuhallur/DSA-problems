@@ -1,7 +1,10 @@
 class Solution {
     
     private static boolean isMatching(String word,String pattern){
+        
             HashMap<Character,Character>map = new HashMap<>();
+        
+        //Set is necessary because a letter can be mapped to same character twice 
             HashSet<Character>set = new HashSet<>();
         for(int i=0;i<pattern.length();i++){
             char wChar = word.charAt(i);
