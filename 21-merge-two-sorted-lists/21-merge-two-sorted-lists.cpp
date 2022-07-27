@@ -29,7 +29,7 @@ public:
             prev=prev->next;
         }
         prev->next= c1==NULL?c2:c1;
-        // c1==null?prev.next=c2:prev.next=c1;
+       
         
         return dummy->next;
     }
