@@ -2,7 +2,7 @@ class Solution {
     public int maxProduct(int[] nums) {
         int ans =  Integer.MIN_VALUE;
         int cprod=1;
-        
+        //subarray including elements from start
         for(int i=0;i<nums.length;i++){
             cprod*= nums[i];
             ans = Math.max(ans,cprod);
@@ -12,6 +12,7 @@ class Solution {
             }
         }
         
+        //subarray including elements from end
         cprod = 1;
         for(int i=nums.length-1;i>=0;i--){
             cprod*= nums[i];
@@ -21,7 +22,7 @@ class Solution {
                 cprod = 1;
             }
         }
-        
+        //subarray from start and subarray from end are not equal as either arrays can skip the element from start or end for example :- [2,3,-2,4] start can skip 4 and end can skip anu 3 or 2 for its subarray.
         return ans;
     }
 }
