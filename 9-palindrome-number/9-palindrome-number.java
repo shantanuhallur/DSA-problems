@@ -1,19 +1,15 @@
 class Solution {
     public boolean isPalindrome(int x) {
-       int temp = x;
-        int sum=0;
-        
-        while(x>0){
-            int d = x%10;
-            sum = sum*10 + d;
-            x = x/10;
+      int temporary = x;
+        int sumation = 0;
+
+        while(temporary>0){
+            int d = temporary%10;
+            sumation = sumation*10 +d;
+            temporary = temporary/10;
         }
         
-        if(sum==temp){
-            return true;
-        }
-        else{
-            return false;
-        }
+        if(sumation==x)return true;
+        else return false;
     }
 }
