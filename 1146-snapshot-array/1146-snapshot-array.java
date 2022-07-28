@@ -1,6 +1,8 @@
 class SnapshotArray {
     int sid=0;
+    //
     HashMap<Integer,Integer>[] map;
+    
     public SnapshotArray(int length) {
          map = new HashMap[length];
         for(int i=0;i<length;i++){
@@ -14,8 +16,10 @@ class SnapshotArray {
     }
     
     public int snap() {
+        
+        int SnapId=sid;
         sid++;
-        return sid-1;
+        return SnapId;
     }
     
     public int get(int index, int snap_id) {
