@@ -16,8 +16,7 @@ class Solution {
             if(i==firstLen-1){
                 left[i]=sum;
             }
-            
-            if(i>=firstLen){
+            else if(i>=firstLen){
                 sum -= nums[i-firstLen];
                 left[i] = Math.max(sum,left[i-1]);
             }
@@ -31,8 +30,7 @@ class Solution {
             if(i==nums.length-secondLen){
                 right[i]=sum;
             }
-            
-            if(i<nums.length-secondLen){
+            else if(i<nums.length-secondLen){
                 sum -= nums[i+secondLen];
                 right[i] = Math.max(sum,right[i+1]);
             }
