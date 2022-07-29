@@ -1,7 +1,8 @@
 class Solution {
     public int maxSumTwoNoOverlap(int[] nums, int firstLen, int secondLen) {
-            int max = Math.max(maxSubarray(nums,firstLen,secondLen)
-                               ,maxSubarray(nums,secondLen,firstLen));
+        //First case where FL is before SL | Second case where SL is before FL
+            int max = Math.max(maxSubarray(nums,firstLen,secondLen),
+                               maxSubarray(nums,secondLen,firstLen));
         return max;
     }
     
