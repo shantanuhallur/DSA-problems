@@ -4,24 +4,21 @@ class Solution {
         
         ArrayList<int[]> list = new ArrayList<>();
         
-        for(int i=0;i<intervals.length;i++){
-            if(list.size()==0){
-                list.add(intervals[i]);
-            }
-            else{
-                 int[] top = list.get(list.size()-1);
-                if(top[1]<intervals[i][0]){
-                    list.add(intervals[i]);
-                }
-                else{
-                    top[1] = Math.max(top[1],intervals[i][1]);
-                }
-            }
-        }
-        int[][]res = new int[list.size()][2];
-        for(int i=0;i<list.size();i++){
-            res[i] = list.get(i);
-        }
-        return res;
+       for(int[] interval:intervals){
+           if(list.size()==0){
+               list.add(interval);
+           }
+           else{
+               int[] li = list.get(list.size()-1);
+               if(interval[0]>li[1]){
+                   list.add(interval);
+               }
+               else{
+                 //keep the starting point same , change ending p(t[1]) to maximum of both's ending pt.
+                    li[1] = Math.max(li[1],interval[1]);
+               }
+           }
+       }
+        return list.toArray(new int[list.size()][2]);
     }
 }
