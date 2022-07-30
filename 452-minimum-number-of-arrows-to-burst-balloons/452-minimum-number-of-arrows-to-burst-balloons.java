@@ -14,8 +14,9 @@ class Solution {
         });
         
         int count = 0;
-        int end = Integer.MAX_VALUE;
+        int end = Integer.MIN_VALUE;
         for(int[] p:points){
+            System.out.print(p[0]+" end "+end+" Count "+count+" ");
             if(p[0]>end){
                 count++;
 // if new balloon starts after current baloon's end we need new arrow. update end to end of new baloon
@@ -26,6 +27,6 @@ class Solution {
                 end = Math.min(end,p[1]);
             }
         }
-        return count+1;
+        return (count==0?1:count);
     }
 }
