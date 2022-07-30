@@ -4,6 +4,7 @@ class Solution {
         Stack<Integer> st = new Stack<>();
         st.push(nums.length-1);
         nge[nums.length-1] = nums.length;
+        //next greater element
         for(int i=nums.length-2;i>=0;i--){
             int val = nums[i];
             while(st.size()>0 && val>=nums[st.peek()]){
@@ -22,7 +23,7 @@ class Solution {
         int[] res = new int[nums.length-k+1];
         
         int j=0;
-        
+        //check if nge is in range if yes put j on nge else do nothing. always res[i]=nums[j];
         for(int i=0;i<res.length;i++){
             if(j<i){
                 j=i;
