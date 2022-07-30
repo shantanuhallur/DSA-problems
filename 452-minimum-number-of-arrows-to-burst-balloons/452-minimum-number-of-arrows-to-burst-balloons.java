@@ -13,8 +13,8 @@ class Solution {
             }
         });
         
-        int count = 1;
-        int end = points[0][1];
+        int count = 0;
+        int end = Integer.MAX_VALUE;
         for(int[] p:points){
             if(p[0]>end){
                 count++;
@@ -26,6 +26,6 @@ class Solution {
                 end = Math.min(end,p[1]);
             }
         }
-        return count;
+        return count+1;
     }
 }
