@@ -12,6 +12,7 @@ class Solution {
             }
         }
         ans = ans/k;
+        
         return ans;
     }
 }
