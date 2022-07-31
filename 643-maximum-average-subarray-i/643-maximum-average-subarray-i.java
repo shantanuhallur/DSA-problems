@@ -6,16 +6,14 @@ class Solution {
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];
             if(i==k-1){
-                double avg = sum/k;
                 // System.out.print("AVG ->"+avg);
-                ans = Math.max(ans,avg);
+                ans = Math.max(ans,sum);
             }
             else if(i>k-1){
                 sum -= nums[i-k];
-                double avg = sum/k;
-                ans = Math.max(ans,avg);
+                ans = Math.max(ans,sum);
             }
         }
-        return ans;
+        return ans/k;
     }
 }
