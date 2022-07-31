@@ -5,15 +5,13 @@ class Solution {
         
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];
-            if(i==k-1){
-                // System.out.print("AVG ->"+avg);
-                ans = Math.max(ans,sum);
-            }
+            if(i==k-1) ans = Math.max(ans,sum);
             else if(i>k-1){
                 sum -= nums[i-k];
                 ans = Math.max(ans,sum);
             }
         }
-        return ans/k;
+        ans = ans/k;
+        return ans;
     }
 }
