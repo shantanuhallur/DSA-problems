@@ -1,29 +1,19 @@
 class Solution {
     public int minimumLength(String s) {
-        int i=0;
-        int j= s.length()-1;
+        int left=0;
+        int right= s.length()-1;
         int ans=0;
-        while(i<j){
-            if(s.charAt(i)==s.charAt(j)){
-                char temp = s.charAt(i);
-                while(i < s.length() && s.charAt(i)==temp){
-                    i++;
-                }
-                while(j >=0  && s.charAt(j)==temp){
-                    j--;
-                }
+        while(left<right && s.charAt(left)==s.charAt(right)){
+            char ch = s.charAt(left);
+            
+            while(left<right && s.charAt(left)== ch){
+                left++;
             }
-            else{
-                 
-                break;
+            
+            while(left<=right && s.charAt(right)== ch){
+                right--;
             }
         }
-        if(i>j){
-            return 0;
-        }
-        else{
-            ans = j-i+1;
-            return ans;
-        }
+        return right-left+1;
     }
 }
