@@ -9,7 +9,7 @@ class Solution {
             while(left<right && s.charAt(left)== ch){
                 left++;
             }
-            
+            //LEFT<=RIGHT is important condition here.
             while(left<=right && s.charAt(right)== ch){
                 right--;
             }
