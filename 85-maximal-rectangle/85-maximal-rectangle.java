@@ -1,24 +1,26 @@
 class Solution {
     public int maximalRectangle(char[][] matrix) {
         int[] heights = new int[matrix[0].length];
+        //Maximum area for 0th row
         for(int j=0;j<matrix[0].length;j++){
             if(matrix[0][j]=='1'){
                 heights[j]=1; 
             }
         }
         int area = largestRectangleArea(heights);
-        
+        //Maximum area for rows from 1st to last.
         for(int i=1;i<matrix.length;i++){
             for(int j=0;j<matrix[0].length;j++){
                 if(matrix[i][j]=='1'){
                     heights[j]++;   
                 }
                 else{
-                    heights[j]=0;
+                    heights[j]=0; //if its not 1 then new height = 0 as the link of 1s break the height.which do not form a rectangle
                 }
             }
             area = Math.max(area,largestRectangleArea(heights));
         }
+        
         return area;
     }
     
