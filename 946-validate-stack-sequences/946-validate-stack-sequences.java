@@ -5,14 +5,15 @@ class Solution {
         int j =0;
         Stack<Integer> st = new Stack<>();
         while(i<pushed.length){
+            st.push(pushed[i]);
+            i++;
+            //WHILE is Important as there can be multiple elements that we need to pop.
             while(st.size()>0 && popped[j]==st.peek()){
                 st.pop();
                 j++;
             }
-            st.push(pushed[i]);
-            i++;
         }
-        
+        //Popping remaining elements. remember to break incase False.
         while(st.size()>0){
             if(popped[j]==st.peek()){
                 st.pop();
