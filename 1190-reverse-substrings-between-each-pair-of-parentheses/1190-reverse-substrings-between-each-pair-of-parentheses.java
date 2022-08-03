@@ -3,21 +3,17 @@ class Solution {
         Stack<Character> st = new Stack<>();
         
         for(int i=0;i<s.length();i++){
-            char ch = s.charAt(i);
-            
-            if(ch == ')'){
-                StringBuilder sb = new StringBuilder();
+            if(s.charAt(i) == ')'){
+                Queue<Character> q = new LinkedList();
                 while(st.peek()!='('){
-                    sb.append(st.pop());
+                    q.add(st.pop());
                 }
                 st.pop();
-                for(int j=0;j<sb.length();j++){
-                    st.push(sb.charAt(j));    
-                }
-                continue;
+               while(q.size()>0){
+                   st.push(q.remove());
+               }
             }
-            
-            st.push(ch);
+           else st.push(s.charAt(i));
         }
         
         char[] ans = new char[st.size()];
