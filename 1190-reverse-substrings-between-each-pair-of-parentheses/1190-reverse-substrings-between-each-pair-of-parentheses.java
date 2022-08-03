@@ -11,7 +11,6 @@ class Solution {
                     sb.append(st.pop());
                 }
                 st.pop();
-                System.out.print(sb);
                 for(int j=0;j<sb.length();j++){
                     st.push(sb.charAt(j));    
                 }
