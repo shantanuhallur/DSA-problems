@@ -7,7 +7,6 @@ class Solution {
        //CHECK ALL SUBMISSIONS THIS ONE IS MOST OPTIMAL
            if(opening>0 && s.charAt(i)==')'){
                opening--;
-               continue;
            }
         else if(s.charAt(i)=='('){
                opening++;
