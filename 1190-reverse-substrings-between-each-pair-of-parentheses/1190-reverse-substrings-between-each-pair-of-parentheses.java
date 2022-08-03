@@ -18,12 +18,12 @@ class Solution {
         
         char[] ans = new char[st.size()];
         int k = st.size()-1;
-        while(st.size()>0){
+        while(k>=0){
             ans[k--] = st.pop();    
         }
         
-        String finalAns = String.valueOf(ans);
         
-        return finalAns;
+        
+        return new String(ans);
     }
 }
