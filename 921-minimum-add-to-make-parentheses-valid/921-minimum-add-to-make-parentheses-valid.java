@@ -4,7 +4,7 @@ class Solution {
         int correction=0;
         Stack<Character> st = new Stack<>();
         for(int i=0;i<s.length();i++){
-        // ONE AND ONLYY CONDITION WHEN WE WILL POP FROM STACK AND SKIP ITERATION.
+       //CHECK ALL SUBMISSIONS THIS ONE IS MOST OPTIMAL
            if(opening>0 && s.charAt(i)==')'){
                opening--;
                continue;
