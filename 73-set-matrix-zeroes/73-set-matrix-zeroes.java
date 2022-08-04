@@ -4,7 +4,7 @@ class Solution {
         int m = matrix[0].length;
         
         boolean row0=false, col0=false;
-        //check if any zero in first col.
+        //check if any zero in first col...
         for(int i=0;i<n;i++)if(matrix[i][0]==0)col0=true;
         //check if any zero in first row.
         for(int j=0;j<m;j++)if(matrix[0][j]==0)row0=true;
