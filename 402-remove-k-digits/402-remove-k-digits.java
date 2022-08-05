@@ -1,7 +1,8 @@
 class Solution {
     public String removeKdigits(String num, int k) {
         Stack<Character>st = new Stack<>();
-        
+        // start removing elements from MSB. 
+        //Remove MSB is larger than num to its right which will take its place.
         for(int i=0;i<num.length();i++){
             char ch = num.charAt(i);
             
@@ -11,7 +12,7 @@ class Solution {
             }
             st.push(ch);
         }
-        
+        // if k is still left we should start removing from last.
         while(k>0){
             st.pop();
             k--;
