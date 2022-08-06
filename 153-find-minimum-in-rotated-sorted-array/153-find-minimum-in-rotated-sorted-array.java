@@ -5,7 +5,8 @@ class Solution {
         
         while(lo<hi){
             int mid = (lo+hi)/2;
-            
+            // left half = lo to mid
+            //right half = mid+1 to hi
             if(nums[mid]<nums[hi]){
                 hi = mid;
             }
