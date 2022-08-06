@@ -1,31 +1,30 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
         
-        int loAllowedSpeed = 1; //1 banana 
-        int highAllowedSpeed = 0;
-        
+        int lo = 1; //1 banana 
+        int hi = 0;
         for(int pile:piles){
-            highAllowedSpeed = Math.max(highAllowedSpeed,pile);
+            hi = Math.max(hi,pile);
         }
         
-        while(loAllowedSpeed < highAllowedSpeed){
-            int allowedSpeed = (loAllowedSpeed + highAllowedSpeed)/2;
-            
-            //calculate hours for this speed
-            int totalTime = 0;
-            for(int pile:piles){
-                int time = (pile + allowedSpeed -1)/allowedSpeed;
+        while(lo<hi){
+            int alsp = (lo+hi)/2;
+           
+            int totalTime =0;
+            for(int pile : piles){
+                int time = (pile + alsp - 1)/alsp;   //Ceil Value of Time eg:- 7/3 = 3 (7+3-1)/3
                 totalTime += time;
             }
             
-            if(totalTime>h){
-                loAllowedSpeed = allowedSpeed +1;
+            if(totalTime > h){
+                lo = alsp+1;
             }
             else{
-                highAllowedSpeed = allowedSpeed;
+                hi = alsp;
             }
         }
+       
         
-        return loAllowedSpeed;
+        return lo;
     }
 }
