@@ -24,11 +24,11 @@ class Solution {
                 }
             }
             
-            if(countPart>m){
-                lo = mid+1;
+            if(countPart<=m){
+                hi = mid;
             }
             else{
-                hi = mid;
+                lo = mid+1;
             }
         }
         return lo;
