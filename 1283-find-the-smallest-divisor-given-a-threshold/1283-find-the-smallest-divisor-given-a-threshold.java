@@ -7,7 +7,7 @@ class Solution {
             int divisor = (lo+hi)/2;
             int sum = 0;
             for(int val:nums){
-                int quotient = (val+divisor-1)/divisor;
+                int quotient = (val+divisor-1)/divisor; //CEIL VALUE
                 sum += quotient;
             }
             
