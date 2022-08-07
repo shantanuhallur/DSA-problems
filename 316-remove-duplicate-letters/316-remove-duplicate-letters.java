@@ -29,6 +29,6 @@ class Solution {
             arr[j--] = st.pop();
         }
         
-        return String.valueOf(arr);
+        return new String(arr);
     }
 }
