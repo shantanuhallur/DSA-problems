@@ -16,7 +16,7 @@ class Solution {
                 //i-- or else it will skip next symbol because of for loop.
                 i--;
                 val = val*sign;
-                sign =1;
+                sign = 1;
                 sum += val;
             }
             else if(ch=='('){
