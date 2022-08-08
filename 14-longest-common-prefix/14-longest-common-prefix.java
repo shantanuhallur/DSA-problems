@@ -6,9 +6,8 @@ class Solution {
         //check from the length of first string to each string
         for(int i=0;i<strs.length;i++){
             //if next string is small update the current length
-            if(strs[i].length()<length){
-                length = strs[i].length();
-            }
+                length = Math.min(length,strs[i].length()); 
+            
             //form 0 to that length start checking characters one by one of 2 strings
             for(int j=0;j<length;j++){
                char ch1 = strs[0].charAt(j);
