@@ -34,7 +34,6 @@ class Solution {
             }
             
             st.push(ch);
-            System.out.print(" "+ st+ " ");
         }
         
         return (st.size()==0);
