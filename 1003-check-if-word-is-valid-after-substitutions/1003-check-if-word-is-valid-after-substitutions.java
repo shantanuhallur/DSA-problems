@@ -15,6 +15,6 @@ class Solution {
                 st.push(ch);
             }
         }
-        return (st.size()==0?true:false);
+        return (st.size()==0);
     }
 }
