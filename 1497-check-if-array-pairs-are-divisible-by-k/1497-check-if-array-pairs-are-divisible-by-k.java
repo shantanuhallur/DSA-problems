@@ -18,9 +18,7 @@ class Solution {
             else{
                 int freq1 = map.get(rem);
                 int freq2 = map.getOrDefault(k-rem,0);
-                if(freq1 != freq2){
-                    return false;
-                }
+                if(freq1 != freq2)return false;
             }
         }
         return true; 
