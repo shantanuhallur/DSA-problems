@@ -15,7 +15,10 @@ class Solution {
             
             if(map.containsKey(sum)){
                 int idx = map.get(sum);
-                ans = Math.max(ans,i-idx);
+                int length = i - idx;
+                if(length > ans){
+                    ans = length;
+                }
             }
             else{
                 map.put(sum,i);
