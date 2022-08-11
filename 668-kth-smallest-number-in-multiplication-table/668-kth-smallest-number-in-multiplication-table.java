@@ -13,6 +13,7 @@ class Solution {
                 while(j>=1 && i*j>mid){
                     j--;
                 }
+                // one three ja one two ja one one ja two three ja two two ja two one ja and so on.
                 // i == 1->m j == ja one one ja one two ja --> so nos before ja = ja one tow ja = two nos.
                 actualLess += j;
             }
