@@ -1,10 +1,10 @@
 class Solution {
     public int mySqrt(int x) {
         long lo=0;
-        long hi = (x/2) + 1; // range of sq root 0 --> (x/2)+1;
+        long hi = x/2 + 1; // range of sq root 0 --> (x/2)+1;
         
         while(lo<hi){
-            long mid = lo + ((hi-lo)/2) +      1; //takes upper mid value
+            long mid = lo + (hi-lo)/2 +      1; //takes upper mid value
             long square = mid*mid;
             System.out.print(mid);
             if(square == x){
