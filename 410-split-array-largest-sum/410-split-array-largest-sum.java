@@ -2,7 +2,7 @@ class Solution {
     public int splitArray(int[] nums, int m) {
         int lo = Integer.MIN_VALUE;
         int hi = 0;
-        
+        //FJP Lecture of 5th August 2022
         for(int num:nums){
             hi+=num;
             lo = Math.max(lo,num);
