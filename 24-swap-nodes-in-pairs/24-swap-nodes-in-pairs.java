@@ -10,23 +10,19 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        if(head==null || head.next==null)return head;
-        // Solved by my Fully !
-        ListNode dummy = new ListNode(-1);
-        ListNode l1 = dummy;
-        ListNode n1 = head;
-        ListNode n2 = head.next;
+       
+        ListNode temp = new ListNode(0);
+        temp.next = head;
+        ListNode curr = temp;
         
-        while(n2!=null){
-            l1.next = n2;
-            n2 = n2.next;
-            l1.next.next = n1;
-            l1 = n1;
-            n1.next=null;
-            n1 = n2;
-            n2 = (n1==null)?null:n1.next;
+        while(curr.next!=null && curr.next.next != null){
+            ListNode fnode = curr.next;
+            ListNode snode = curr.next.next;
+            fnode.next = snode.next;
+            curr.next = snode;
+            curr.next.next = fnode;
+            curr = curr.next.next;
         }
-        if(n1!=null)l1.next=n1;
-        return dummy.next;
+        return temp.next;
     }
 }
