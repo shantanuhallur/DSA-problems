@@ -13,7 +13,7 @@ class Solution {
             
             curr_row.add(1);
             
-            for(int j=1;j<i;j++){
+            for(int j=1;j<i;j++){ //row indexing starts from 1 and we need to add row-1 characters excluding two ones in the list as the final answer.
                 curr_row.add(prev_row.get(j-1)+prev_row.get(j));
             }
             
