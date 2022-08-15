@@ -14,11 +14,11 @@
  * }
  */
 class Solution {
-    
+    //expectation function will give max height.
     public int maxDepth(TreeNode root) {
         //base case
         if(root==null)return 0;
-        //faith it will give us depth
+        //faith it will give us depth of its nodes
         int left =  maxDepth(root.left);
         int right = maxDepth(root.right);
         //expectation -> faith
