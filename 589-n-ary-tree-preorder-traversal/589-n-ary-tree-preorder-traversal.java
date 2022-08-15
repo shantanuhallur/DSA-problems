@@ -19,7 +19,7 @@ class Node {
 
 class Solution {
     public List<Integer> preorder(Node root) {
-        LinkedList<Node> st = new LinkedList<>();
+        Stack<Node> st = new Stack<>();
         LinkedList<Integer> output_arr =  new LinkedList<>();
         if(root==null){
             return output_arr;
@@ -27,10 +27,10 @@ class Solution {
         st.add(root);
         
         while(!st.isEmpty()){
-            Node node = st.pollLast();
+            Node node = st.pop();
             
             for(int child = node.children.size()-1;child>=0;child--){
-                st.addLast(node.children.get(child));
+                st.push(node.children.get(child));
             }
             output_arr.add(node.val);
         }
