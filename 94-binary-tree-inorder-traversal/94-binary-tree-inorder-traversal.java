@@ -21,15 +21,17 @@ class Solution {
         if(root == null)return output_arr;
         
         TreeNode curr = root;
-        
+        //there are elements left to traverse if stack is not empty
         while(curr!=null || !st.isEmpty()){
+            //go untill the end of left subtree
             while(curr!=null){
                 st.push(curr);
                 curr = curr.left;
             }
-            
+            //add the stack top to answer
             curr = st.pop();
             output_arr.add(curr.val);
+            //go right once to explore.
             curr=curr.right;
            
         }
