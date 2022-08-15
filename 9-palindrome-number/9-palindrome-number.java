@@ -3,9 +3,10 @@ class Solution {
       int temporary = x;
         int sumation = 0;
 
+        
         while(temporary>0){
-            int d = temporary%10;
-            sumation = sumation*10 +d;
+            int dig = temporary%10;
+            sumation = sumation*10 + dig;
             temporary = temporary/10;
         }
         
