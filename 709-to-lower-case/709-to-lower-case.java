@@ -1,15 +1,15 @@
 class Solution {
     public String toLowerCase(String s) {
         StringBuilder sb = new StringBuilder();
-        String res = "";
+
         for(char ch : s.toCharArray()){
             if(Character.isUpperCase(ch)){
-                res = res + (char)(ch+32);
+                sb.append((char)(ch+32));
             }
             else{
-                res+= ch;
+                sb.append(ch);
             }
         }
-        return res;
+        return String.valueOf(sb);
     }
 }
