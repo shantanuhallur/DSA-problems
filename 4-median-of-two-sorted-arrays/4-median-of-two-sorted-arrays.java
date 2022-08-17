@@ -31,6 +31,7 @@ class Solution {
             ele2 = nums2[s2+ k/2 -1];
         }
         if(ele1<ele2){
+            // passing k-k/2 instead of directly passing k/2 is when k is odd , wrong number of discarded K gets passed. eg;- 9/2 = 4 and 9-9/2 = 5. we have discarded 4 so we must pass k=5 (remaining elements) instead of k=4 where 5 elements are not discarded.
            return getKthElementFromMergedArray(nums1,nums2,k-k/2,s1+k/2,s2);
         }
         else{
