@@ -14,24 +14,23 @@
  * }
  */
 class Solution {
+     int sum =0;
     public int rangeSumBST(TreeNode root, int low, int high) {
-        Queue<TreeNode> q = new LinkedList<>();
-        int sum =0;
-        q.offer(root);
-        while(!q.isEmpty()){
-            root = q.poll();
-            if(root.val>=low && root.val<=high){
-                sum+=root.val;
-            }
-            if(root.val >= low && root.left!=null){
-                q.offer(root.left);
-
-            }
-             if(root.val <= high && root.right!=null){
-                q.offer(root.right);
-
-            }
-        }
+        getRanged(root,low,high);
         return sum;
     }
+    public void getRanged(TreeNode root, int low , int high){
+        if(root!=null){
+            if(root.val>=low && root.val <= high ){
+                sum += root.val;
+            }
+            
+            if(root.val>=low){
+                getRanged(root.left,low,high);
+            }
+            if(root.val<=high){
+                getRanged(root.right,low,high);
+            }
+        }
+    } 
 }
