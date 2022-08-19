@@ -23,11 +23,13 @@ class Solution {
             if(root.val>=low && root.val<=high){
                 sum+=root.val;
             }
-            if(root.left!=null){
+            if(root.val >= low && root.left!=null){
                 q.offer(root.left);
+
             }
-            if(root.right!=null){
+             if(root.val <= high && root.right!=null){
                 q.offer(root.right);
+
             }
         }
         return sum;
