@@ -23,10 +23,10 @@ class Solution {
         
         while(!q.isEmpty()){
             int size = q.size();
-            
+            //size so that we can separate nodes at every level from the Q
             for(int i=0;i<size;i++){
                 TreeNode currNode = q.poll();
-                if(i==0)ans.add(currNode.val);
+                if(i==0)ans.add(currNode.val); //firstNode will be our Answer.
                 if(currNode.right!=null)q.offer(currNode.right);
                 if(currNode.left!=null)q.offer(currNode.left);
             }
