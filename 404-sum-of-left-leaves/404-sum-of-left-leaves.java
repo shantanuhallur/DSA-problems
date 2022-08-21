@@ -17,26 +17,20 @@ class Solution {
     public int sumOfLeftLeaves(TreeNode root) {
         if(root==null)return 0;
         int sum=0;
-        Stack<TreeNode> q = new Stack<>();
-        q.push(root);
         
-        while(!q.isEmpty()){
-            TreeNode curr = q.pop();
-            
-            if(curr.left != null){
-                if(curr.left.left == null && curr.left.right==null){
-                    sum += curr.left.val;
-                }
-                else{
-                    q.push(curr.left);
-                }
+        if(root.left!=null){
+            if(root.left.left==null && root.left.right==null){
+                sum += root.left.val;
             }
-                if(curr.right!=null){
-                    if(curr.right.left!=null || curr.right.right!= null){
-                        q.push(curr.right);
-                    }
-                }
-            
+            else{
+                sum += sumOfLeftLeaves(root.left);
+            }
+        }
+        
+        if(root.right!=null){
+            if(root.right.left!=null || root.right.right!=null){
+                sum += sumOfLeftLeaves(root.right);
+            }
         }
         return sum;
     }
