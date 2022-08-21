@@ -17,23 +17,23 @@ class Solution {
     public int sumOfLeftLeaves(TreeNode root) {
         if(root==null)return 0;
         int sum=0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
+        Stack<TreeNode> q = new Stack<>();
+        q.push(root);
         
         while(!q.isEmpty()){
-            TreeNode curr = q.poll();
+            TreeNode curr = q.pop();
             
             if(curr.left != null){
                 if(curr.left.left == null && curr.left.right==null){
                     sum += curr.left.val;
                 }
                 else{
-                    q.offer(curr.left);
+                    q.push(curr.left);
                 }
             }
                 if(curr.right!=null){
                     if(curr.right.left!=null || curr.right.right!= null){
-                        q.offer(curr.right);
+                        q.push(curr.right);
                     }
                 }
             
