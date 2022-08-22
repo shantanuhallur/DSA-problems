@@ -3,17 +3,16 @@ class Solution {
         List<Integer> selfDivNos = new ArrayList<>();
         
         for(int i=left ; i<=right;i++){
-            if(isSelfDividingNo(i))selfDivNos.add(i);
+          int j=i; 
+            for(;j>0;j/=10){ //j == (j%10) == last digit;
+                if((j%10==0) ||i%(j%10)!=0){
+                    break;
+                }
+            }
+            if(j==0)selfDivNos.add(i);
         }
         return selfDivNos;
     }
     
-    public boolean isSelfDividingNo(int num){
-        for(char c : String.valueOf(num).toCharArray()){
-            if(c=='0' || num%(c-'0')!=0){
-                return false;
-            }
-        }
-        return true;
-    }
+    
 }
