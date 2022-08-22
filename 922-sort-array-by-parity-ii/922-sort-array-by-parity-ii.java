@@ -11,8 +11,8 @@ class Solution {
             while(o<=n && nums[o]%2!=0){
                 o+=2;
             }
-            if(e>n || o>n)break;
-            swap(e,o,nums);
+            if(e<=n && o<=n) swap(e,o,nums);
+           
         }
         return nums;
     }
