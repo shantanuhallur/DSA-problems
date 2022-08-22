@@ -5,8 +5,8 @@ class Solution {
        for(String word:words){
            StringBuilder sb = new StringBuilder();
            
-           for(int ch=0;ch<word.length();ch++){
-               sb.append(concat[word.charAt(ch)-'a']);
+           for(char ch:word.toCharArray()){
+               sb.append(concat[ch-'a']);
            }
           unique_strings.add(sb.toString());
        }
