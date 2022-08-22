@@ -4,7 +4,7 @@ class Solution {
         
         for(int i=left ; i<=right;i++){
           int j=i; 
-            for(j=i;j>0;j/=10){ //j == (j%10) == last digit;
+            for(;j>0;j/=10){ //j == (j%10) == last digit;
                 if((j%10==0) ||i%(j%10)!=0){
                     break;
                 }
