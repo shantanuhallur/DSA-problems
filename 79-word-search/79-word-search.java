@@ -18,7 +18,7 @@ class Solution {
    public boolean wordFound(int i,int j,int idx,String word,char[][]board){
        if(idx==word.length())return true;
        if(i<0 || i>=board.length || j<0 || j >=board[0].length || 
-          board[i][j]!= word.charAt(idx) || vis[i][j]==true)return false;
+          board[i][j]!= word.charAt(idx) || vis[i][j])return false;
        
        vis[i][j]=true;
        if(wordFound(i+1,j,idx+1,word,board)||
