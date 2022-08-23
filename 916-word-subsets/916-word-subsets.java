@@ -1,6 +1,6 @@
 class Solution {
     
-    public int[] getWord2Freq(String word2){
+    public int[] getWordFreq(String word2){
         int[] word2_freq = new int[26];
         for(char ch:word2.toCharArray()){
             word2_freq[ch-'a']++;
@@ -11,7 +11,7 @@ class Solution {
         List<String> ans = new ArrayList<>();
         int[] word2Max_freq = new int[26];
         for(String word2:words2){
-            int[] word2_freq = getWord2Freq(word2);
+            int[] word2_freq = getWordFreq(word2);
             
             for(int i=0;i<26;i++){
                 word2Max_freq[i] = Math.max(word2Max_freq[i],word2_freq[i]);               
@@ -20,10 +20,8 @@ class Solution {
         
         for(String word1:words1){
             boolean isSubset = true;
-            int[] word1_freq = new int[26];
-            for(char ch:word1.toCharArray()){
-                word1_freq[ch-'a']++;
-            }
+            int[] word1_freq = getWordFreq(word1);
+            
             
             for(int i=0;i<26;i++){
                 if(word2Max_freq[i]>0){
