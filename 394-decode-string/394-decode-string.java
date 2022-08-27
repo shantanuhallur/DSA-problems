@@ -1,0 +1,37 @@
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> counts = new Stack<>();
+        Stack<String> result = new Stack<>();
+        String res = "";
+        int idx = 0;
+        while(idx<s.length()){
+            if(Character.isDigit(s.charAt(idx))){
+                int count=0;
+                while(Character.isDigit(s.charAt(idx))){
+                    count = 10 * count + (s.charAt(idx) -'0');
+                    idx++;
+                }
+                      counts.push(count);
+            }
+            else if(Character.isLetter(s.charAt(idx))){
+                res+= s.charAt(idx);
+                idx++;
+            }
+            else if(s.charAt(idx)=='['){
+                result.push(res);
+                res="";
+                idx++;
+            }
+            else{
+                StringBuilder temp = new StringBuilder(result.pop());
+                int noOfTimes = counts.pop();
+                for(int i=0;i<noOfTimes;i++){
+                    temp.append(res);
+                }
+                res= temp.toString();
+                idx++;
+            }
+        }
+       return res; 
+    }
+}
