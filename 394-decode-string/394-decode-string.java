@@ -13,8 +13,13 @@ class Solution {
                 }
                       counts.push(count);
             }
-            else if(Character.isLetter(s.charAt(idx))){
-                res+= s.charAt(idx);
+            else if(s.charAt(idx)==']'){
+                   StringBuilder temp = new StringBuilder(result.pop());
+                int noOfTimes = counts.pop();
+                for(int i=0;i<noOfTimes;i++){
+                    temp.append(res);
+                }
+                res= temp.toString();
                 idx++;
             }
             else if(s.charAt(idx)=='['){
@@ -23,12 +28,8 @@ class Solution {
                 idx++;
             }
             else{
-                StringBuilder temp = new StringBuilder(result.pop());
-                int noOfTimes = counts.pop();
-                for(int i=0;i<noOfTimes;i++){
-                    temp.append(res);
-                }
-                res= temp.toString();
+             
+                res+= s.charAt(idx);
                 idx++;
             }
         }
