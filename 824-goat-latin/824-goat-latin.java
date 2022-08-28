@@ -8,7 +8,7 @@ class Solution {
         int count = 1;
         StringBuilder sb = new StringBuilder();
         
-        for(String word:sentence.split("\\s")){
+        for(String word:sentence.split("\\s+")){
             if(vowels.contains(word.charAt(0))){
                 sb.append(word+"ma");
             }
