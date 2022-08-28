@@ -4,7 +4,7 @@ class Solution {
         int idx = 0;
         int end = nums.length-1;
         
-        while(idx<=end && start<=end){ //endth element is unknown can be 0 so we need to swap it to start's index so we need to travel idx till end;
+        while(idx<=end ){ //endth element is unknown can be 0 so we need to swap it to start's index so we need to travel idx till end;
             if(nums[idx]==0){
                 nums[idx] = nums[start];
                 nums[start] = 0;
