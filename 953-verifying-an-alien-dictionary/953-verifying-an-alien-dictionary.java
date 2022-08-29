@@ -18,10 +18,14 @@ class Solution {
         int j=0;
         int sameSub_word=0;
         while(i<word1.length() && j <word2.length() && sameSub_word==0){
-            if(word1.charAt(i)!= word2.charAt(j)){
-                sameSub_word = AlienOrder[word1.charAt(i)-'a'] -                                                        AlienOrder[word2.charAt(j)-'a']; //-ve if sorted +ve if                                                                     not sorted;
-                return sameSub_word;
-            }
+            // if(word1.charAt(i)!= word2.charAt(j)){
+            //     sameSub_word = AlienOrder[word1.charAt(i)-'a'] -                                                        AlienOrder[word2.charAt(j)-'a']; //-ve if sorted +ve                                                                      if not sorted;
+            //     return sameSub_word;
+            // }
+            
+            //OR
+            sameSub_word = AlienOrder[word1.charAt(i)-'a'] -
+                           AlienOrder[word2.charAt(j)-'a'];
             i++;
             j++;
         }
@@ -29,6 +33,8 @@ class Solution {
         if(sameSub_word==0){
             return word1.length() - word2.length(); //words are sorted = -ve value.
         }
-        return 0;
+        else{
+            return sameSub_word;
+        }
     }
 }
