@@ -27,9 +27,7 @@ class Solution {
                      even_sum -= no_before_idx;
                 }
             }
-           
-            
-            
+
             output_arr[i] = even_sum;
         }
         return output_arr;
