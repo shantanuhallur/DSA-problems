@@ -6,7 +6,7 @@ class Solution {
         while(j<nums.length){
                 while(nums[j]>nums[j-1]){
                     j++;
-                    if(j-i+1>len){
+                    if(j-i>len){
                         len = j-i;
                     }
                     if(j>=nums.length)break;
