@@ -10,6 +10,7 @@ class Solution {
             
             int len = Math.max(len1,len2);
             if(len>end-start){
+                //setting start and end for answer string
                 start = i - ((len - 1) / 2);
                 end   = i +   (len / 2);
             }
@@ -24,6 +25,6 @@ class Solution {
             st--;
             e++;
         }
-        return e-st-1;
+        return e-st-1; // as either right char or left char is invalid as it is out of while loop
     }
 }
