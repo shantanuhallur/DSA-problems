@@ -11,11 +11,12 @@ class Solution {
             int len = Math.max(len1,len2);
             if(len>end-start){
                 //setting start and end for answer string
+                //index adjusting for cases for odd as well as even palindrome.
                 start = i - ((len - 1) / 2);
-                end   = i +   (len / 2);
+                end   = i +   (len / 2); 
             }
         }
-        return s.substring(start,end+1);
+        return s.substring(start,end+1); // as we want end inclusive in our substring.
         
     }
     public int expandFromBothSides(String s,int st ,int e){
