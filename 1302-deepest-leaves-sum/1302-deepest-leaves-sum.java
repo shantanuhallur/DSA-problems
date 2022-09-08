@@ -23,7 +23,7 @@ class Solution {
             int size = q.size();
              sum = 0;
             for(int i=0;i<size;i++){
-                TreeNode curr_node = q.remove();
+                TreeNode curr_node = q.poll();
                 
                 sum += curr_node.val;
                 
