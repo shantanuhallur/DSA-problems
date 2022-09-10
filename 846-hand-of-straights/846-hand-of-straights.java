@@ -1,6 +1,6 @@
 class Solution {
     public boolean isNStraightHand(int[] hand, int groupSize) {
-        if(hand.length%groupSize!=0)return false;
+        //if(hand.length%groupSize!=0)return false;
         
         TreeMap<Integer,Integer> map = new TreeMap<>();
         
