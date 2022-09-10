@@ -12,7 +12,6 @@ class Solution {
                 }
             }
         }
-    
         return maxArea==Integer.MIN_VALUE?0:maxArea;
     }
     
