@@ -1,38 +1,43 @@
 class Solution {
      int count = 0;
     public int maxAreaOfIsland(int[][] grid) {
-        int maxArea = Integer.MIN_VALUE;
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
-                if(grid[i][j]==1){
-                    int area=1;
-                    area = dfs(grid,i,j,area);
-                     maxArea = Math.max(maxArea,area);
-                    count=0;
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[][] dir = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+        boolean[][] vis = new boolean[n][m]; // This is used since we should not modify the original data.                                                          Otherwise,
+                                             // we would have to make changes in the original grid array.
+
+        int maxArea = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!vis[i][j] && grid[i][j] != 0) {
+                    int area = dfs_maxAreaOfIsland(grid, vis, dir, i, j);
+                    maxArea = Math.max(maxArea, area);
                 }
             }
         }
-        return maxArea==Integer.MIN_VALUE?0:maxArea;
+
+        return maxArea;
     }
     
-    public int dfs(int[][]grid,int i,int j,int area){
-        if(i<0 || j<0 || i>= grid.length || j>= grid[0].length)return 0;
-        
-        grid[i][j]=0;
-        count++;
-         System.out.print(count);
-            if(i<grid.length-1 &&grid[i+1][j]==1)
-              dfs(grid,i+1,j,area+1);
-            
-            if(i> 0 && grid[i-1][j]==1)
-                dfs(grid,i-1,j,area+1);
-                
-            if(j<grid[0].length-1 &&grid[i][j+1]==1)
-                dfs(grid,i,j+1,area+1);
-                
-            if(j> 0 && grid[i][j-1]==1)
-                  dfs(grid,i,j-1,area+1);
-        
-        return count;
+   public static int dfs_maxAreaOfIsland(int[][] grid, boolean[][] vis, int[][] dir, int sr, int sc) {
+
+        vis[sr][sc] = true;
+
+        int count = 0;
+
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+
+            if (r >= 0 && c >= 0 && r <= grid.length - 1 && c <= grid[0].length - 1 && grid[r][c] != 0
+                    && !vis[r][c]) {
+                count += dfs_maxAreaOfIsland(grid, vis, dir, r, c);
+            }
+        }
+
+        return count + 1;
     }
 }
