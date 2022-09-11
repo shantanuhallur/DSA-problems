@@ -30,6 +30,8 @@ class Solution {
         
         if(node.left==null && node.right==null && target==node.val){
             ans.add(new ArrayList<>(curr));
+            curr.remove(curr.size()-1);
+            return;
  
         }
         else{
@@ -43,22 +45,4 @@ class Solution {
         curr.remove(curr.size()-1);
 
     }
-
-
-// public void recur(TreeNode root, int targetSum, List<Integer> current, List<List<Integer>> ans){
-//     if(root==null)
-//         return;
-
-//     current.add(root.val);
-    
-//     if(targetSum==root.val && root.left==null && root.right==null)
-//         ans.add(new ArrayList<>(current));
-//     else
-//     {
-//         recur(root.left,targetSum-root.val,current,ans);
-//         recur(root.right,targetSum-root.val,current,ans);
-//     }
-    
-//     current.remove(current.size()-1);
-// }
 }
