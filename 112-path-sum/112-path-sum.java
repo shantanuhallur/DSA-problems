@@ -16,29 +16,24 @@
 class Solution {
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if(root==null)return false;
+
         
-        Stack<TreeNode> st = new Stack<>();
-        Stack<Integer> sumst = new Stack<>();
+        boolean hasPath = dfs(root,targetSum-root.val);
+        return hasPath;
+    }
+    public boolean dfs(TreeNode node,int target){
+        if(node.left ==null && node.right == null && target==0)return true;
+        boolean leftTrue=false;
+        boolean rightTrue=false;
         
-        st.push(root);
-        sumst.push(targetSum-root.val);
-        
-        while(st.size()>0){
-            TreeNode currNode = st.pop();
-            int curr_sum = sumst.pop();
-            
-            if(currNode.left == null && currNode.right == null && curr_sum==0)return true;
-            
-            if(currNode.left!=null){
-                st.push(currNode.left);
-                sumst.push(curr_sum-currNode.left.val);
-            }
-            
-            if(currNode.right!=null){
-                st.push(currNode.right);
-                sumst.push(curr_sum-currNode.right.val);
-            }
+        if(node.left!=null){
+             leftTrue = dfs(node.left,target-node.left.val);
         }
-        return false;
+        
+        if(node.right!=null){
+             rightTrue = dfs(node.right,target-node.right.val);
+        }
+        
+        return (leftTrue||rightTrue);
     }
 }
