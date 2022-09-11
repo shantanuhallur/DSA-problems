@@ -20,7 +20,7 @@ class Solution {
        
         
         dfs(root,targetSum,curr,ans);
-        
+       // System.out.print(curr); IZ BLANK
         return ans;
     }
     public void dfs(TreeNode node,int target,List<Integer>                              curr,List<List<Integer>>ans){
