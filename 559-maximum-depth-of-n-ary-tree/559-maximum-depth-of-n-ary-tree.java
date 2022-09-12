@@ -29,7 +29,7 @@ class Solution {
         
         if(node.children.size()==0){
             max = h>max?h:max;
-            return;
+            return; //as it can be set again in to lower depth levels again eg:- 2 , 4                                                                                  Nodes.
         }
         
 
