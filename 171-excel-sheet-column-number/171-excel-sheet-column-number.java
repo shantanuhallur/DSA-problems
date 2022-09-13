@@ -3,7 +3,6 @@ class Solution {
         int n = columnTitle.length();
         int pow = 0;
         int ans = 0;
-        //int[] arr = new int[26];
        
         for(int i=n-1;i>=0;i--){
             char ch = columnTitle.charAt(i);
