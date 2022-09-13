@@ -16,7 +16,7 @@ class Solution {
                  j--;
             }
         }
-        
+        //either i or j will already be 0 because of the while loop.
         while(i>=0){
             nums1[k--] = nums1[i--];
         }
