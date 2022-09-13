@@ -11,11 +11,13 @@ class Solution {
             res.add(output);
             return;
         }
-        //exclude
-        getSubsets(nums,idx+1,new ArrayList<>(output),res);
+       
         
         //include
         output.add(nums[idx]);
+        getSubsets(nums,idx+1,new ArrayList<>(output),res);
+        output.remove(output.size()-1);
+         //exclude
         getSubsets(nums,idx+1,new ArrayList<>(output),res);
     }
 }
