@@ -10,7 +10,7 @@ class Solution {
     
     void getSubsets(int[] nums,int idx, ArrayList<Integer> output,HashSet<List<Integer>> res){
         if(idx==nums.length){
-            if(!res.contains(output))res.add(output);
+            res.add(output);
             return;
         }
         //exclude
