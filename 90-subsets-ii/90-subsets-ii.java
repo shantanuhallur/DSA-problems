@@ -1,18 +1,24 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-       Arrays.sort(nums);
-        List<List<Integer>> result = new ArrayList<>();
-        generateSubsets(0, nums, new ArrayList<>(), result);
-        return result;
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        if(nums.length==0)return res;
+        getSubsets(nums,0,new ArrayList<Integer>(),res);
+        return res;
     }
     
-    public void generateSubsets(int index, int[] nums, List<Integer> current, List<List<Integer>> result) {
-        if (!result.contains(current)) result.add(new ArrayList<>(current)); // n
-
-        for (int i = index; i < nums.length; i++) { // 2 ^ n
-            current.add(nums[i]);
-            generateSubsets(i + 1, nums, current, result);
-            current.remove(current.size() - 1);
+    void getSubsets(int[] nums,int idx, ArrayList<Integer> output,List<List<Integer>> res){
+        if(idx==nums.length){
+            if(!res.contains(output))res.add(output);
+            return;
         }
+        //exclude
+        getSubsets(nums,idx+1,new ArrayList<>(output),res);
+        //include
+        output.add(nums[idx]);
+        getSubsets(nums,idx+1,new ArrayList<>(output),res);
+    
+        
+        //can do in both ways but if you include first always backtrack to remove the element, if you dont include first you are good to go.
     }
 }
