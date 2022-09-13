@@ -20,6 +20,6 @@ class Solution {
         getSubsets(nums,idx+1,new ArrayList<>(output),res);
     
         
-        //can do in both ways but if you include first always backtrack to remove the element, if you dont include first you are good to go.
+        //can do in both ways but if you include first always backtrack to remove the element,          if you dont include first you are good to go.
     }
 }
