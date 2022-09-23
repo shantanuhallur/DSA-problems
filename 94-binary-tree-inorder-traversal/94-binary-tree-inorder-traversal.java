@@ -25,14 +25,12 @@ class Solution {
         while(curr!=null || !st.isEmpty()){
             //go untill the end of left subtree
             while(curr!=null){
-                st.push(curr);
+                st.add(curr);
                 curr = curr.left;
             }
-            //add the stack top to answer
             curr = st.pop();
             output_arr.add(curr.val);
-            //go right once to explore.
-            curr=curr.right;
+            curr = curr.right;
            
         }
         return output_arr;
