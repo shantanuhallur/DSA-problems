@@ -23,18 +23,15 @@ class Solution {
         
         while(!st.isEmpty()){
             TreeNode curr = st.pop();
-            list.add(curr.val);
-            
             if(curr.right!=null){
-                st.push(curr.right);
+                st.add(curr.right);
             }
-            
             if(curr.left!=null){
-                st.push(curr.left);
+                st.add(curr.left);
             }
-            
-          
+            list.add(curr.val);
         }
+            
         return list;
     }
 }
