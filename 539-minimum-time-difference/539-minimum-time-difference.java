@@ -21,12 +21,12 @@ class Solution {
                     prev_time = i;
                 }
                 else{
-                    min_diff = Math.min(min_diff,Math.min(i- prev_time,1440 - i +                           prev_time));
+                    min_diff = Math.min(min_diff,Math.min(i- prev_time,1440 - i + prev_time));
                     prev_time = i;
                 }
             }
         }
-        min_diff = Math.min(min_diff,Math.min(prev_time - first_time,1440 - prev_time +                           first_time));
+        min_diff = Math.min(min_diff,Math.min(prev_time - first_time,1440 - prev_time + first_time));
             
             return min_diff;
     }
