@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 // Initial Template for Java
 
 import java.util.*;
@@ -26,6 +26,7 @@ class Rat {
         }
     }
 }
+
 // } Driver Code Ends
 
 
@@ -35,37 +36,35 @@ class Rat {
 class Solution {
     public static ArrayList<String> findPath(int[][] m, int n) {
         // Your code here
-         int[][] dir = {{-1,0}, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-         String[] name = { "U", "D", "L","R" };
-         ArrayList<String>  ans = new ArrayList<>();
-         if(m[0][0]  == 0) return ans;
-          mazepaths(0, 0, n-1, n-1, dir, name, "",m,ans);
-          return ans;
-        
+        int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
+        String[] dirS = {"U","D","L","R"};
+        ArrayList<String> ans = new ArrayList<>();
+        if(m[0][0]  == 0) return ans;
+        int count = findPath_01(0,0,n-1,n-1,m,n,dir,dirS,"",ans);
+        return ans;
     }
     
-    public static void mazepaths(int sr,int sc,int dr,int dc,
-    int[][] dir,String[]  name,String psf ,int[][] vis,ArrayList<String> ans){
-        if(sr==dr && sc == dc){
-           
-            
+    public static int findPath_01(int sr,int sc,int er,int ec,int[][] m,int n, int[][] dir,String[] dirS,
+    String psf,ArrayList<String> ans) {
+        if(sr==er && sc==ec) {
+            //String base = new String(psf);
             ans.add(psf);
-            return;
+            return 1;
         }
         
-        vis[sr][sc]=0;
+        m[sr][sc] = 0;
         
-        for(int d=0;d<dir.length;d++){
-            int r = sr+dir[d][0];
-            int c = sc+dir[d][1];
+        int count = 0;
+        for(int d = 0; d<dir.length;d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
             
-            if(r>=0 && r<=dr && c>=0 && c<=dc && vis[r][c]==1 ){
-
-                mazepaths(r,c,dr,dc,dir,name,psf+name[d],vis,ans);
+            if(r>=0 && r<n && c>=0 && c<n && m[r][c]==1){
+                findPath_01(r,c,er,ec,m,n,dir,dirS,psf+dirS[d],ans);
             }
         }
-        vis[sr][sc]=1;
         
-        
+        m[sr][sc] = 1;
+        return 1;
     }
 }
