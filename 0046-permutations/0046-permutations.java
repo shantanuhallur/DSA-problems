@@ -1,6 +1,6 @@
 class Solution {
-    public void permute(int[] nums,int idx,List<Integer> smallAns,List<List<Integer>> ans) {
-        if(idx == nums.length){
+    public void permute(int[] nums,int numbersUsed,List<Integer> smallAns,List<List<Integer>> ans) {
+        if(numbersUsed == nums.length){
             List<Integer> base = new ArrayList<>(smallAns);
             ans.add(base);
             return;
@@ -12,7 +12,7 @@ class Solution {
                 nums[i] = -69;
                 smallAns.add(val);
                 
-                permute(nums,idx+1,smallAns,ans);
+                permute(nums,numbersUsed+1,smallAns,ans);
                 
                 smallAns.remove(smallAns.size()-1);    
                 nums[i] = val;
