@@ -1,35 +1,29 @@
 class Solution {
-    
-    public int permute_01(int[] nums,int idx,List<List<Integer>> ans,List<Integer> smallAns) {
-        if(idx==nums.length) {
-            List<Integer> baseAns = new ArrayList<>(smallAns);
-            ans.add(baseAns);
-            return 1;
+    public void permute(int[] nums,int idx,List<Integer> smallAns,List<List<Integer>> ans) {
+        if(idx == nums.length){
+            List<Integer> base = new ArrayList<>(smallAns);
+            ans.add(base);
+            return;
         }
-        int count = 0;
         
-        for(int i=0; i<nums.length; i++) {
-            if(nums[i] != -11) {
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] != -69){
                 int val = nums[i];
-                nums[i] = -11;
+                nums[i] = -69;
                 smallAns.add(val);
                 
-                count += permute_01(nums,idx+1,ans,smallAns);
+                permute(nums,idx+1,smallAns,ans);
                 
-                smallAns.remove(smallAns.size()-1);
+                smallAns.remove(smallAns.size()-1);    
                 nums[i] = val;
             }
         }
-        
-        return count;
     }
     
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
         List<Integer> smallAns = new ArrayList<>();
-        
-        permute_01(nums,0,ans,smallAns);
-        
+        List<List<Integer>> ans = new ArrayList<>();
+        permute(nums,0,smallAns,ans);
         return ans;
     }
 }
