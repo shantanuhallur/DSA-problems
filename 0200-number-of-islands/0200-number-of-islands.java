@@ -4,12 +4,13 @@ class Solution {
         int n = grid.length;
         int m = grid[0].length;
         for(int d=0;d<dir.length;d++){
-                int r = sr + dir[d][0];
+                int r = sr +dir[d][0];
                 int c = sc + dir[d][1];
                 if(r>=0 && r<n && c>=0 && c<m && grid[r][c] == '1' && !boxes[r][c]) {
                     boxes[r][c] = true;
                     dfs(grid,boxes,r,c,dir);
-            }
+               
+        }
         }
     }
     public int numIslands(char[][] grid) {
