@@ -2,10 +2,12 @@ public class Solution {
     // you need to treat n as an unsigned value
     public int hammingWeight(int n) {
         int count=0;
-        while(n!=0){
+        int bitsCount=0;
+        while(n!=0 && bitsCount<32){
             int res = (n&1);
             if(res==1)count++;
-            n >>>= 1;
+            n >>= 1;
+            bitsCount++;
         }
         return count;
     }
