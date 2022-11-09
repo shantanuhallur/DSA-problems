@@ -4,9 +4,7 @@ public class Solution {
         int count=0;
         for(int i=0;i<32;i++) {
             int mask = (1<<i);
-            int res = (n&mask);
-            System.out.println(res);
-            if(res!=0)count++;
+            if((n&mask)!=0)count++;
         }
         return count;
     }
