@@ -13,12 +13,15 @@ class Solution {
         
         //3X3
         char val = board[r][c];
-        board[r][c] = '*';
+        int old_r = r;
+        int old_c = c;
         r = (r/3)*3;
         c = (c/3)*3;
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                if(board[r+i][c+j]==val)return false;
+                int new_r = r+i;
+                int new_c = c+j;
+                if(new_r != old_r && new_c != old_c && board[new_r][new_c]==val)return false;
             }
         }
             return true;
