@@ -19,18 +19,20 @@ class Solution {
             return true;
     }
     
-    public boolean SudokuSolver(int idx, char[][] board , ArrayList<Integer> loc) {
-        if(idx == loc.size()) {
+    public boolean SudokuSolver(int idx, char[][] board) {
+        if(idx == board.length*board[0].length) {
             return true;
         }
-        int r = loc.get(idx)/9;
-        int c = loc.get(idx)%9;
+        int r = idx/9;
+        int c = idx%9;
         boolean res = false;
-
+        
+        if(board[r][c]!='.') return SudokuSolver(idx+1,board);
+    
         for(int num=1;num<=9;num++) {
             if(isValid(r,c,board,num)) {
                 board[r][c] = (char)('0' + num);
-                res= res || SudokuSolver(idx+1,board,loc);
+                res= res || SudokuSolver(idx+1,board);
                 if(res) return true;
                 board[r][c] = '.';
             }
@@ -39,18 +41,7 @@ class Solution {
     }
     
     public void solveSudoku(char[][] board) {
-        ArrayList<Integer> loc = new ArrayList<>();
-        int n = 9;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (board[i][j] == '.') {
-                    loc.add(i * n + j);
-                }
-
-            }
-        }
         
-       SudokuSolver(0,board,loc);
+       SudokuSolver(0,board);
 }
 }
