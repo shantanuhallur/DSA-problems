@@ -19,29 +19,29 @@ class Solution {
             return true;
     }
     
-    public boolean SudokuSolver(int idx, char[][] board) {
-        if(idx == board.length*board[0].length) {
+    public boolean SudokuSolver(int idx,char[][] board) {
+        if(idx==board.length*board[0].length) {
             return true;
         }
+        
         int r = idx/9;
         int c = idx%9;
         boolean res = false;
         
-        if(board[r][c]!='.') return SudokuSolver(idx+1,board);
-    
-        for(int num=1;num<=9;num++) {
-            if(isValid(r,c,board,num)) {
-                board[r][c] = (char)('0' + num);
-                res= res || SudokuSolver(idx+1,board);
+        if(board[r][c]!= '.') return SudokuSolver(idx+1,board); //imagine stack for return                                                                              statement.
+        
+        for(int number=1;number<=9;number++) {
+            if(isValid(r,c,board,number)) {
+                board[r][c] = (char)('0' + number);
+                res = res || SudokuSolver(idx+1,board);
                 if(res) return true;
                 board[r][c] = '.';
             }
         }
         return res;
     }
-    
+   
     public void solveSudoku(char[][] board) {
-        
        SudokuSolver(0,board);
-}
+    }
 }
