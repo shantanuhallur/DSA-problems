@@ -19,21 +19,19 @@ class Solution {
             return true;
     }
     
-    public boolean SudokuSolver(int idx,char[][] board) {
-        if(idx==board.length*board[0].length) {
+    public boolean SudokuSolver(int idx, ArrayList<Integer> loc, char[][] board) {
+        if(idx==loc.size()) {
             return true;
         }
         
-        int r = idx/9;
-        int c = idx%9;
+        int r = loc.get(idx)/9;
+        int c = loc.get(idx)%9;
         boolean res = false;
-        
-        if(board[r][c]!= '.') return SudokuSolver(idx+1,board); //imagine stack for return                                                                              statement.
-        
+
         for(int number=1;number<=9;number++) {
             if(isValid(r,c,board,number)) {
                 board[r][c] = (char)('0' + number);
-                res = res || SudokuSolver(idx+1,board);
+                res = res || SudokuSolver(idx+1,loc,board);
                 if(res) return true;
                 board[r][c] = '.';
             }
@@ -42,6 +40,12 @@ class Solution {
     }
    
     public void solveSudoku(char[][] board) {
-       SudokuSolver(0,board);
+        ArrayList<Integer> loc = new ArrayList<>();
+        for(int i=0;i<board.length;i++) {
+            for(int j=0; j<board[0].length;j++) {
+                if(board[i][j]=='.')loc.add((i*9) + j);
+            }
+        }
+       SudokuSolver(0,loc,board);
     }
 }
