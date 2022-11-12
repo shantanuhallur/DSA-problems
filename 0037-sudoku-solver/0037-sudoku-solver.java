@@ -5,13 +5,13 @@ class Solution {
     
     public boolean isValid(int r, int c ,int num) {
         int mask = 1<<num;
-        //Row    
+        //if number present in Row    
         if((row[r] & mask) != 0)return false;
-        //Col
+        //if number present in Col
        if((col[c] & mask) != 0)return false;
-        //3X3
+        //if number present in 3X3
        if((mat[r/3][c/3] & mask) != 0)return false;
-        
+        //Number is safe to place
         return true;
     }
     
@@ -51,7 +51,7 @@ class Solution {
                 if(board[i][j]=='.')
                     loc.add((i*9) + j);
                 else
-                    toggle(i,j,board[i][j]-'0');
+                    toggle(i,j,board[i][j]-'0'); //set the number true in row col and matrix.
             }
         }
        SudokuSolver(0,loc,board);
