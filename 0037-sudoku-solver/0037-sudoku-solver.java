@@ -3,18 +3,6 @@ class Solution {
     int[] col = new int[10];
     int[][] mat = new int[3][3];
     
-    public boolean isValid(int r, int c ,int num) {
-        int mask = 1<<num;
-        //if number present in Row    
-        if((row[r] & mask) != 0)return false;
-        //if number present in Col
-       if((col[c] & mask) != 0)return false;
-        //if number present in 3X3
-       if((mat[r/3][c/3] & mask) != 0)return false;
-        //Number is safe to place
-        return true;
-    }
-    
     public void toggle(int r,int c,int num) {
         int mask = 1<<num;
         row[r] ^= mask;
@@ -32,7 +20,8 @@ class Solution {
         boolean res = false;
 
         for(int number=1;number<=9;number++) {
-            if(isValid(r,c,number)) {
+            int mask = 1<<number;
+            if((row[r] & mask) == 0 && (col[c] & mask) == 0 && (mat[r/3][c/3] & mask) == 0) {
                 board[r][c] = (char)('0' + number);
                 toggle(r,c,number);
                 res = res || SudokuSolver(idx+1,loc,board);
