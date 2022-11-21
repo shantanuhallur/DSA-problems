@@ -9,37 +9,27 @@
  */
 class Solution {
     
-        public ArrayList<TreeNode> rootToNode(TreeNode node, int data) {
+public boolean rootToNode(TreeNode node, int data, ArrayList<TreeNode> rtnPath) {
         if (node == null)
-            return new ArrayList<>();
-
+            return false;
         if (node.val == data) {
-            ArrayList base = new ArrayList<>();
-            base.add(node);
-            return base;
+            rtnPath.add(node);
+            return true;
         }
 
-        ArrayList left = rootToNode(node.left, data);
-        if (left.size() > 0) {
-            left.add(node);
-            return left;
-        }
+        boolean res = rootToNode(node.left, data, rtnPath) || rootToNode(node.right, data, rtnPath);
+        if (res)
+            rtnPath.add(node);
 
-        ArrayList right = rootToNode(node.right, data);
-        if (right.size() > 0) {
-            right.add(node);
-            return right;
-        }
-
-        return new ArrayList<>();
+        return res;
     }
     
        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         ArrayList<TreeNode> list1 = new ArrayList<>();
         ArrayList<TreeNode> list2 = new ArrayList<>();
 
-        list1 = rootToNode(root, p.val);
-        list2 = rootToNode(root, q.val);
+        rootToNode(root, p.val,list1);
+        rootToNode(root, q.val,list2);
 
         int i = list1.size() - 1;
         int j = list2.size() - 1;
