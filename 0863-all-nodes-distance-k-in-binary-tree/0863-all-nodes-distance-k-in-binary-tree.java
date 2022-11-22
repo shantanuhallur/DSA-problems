@@ -8,21 +8,6 @@
  * }
  */
 class Solution {
-    public boolean rootToNode(TreeNode node, int data, ArrayList<TreeNode> rtnPath) {
-        if (node == null)
-            return false;
-        if (node.val == data) {
-            rtnPath.add(node);
-            return true;
-        }
-
-        boolean res = rootToNode(node.left, data, rtnPath) || rootToNode(node.right, data, rtnPath);
-        if (res)
-            rtnPath.add(node);
-
-        return res;
-    }
-    
     public void printKDown(TreeNode node, TreeNode blockNode, int depth, List<Integer> ans) {
         if(node == null || depth < 0 || node == blockNode)
             return;
@@ -36,17 +21,32 @@ class Solution {
         printKDown(node.right, blockNode, depth-1, ans);
     }
     
-    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        List<Integer> ans = new ArrayList<>();
-        ArrayList<TreeNode> list = new ArrayList<>();
-        rootToNode(root, target.val, list);
-        TreeNode blockNode = null;
-
-        for(int i=0;i<list.size();i++) {
-            printKDown(list.get(i),blockNode,k-i,ans);
-            blockNode = list.get(i);
+        public int rootToNodeDistance_01(TreeNode node, TreeNode target, int K, List<Integer> ans) {
+        if(node == null) return -1;
+        if(node == target) {
+            printKDown(node, null, K, ans);
+            return 1;
         }
 
+        int las = rootToNodeDistance_01(node.left, target, K, ans);
+        if(las != -1) {
+            printKDown(node, node.left, K-las, ans);
+            return las + 1;
+        }
+
+        int ras = rootToNodeDistance_01(node.right, target, K, ans);
+        if(ras != -1) {
+            printKDown(node, node.right, K-ras, ans);
+            return ras + 1;
+        }
+
+        return -1;
+    }
+    
+    
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        List<Integer> ans = new ArrayList<>();
+        rootToNodeDistance_01(root, target , k, ans );
         return ans;
     }
 }
