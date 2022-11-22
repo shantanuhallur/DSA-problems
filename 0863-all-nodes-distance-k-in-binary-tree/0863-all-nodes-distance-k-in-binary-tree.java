@@ -21,7 +21,7 @@ class Solution {
         printKDown(node.right, blockNode, depth-1, ans);
     }
     
-        public int rootToNodeDistance_01(TreeNode node, TreeNode target, int K, List<Integer> ans) {
+    public int rootToNodeDistance_01(TreeNode node, TreeNode target, int K, List<Integer> ans) {
         if(node == null) return -1;
         if(node == target) {
             printKDown(node, null, K, ans);
