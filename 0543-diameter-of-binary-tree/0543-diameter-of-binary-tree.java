@@ -14,19 +14,20 @@
  * }
  */
 class Solution {
-    public int[] diameterOfBinaryTree_02(TreeNode root) {
+    int maxDia = 0;
+    public int diameterOfBinaryTree_03(TreeNode root) {
         if(root==null)
-            return new int[]{-1,-1};
-        int[] leftAns = diameterOfBinaryTree_02(root.left);
-        int[] rightAns = diameterOfBinaryTree_02(root.right);
+            return -1;
+        int lh = diameterOfBinaryTree_03(root.left);
+        int rh = diameterOfBinaryTree_03(root.right);
+
+        maxDia = Math.max(maxDia,lh+rh+2);
         
-        int[] ans = new int[2]; //max(max(leftD,rightD),diameter passing through root).
-        ans[0] = Math.max(Math.max(leftAns[0],rightAns[0]),leftAns[1]+rightAns[1]+2); 
-        ans[1] = Math.max(leftAns[1],rightAns[1])+1; //max hight from node
-        return ans;
+        return Math.max(lh,rh)+1;
     }
     public int diameterOfBinaryTree(TreeNode root) {
         if (root==null) return 0;  
-        return diameterOfBinaryTree_02(root)[0]; //Return 0th index of Answer.
+        diameterOfBinaryTree_03(root);
+        return maxDia;
     }
 }
