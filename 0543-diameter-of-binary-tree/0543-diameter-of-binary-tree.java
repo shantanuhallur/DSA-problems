@@ -14,26 +14,19 @@
  * }
  */
 class Solution {
-    
-    public int height(TreeNode node) {
-        return node == null ? -1 : Math.max(height(node.left), height(node.right)) + 1;
-        // //EDEGS
-        // return node == null ? 0 : Math.max(height(node.left), height(node.right)) + 1; // NODES
-    }
-    
-    public int diameterOfBinaryTree_01(TreeNode root) {
+    public int[] diameterOfBinaryTree_02(TreeNode root) {
         if(root==null)
-            return -1;
-        int leftDia = diameterOfBinaryTree_01(root.left);
-        int rightDia = diameterOfBinaryTree_01(root.right);
+            return new int[]{-1,-1};
+        int[] leftAns = diameterOfBinaryTree_02(root.left);
+        int[] rightAns = diameterOfBinaryTree_02(root.right);
         
-        int leftHeight = height(root.left);
-        int rightHeight = height(root.right);
-        
-        return Math.max(Math.max(leftDia,rightDia),leftHeight+rightHeight+2);
+        int[] ans = new int[2]; //max(max(leftD,rightD),diameter passing through root).
+        ans[0] = Math.max(Math.max(leftAns[0],rightAns[0]),leftAns[1]+rightAns[1]+2); 
+        ans[1] = Math.max(leftAns[1],rightAns[1])+1; //max hight from node
+        return ans;
     }
     public int diameterOfBinaryTree(TreeNode root) {
         if (root==null) return 0;  
-        return diameterOfBinaryTree_01(root);
+        return diameterOfBinaryTree_02(root)[0]; //Return 0th index of Answer.
     }
 }
