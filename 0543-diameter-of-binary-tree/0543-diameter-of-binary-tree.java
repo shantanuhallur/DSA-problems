@@ -18,7 +18,7 @@ class Solution {
     public int height(TreeNode node) {
         return node == null ? -1 : Math.max(height(node.left), height(node.right)) + 1;
         // //EDEGS
-        // return node == null ? 0 : Math.max(size(node.left), size(node.right)) + 1; // NODES
+        // return node == null ? 0 : Math.max(height(node.left), height(node.right)) + 1; // NODES
     }
     
     public int diameterOfBinaryTree_01(TreeNode root) {
