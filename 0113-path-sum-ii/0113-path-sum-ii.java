@@ -26,12 +26,12 @@ class Solution {
             }
             return;
         }
-        curr.add(root.val);
+        curr.add(root.val); //backtracking in curr
         
         pathSum(root.left,targetSum-root.val,ans,curr);
         pathSum(root.right,targetSum-root.val,ans,curr);
         
-        curr.remove(curr.size()-1);
+        curr.remove(curr.size()-1); //backtracking in curr
     }
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> ans = new ArrayList<>();
