@@ -18,13 +18,13 @@ class Solution {
     public void pathSum(TreeNode root, int targetSum, List<List<Integer>> ans,List<Integer> curr) {
         if(root == null) return;
         
-        if(root.left == null && root.right == null && targetSum-root.val==0) {
-            // if( targetSum-root.val==0){
+        if(root.left == null && root.right == null) {
+            if( targetSum-root.val==0){
               ArrayList<Integer> base = new ArrayList<>(curr);
                 base.add(root.val);
                 ans.add(base);   
-            // }
-            return; //we have to stop whenever we leach a leaf or else next calls fail at val.
+            }
+            return;
         }
         curr.add(root.val);
         
