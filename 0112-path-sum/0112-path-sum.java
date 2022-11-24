@@ -16,25 +16,11 @@
 class Solution {
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if(root==null)return false;
-        boolean hasPath = dfs(root,targetSum-root.val);
-        return hasPath;
+       if(root.left == null && root.right == null){
+           return (targetSum - root.val == 0);
+       }
+        
+        return hasPathSum(root.left, targetSum-root.val)||hasPathSum(root.right, targetSum-root.val);
     }
-    public boolean dfs(TreeNode node,int target){
-        if(node.left == null && node.right==null && target==0){
-            return true;
-        }
-        
-        boolean left = false;
-        boolean right = false;
-        
-        if(node.left!=null) {
-            left = dfs(node.left,target-node.left.val);
-        }
-        
-        if(node.right!=null) {
-            right = dfs(node.right,target-node.right.val); 
-        }
 
-        return (left||right);
-    }
 }
