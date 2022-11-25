@@ -23,6 +23,7 @@ class Solution {
         
        int MaxTillRoot = Math.max(leftMaxPathSum,rightMaxPathSum) + root.val;
        maxSumNTN =  Math.max(Math.max(maxSumNTN,MaxTillRoot),Math.max(root.val,leftMaxPathSum+rightMaxPathSum+root.val));
+        //maxCalculation.
         
         return Math.max(MaxTillRoot,root.val); //faith
     }
