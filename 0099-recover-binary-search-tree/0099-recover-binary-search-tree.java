@@ -39,9 +39,8 @@ class Solution {
     
     public void recoverTree(TreeNode root) {
         recoverTree_01(root);
-        TreeNode temp = new TreeNode();
-        temp.val = a.val;
+        int temp = a.val;
         a.val = b.val;
-        b.val = temp.val;
+        b.val = temp;
     }
 }
