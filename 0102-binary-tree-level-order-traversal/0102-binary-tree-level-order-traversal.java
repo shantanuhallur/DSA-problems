@@ -77,10 +77,12 @@ public void levelOrder_M1(TreeNode root , List<List<Integer>> ans) {
         }
     }
     
+    
+    
     public List<List<Integer>> levelOrder(TreeNode root) {
         if(root==null) return new ArrayList<>();
         List<List<Integer>> ans = new ArrayList<>();
-        levelOrder_M1(root,ans);
+        levelOrder_M2(root,ans);
         return ans;
     }
 }
