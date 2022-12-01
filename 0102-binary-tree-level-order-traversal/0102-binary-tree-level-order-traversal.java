@@ -46,6 +46,37 @@ public void levelOrder_M1(TreeNode root , List<List<Integer>> ans) {
         }
     }
     
+    public static void levelOrder_M2(TreeNode root, List<List<Integer>> ans) {
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
+        que.addLast(null);
+
+        //int level = 0;
+        List<Integer> smallAns = new ArrayList<>();
+        //System.out.println("Level :" + level + " : ");
+        while (que.size() != 1) {
+            TreeNode rn = que.removeFirst(); // remove Node
+            //System.out.print(rn.val + " ");
+            smallAns.add(rn.val);
+            
+            if (rn.left != null)
+                que.addLast(rn.left);
+            if (rn.right != null)
+                que.addLast(rn.right);
+
+            if (que.getFirst() == null) {
+                //System.out.println();
+                //System.out.print("Level :" + (++level) + " : ");
+                List<Integer> base = new ArrayList<>(smallAns);
+                ans.add(base);
+                smallAns.clear();
+                
+                que.addLast(que.removeFirst());
+
+            }
+        }
+    }
+    
     public List<List<Integer>> levelOrder(TreeNode root) {
         if(root==null) return new ArrayList<>();
         List<List<Integer>> ans = new ArrayList<>();
