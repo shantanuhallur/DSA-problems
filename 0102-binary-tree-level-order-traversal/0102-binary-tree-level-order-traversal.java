@@ -15,7 +15,7 @@
  */
 class Solution {
     
-public void levelOrder_M1(TreeNode root , List<List<Integer>> ans) {
+    public void levelOrder_M1(TreeNode root , List<List<Integer>> ans) {
         LinkedList<TreeNode> que = new LinkedList<>();
         LinkedList<TreeNode> childQue = new LinkedList<>();
         que.addLast(root);
@@ -77,12 +77,36 @@ public void levelOrder_M1(TreeNode root , List<List<Integer>> ans) {
         }
     }
     
-    
+    public static void levelOrder_M3(TreeNode root, List<List<Integer>> ans) {
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
+
+        int level = 0;
+        while (que.size() != 0) {
+            //System.out.println("Level :" + level + " : ");
+            List<Integer> smallAns = new ArrayList<>();
+            int size = que.size();
+            while (size-- > 0) {
+                TreeNode rn = que.removeFirst(); // remove Node
+                //System.out.print(rn.val + " ");
+                smallAns.add(rn.val);
+
+                if (rn.left != null)
+                    que.addLast(rn.left);
+                if (rn.right != null)
+                    que.addLast(rn.right);
+
+            }
+            List<Integer> base = new ArrayList<>(smallAns);
+            ans.add(base);
+            smallAns.clear();
+        }
+    }
     
     public List<List<Integer>> levelOrder(TreeNode root) {
         if(root==null) return new ArrayList<>();
         List<List<Integer>> ans = new ArrayList<>();
-        levelOrder_M2(root,ans);
+        levelOrder_M3(root,ans);
         return ans;
     }
 }
