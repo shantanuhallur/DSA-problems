@@ -35,8 +35,9 @@ public void levelOrder_M1(TreeNode root , List<List<Integer>> ans) {
             if(que.size() == 0 ) {
                 //System.out.println();
                 //System.out.print("Level :" + (++level) + " : ");
-                ans.add(smallAns);
-                smallAns = new ArrayList<>();
+                List<Integer> base = new ArrayList<>(smallAns);
+                ans.add(base);
+                smallAns.clear();
                 LinkedList<TreeNode> temp = new LinkedList<>();
                 temp = que;
                 que = childQue;
