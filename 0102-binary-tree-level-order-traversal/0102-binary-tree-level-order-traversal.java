@@ -103,10 +103,35 @@ class Solution {
         }
     }
     
+    public static void levelOrder_M4(TreeNode root, List<List<Integer>> ans) {
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
+
+        int level = 0;
+        while (que.size() != 0) {
+            List<Integer> smallAns = new ArrayList<>();
+            int size = que.size();
+            while (size-- > 0) {
+                TreeNode rn = que.removeFirst(); // remove Node
+                if(level == ans.size()){
+                    ans.add(new ArrayList<>());
+                }
+                ans.get(level).add(rn.val);
+
+                if (rn.left != null)
+                    que.addLast(rn.left);
+                if (rn.right != null)
+                    que.addLast(rn.right);
+
+            }
+            level++;
+        }
+    }
+    
     public List<List<Integer>> levelOrder(TreeNode root) {
         if(root==null) return new ArrayList<>();
         List<List<Integer>> ans = new ArrayList<>();
-        levelOrder_M3(root,ans);
+        levelOrder_M4(root,ans);
         return ans;
     }
 }
