@@ -14,56 +14,52 @@
  * }
  */
 class Solution {
-        public static class verticalPair {
-        int hl=0;
-        TreeNode node=null;
+        public static class verticalPair_02 {
+        TreeNode node = null;
+        int x = 0;
+        int y = 0;
 
-        verticalPair(TreeNode node, int hl ) {
+        verticalPair_02(TreeNode node, int x, int y) {
             this.node = node;
-            this.hl = hl;
+            this.x = x;
+            this.y = y;
         }
     }
-    
+
     public static List<List<Integer>> verticalTraversal(TreeNode root) {
-        PriorityQueue<verticalPair> que = new PriorityQueue<>((a,b) -> {
-            return a.node.val-b.node.val;
+        PriorityQueue<verticalPair_02> que = new PriorityQueue<>((a, b) -> {
+            if (a.y != b.y)
+                return a.y - b.y;
+            else
+                return a.node.val - b.node.val;
         });
-        PriorityQueue<verticalPair> childQue = new PriorityQueue<>((a,b) -> {
-            return a.node.val-b.node.val;
-        });
-        
-        que.add(new verticalPair(root, 0));
-        HashMap<Integer,List<Integer>> map = new HashMap<>();
-        int maxHL = -(int)1e9;
-        int minHL = (int)1e9;
-        while(que.size()!= 0) {
+
+        que.add(new verticalPair_02(root, 0,0));
+        HashMap<Integer, List<Integer>> map = new HashMap<>();
+        int maxHL = -(int) 1e9;
+        int minHL = (int) 1e9;
+        while (que.size() != 0) {
             int size = que.size();
-            while(size-- >0) {
-                verticalPair rp = que.remove();
+            while (size-- > 0) {
+                verticalPair_02 rp = que.remove();
 
-                map.putIfAbsent(rp.hl, new ArrayList<>());
-                map.get(rp.hl).add(rp.node.val); //get that list of the level and then add this node's val into it.
-                maxHL = Math.max(maxHL,rp.hl);
-                minHL = Math.min(minHL,rp.hl);
+                map.putIfAbsent(rp.x, new ArrayList<>());
+                map.get(rp.x).add(rp.node.val); // get that list of the level and then add this node's val into it.
+                maxHL = Math.max(maxHL, rp.x);
+                minHL = Math.min(minHL, rp.x);
 
-                if(rp.node.left != null) {
-                    childQue.add(new verticalPair(rp.node.left, rp.hl-1));
+                if (rp.node.left != null) {
+                    que.add(new verticalPair_02(rp.node.left, rp.x-1,rp.y+1));
                 }
 
-                if(rp.node.right != null) {
-                    childQue.add(new verticalPair(rp.node.right, rp.hl+1));
-                }
-                
-                if(que.size()==0) {
-                    PriorityQueue<verticalPair> temp = childQue;
-                    childQue = que;
-                    que = temp;
+                if (rp.node.right != null) {
+                    que.add(new verticalPair_02(rp.node.right,rp.x+1,rp.y+1));
                 }
             }
         }
 
         List<List<Integer>> ans = new ArrayList<>();
-        while(minHL <= maxHL) {
+        while (minHL <= maxHL) {
             ans.add(map.get(minHL));
             minHL++;
         }
