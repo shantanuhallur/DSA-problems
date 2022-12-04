@@ -24,6 +24,17 @@ class Solution {
         return curr.val;
     }
     
+    
+    public static int minEle(TreeNode root) {
+        TreeNode curr = root;
+
+        while (curr.left != null) {
+            curr = curr.left;
+        }
+
+        return curr.val;
+    }
+    
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null)
             return null;
@@ -37,10 +48,10 @@ class Solution {
                 return root.left == null ? root.right : root.left;
             }
 
-            int maxValue = maxEle(root.left); // get max from left or min from right the node to delete will                                                    always
-            root.val = maxValue; // be a leaf or one with 1 subtree only never a node with 2 subtrees
+            int minValue = minEle(root.right); // get max from left or min from right the node to delete will                                                    always
+            root.val = minValue; // be a leaf or one with 1 subtree only never a node with 2 subtrees
                                  // as it will then not be the max or min node of that subtree.
-            root.left = deleteNode(root.left, maxValue);
+            root.right = deleteNode(root.right, minValue);
         }
 
         return root;
