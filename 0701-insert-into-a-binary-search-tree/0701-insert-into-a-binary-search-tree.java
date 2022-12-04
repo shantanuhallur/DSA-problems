@@ -17,27 +17,11 @@ class Solution {
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if (root == null) return new TreeNode(val);
         
-        TreeNode lastNode =null;
-        TreeNode pos = root;
-        
-        while(pos != null) {
-            if(pos.val > val) {
-                lastNode = pos;
-                pos = pos.left;
-            }
-            else {
-                lastNode = pos;
-                 pos = pos.right;
-            }     
-        }
-        
-        if(lastNode.val > val) {
-            lastNode.left = new TreeNode(val);
-        }
-        else{
-            lastNode.right = new TreeNode(val);
-        }
-        
+        if( root.val > val) 
+            root.left = insertIntoBST(root.left,val);
+        else 
+            root.right = insertIntoBST(root.right, val);
+            
         return root;
     }
 }
