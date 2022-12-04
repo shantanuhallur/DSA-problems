@@ -39,8 +39,7 @@ class Solution {
         int maxHL = -(int) 1e9;
         int minHL = (int) 1e9;
         while (que.size() != 0) {
-            int size = que.size();
-            while (size-- > 0) {
+            
                 verticalPair_02 rp = que.remove();
 
                 map.putIfAbsent(rp.x, new ArrayList<>());
@@ -55,7 +54,6 @@ class Solution {
                 if (rp.node.right != null) {
                     que.add(new verticalPair_02(rp.node.right,rp.x+1,rp.y+1));
                 }
-            }
         }
 
         List<List<Integer>> ans = new ArrayList<>();
