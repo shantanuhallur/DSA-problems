@@ -15,27 +15,25 @@
  */
 class Solution {
     
-    public TreeNode getTail(TreeNode node) {
-        if(node==null) return null;
-        
-        TreeNode curr = node;
-        while(curr.right != null) {
-            curr = curr.right;
+    public TreeNode flatten_(TreeNode node) {
+        if(node == null || (node.left == null && node.right == null)){
+            return node; //basecase for leaves as they will become tails and null node.
         }
-        return curr;
+        
+        TreeNode leftTail = flatten_(node.left);
+        TreeNode rightTail = flatten_(node.right);
+        
+        if(leftTail!=null) {
+            leftTail.right = node.right;
+            node.right = node.left;
+            node.left = null;
+        }
+        
+        return rightTail != null ? rightTail : leftTail;
     }
-    
     public void flatten(TreeNode root) {
-        if(root == null) return;
-        
-        flatten(root.left);
-        flatten(root.right);
-        
-        TreeNode tail = getTail(root.left);
-        if(tail != null) {
-            tail.right = root.right;
-            root.right = root.left;
-            root.left = null;
-        }
+        if(root==null) 
+            return;
+        flatten_(root);
     }
 }
