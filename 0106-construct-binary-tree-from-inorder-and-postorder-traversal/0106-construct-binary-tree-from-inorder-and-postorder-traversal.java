@@ -19,10 +19,12 @@ class Solution {
         if(psi>pei) return null;
         //construct root node;
         TreeNode node = new TreeNode(postorder[pei]);
-        int idx = isi;
+        //start finding this element from start of inorder
+        int idx = isi; 
         //find in inorder idx element;
         while(inorder[idx] != postorder[pei])idx++;
         int tel = idx - isi; //total no of elements
+        
         node.left = buildTree(inorder,isi,idx-1,postorder,psi,psi+tel-1);
         node.right = buildTree(inorder,idx+1,iei,postorder,psi+tel,pei-1);
         
