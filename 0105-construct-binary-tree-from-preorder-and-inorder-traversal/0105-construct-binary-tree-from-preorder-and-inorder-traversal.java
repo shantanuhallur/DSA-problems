@@ -16,7 +16,7 @@
 class Solution {
     
     public TreeNode buildTree(int[] preorder,int psi,int pei, int[] inorder,int isi,int iei) {
-        if(psi>pei){ //for 1 node indexes will get passed in this condn means we need to stop.
+        if(psi>pei){ //for 1 node (0,0) indexes will get passed as psi+1 , psi + isi = (1,0)
             return null;
         }
         
