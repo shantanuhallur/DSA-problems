@@ -28,6 +28,6 @@ class Solution {
     }
     
     public TreeNode bstFromPreorder(int[] preorder) {
-        return bstFromPreorder_(preorder,Integer.MIN_VALUE,Integer.MAX_VALUE);
+        return bstFromPreorder_(preorder,-(int)1e8,(int)1e8);
     }
 }
