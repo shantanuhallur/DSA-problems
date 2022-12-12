@@ -22,7 +22,7 @@ class Solution {
         int lvl = 1;
         while(q.size()!=0) {
             int size = q.size();
-            LinkedList<Integer> smallAns = new LinkedList<>();
+            List<Integer> smallAns = new ArrayList<>();
             while(size-->0) {
                 TreeNode rn = q.removeFirst();
                 if(rn.left!=null) {
@@ -33,13 +33,13 @@ class Solution {
                 }
                 
                 if(lvl%2==0) {
-                    smallAns.addFirst(rn.val);
+                    smallAns.add(0,rn.val);
                 }
                 else{
-                    smallAns.addLast(rn.val);
+                    smallAns.add(rn.val);
                 }
             }
-            ans.add(new LinkedList<>(smallAns));
+            ans.add(new ArrayList<>(smallAns));
             lvl++;
         }
         
