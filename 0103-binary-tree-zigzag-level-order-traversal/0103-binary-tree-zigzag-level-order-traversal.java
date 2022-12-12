@@ -32,7 +32,6 @@ class Solution {
                     q.addLast(rn.right);
                 }
                 
-                
                 if(lvl%2==0) {
                     smallAns.add(0,rn.val);
                 }
