@@ -34,7 +34,7 @@ class Solution {
                 }
                 smallAns.add(rn.val);
             }
-            ans.add(new LinkedList<>(smallAns));
+            ans.add(smallAns);
         }
         return ans;
     }
