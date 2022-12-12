@@ -14,20 +14,21 @@
  * }
  */
 class Solution {
-    int idx = 0;
-    public TreeNode bstFromPreorder_(int[] preorder,int lrange,int rrange) {
-        if(idx >= preorder.length || preorder[idx] > rrange || preorder[idx] < lrange) 
+    // int idx = 0;
+    public TreeNode bstFromPreorder_(int[] preorder,int lrange,int rrange,int[] arr) {
+        if(arr[0] >= preorder.length || preorder[arr[0]] > rrange || preorder[arr[0]] < lrange) 
             return null;
         
-        TreeNode root = new TreeNode(preorder[idx++]);
+        TreeNode root = new TreeNode(preorder[arr[0]++]);
         
-        root.left = bstFromPreorder_(preorder,lrange,root.val);
-        root.right = bstFromPreorder_(preorder,root.val,rrange);
+        root.left = bstFromPreorder_(preorder,lrange,root.val,arr);
+        root.right = bstFromPreorder_(preorder,root.val,rrange,arr);
         
         return root;
     }
     
     public TreeNode bstFromPreorder(int[] preorder) {
-        return bstFromPreorder_(preorder,-(int)1e8,(int)1e8);
+        int[] arr = {0};
+        return bstFromPreorder_(preorder,-(int)1e8,(int)1e8,arr);
     }
 }
