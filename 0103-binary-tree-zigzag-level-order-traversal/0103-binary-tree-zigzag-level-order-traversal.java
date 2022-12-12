@@ -18,11 +18,11 @@ class Solution {
         if(root==null) return new ArrayList<>();
         LinkedList<TreeNode> q = new LinkedList<>();
         q.add(root);
-        List<List<Integer>> ans = new ArrayList<>();
+        List<List<Integer>> ans = new LinkedList<>();
         int lvl = 1;
         while(q.size()!=0) {
             int size = q.size();
-            List<Integer> smallAns = new ArrayList<>();
+            LinkedList<Integer> smallAns = new LinkedList<>();
             while(size-->0) {
                 TreeNode rn = q.removeFirst();
                 if(rn.left!=null) {
@@ -33,13 +33,13 @@ class Solution {
                 }
                 
                 if(lvl%2==0) {
-                    smallAns.add(0,rn.val);
+                    smallAns.addFirst(rn.val);
                 }
                 else{
-                    smallAns.add(rn.val);
+                    smallAns.addLast(rn.val);
                 }
             }
-            ans.add(new ArrayList<>(smallAns));
+            ans.add(new LinkedList<>(smallAns));
             lvl++;
         }
         
