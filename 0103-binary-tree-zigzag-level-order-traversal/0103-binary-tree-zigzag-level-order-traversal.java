@@ -18,7 +18,7 @@ class Solution {
         if(root==null) return new ArrayList<>();
         LinkedList<TreeNode> q = new LinkedList<>();
         q.add(root);
-        List<List<Integer>> ans = new LinkedList<>();
+        List<List<Integer>> ans = new ArrayList<>();
         int lvl = 1;
         while(q.size()!=0) {
             int size = q.size();
