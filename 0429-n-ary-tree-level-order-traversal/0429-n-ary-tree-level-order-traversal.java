@@ -22,11 +22,11 @@ class Solution {
         if(root==null) return new ArrayList<>();
         LinkedList<Node> q = new LinkedList<>();
         q.add(root);
-        List<List<Integer>> ans = new LinkedList<>();
+        List<List<Integer>> ans = new ArrayList<>();
         
         while(q.size()!=0) {
             int size = q.size();
-            LinkedList<Integer> smallAns = new LinkedList<>();
+            ArrayList<Integer> smallAns = new ArrayList<>();
             while(size-->0) {
                 Node rn = q.removeFirst();
                 for(Node child:rn.children) {
