@@ -24,10 +24,11 @@ class Solution {
     public int kthSmallest(TreeNode root, int k) {
         LinkedList<TreeNode> st = new LinkedList<>();
         insertLeftMost(st,root);
-        while(k-->1) {
-            TreeNode node = st.removeFirst();
+        TreeNode node = null;
+        while(k-->0) {
+            node = st.removeFirst();
             insertLeftMost(st,node.right);
         }
-        return st.removeFirst().val;
+        return node.val;
     }
 }
