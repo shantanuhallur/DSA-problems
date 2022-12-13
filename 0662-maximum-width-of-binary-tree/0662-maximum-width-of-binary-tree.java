@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    //left child index = 2 * parent_index right child index = 2 * parent_index +1
     class Pair{
         int num;
         TreeNode node;
