@@ -1,27 +1,28 @@
 class Solution {
-    public void dfs(char[][] grid,boolean[][] boxes,int sr,int sc,int[][] dir) {
-        boxes[sr][sc] = true;
-        int n = grid.length;
-        int m = grid[0].length;
-        for(int d=0;d<dir.length;d++){
-                int r = sr +dir[d][0];
-                int c = sc + dir[d][1];
-                if(r>=0 && r<n && c>=0 && c<m && grid[r][c] == '1' && !boxes[r][c]) {
-                    boxes[r][c] = true;
-                    dfs(grid,boxes,r,c,dir);
-               
-        }
+    public void dfsIslands(int i, int j, int n, int m, char[][] grid, int[][] dir) {
+        grid[i][j] = '0';
+
+        for (int d = 0; d < dir.length; d++) {
+            int nrow = i + dir[d][0];
+            int ncol = j + dir[d][1];
+            if (nrow >=0 && ncol >=0 && nrow < n && ncol < m && grid[nrow][ncol] == '1') {
+                dfsIslands(nrow, ncol, n, m, grid, dir);
+            }
         }
     }
+
     public int numIslands(char[][] grid) {
+        if (grid.length == 0 || grid[0].length == 0)
+            return 0; // 0 row || 0 column
+        int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+        int n = grid.length;
+        int m = grid[0].length;
         int count = 0;
-        int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
-        boolean[][] boxes = new boolean[grid.length][grid[0].length];
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
-                if(grid[i][j]=='1' && boxes[i][j] == false){
-                    count+=1;
-                    dfs(grid,boxes,i,j,dir);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == '1') {
+                    count++;
+                    dfsIslands(i, j, n, m, grid, dir);
                 }
             }
         }
