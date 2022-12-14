@@ -1,5 +1,5 @@
 class Solution {
-    public void dfs(char[][] board,int row,int col,int[][] dir,int n, int m) {
+    public void dfsSurroundedRegions(char[][] board,int row,int col,int[][] dir,int n, int m) {
         board[row][col] = '$';
         
         for(int d=0; d<dir.length;d++) {
@@ -7,7 +7,7 @@ class Solution {
             int ncol = col + dir[d][1];
             
             if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && board[nrow][ncol]=='O'){
-                dfs(board,nrow,ncol,dir,n,m);
+                dfsSurroundedRegions(board,nrow,ncol,dir,n,m);
             }
         }
     }
@@ -18,19 +18,19 @@ class Solution {
         int m = board[0].length;
         
         for(int i=0;i<n;i++){ //travelling 1st col
-            if(board[i][0]== 'O') dfs(board,i,0,dir,n,m);
+            if(board[i][0]== 'O') dfsSurroundedRegions(board,i,0,dir,n,m);
         }
         
         for(int j=0;j<m;j++){ //travelling 1st row
-            if(board[0][j]== 'O') dfs(board,0,j,dir,n,m);
+            if(board[0][j]== 'O') dfsSurroundedRegions(board,0,j,dir,n,m);
         }
         
         for(int j=0;j<m;j++){ //travelling last row
-            if(board[n-1][j]== 'O') dfs(board,n-1,j,dir,n,m);
+            if(board[n-1][j]== 'O') dfsSurroundedRegions(board,n-1,j,dir,n,m);
         }
         
         for(int i=0;i<n;i++){ //travelling last col
-            if(board[i][m-1]== 'O') dfs(board,i,m-1,dir,n,m);
+            if(board[i][m-1]== 'O') dfsSurroundedRegions(board,i,m-1,dir,n,m);
         }
         
         for(int i=0;i<n;i++) {
