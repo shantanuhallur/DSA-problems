@@ -50,7 +50,7 @@ class Solution {
         if(ans.size() != numCourses) return new int[0];
         Collections.reverse(ans);
         int[] Rans = new int[numCourses];
-        for(int i=numCourses-1;i>=0;i--){
+        for(int i=0;i<numCourses;i++){
             Rans[i] = ans.get(i);
     }
         
