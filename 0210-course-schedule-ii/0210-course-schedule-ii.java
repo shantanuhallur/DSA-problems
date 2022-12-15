@@ -1,5 +1,5 @@
 class Solution {
-            public int[] kahnsAlgo (int N,  List<List<Integer>> graph) {
+        public int[] kahnsAlgo (int N,  List<List<Integer>> graph) {
         int[] inDegree = new int[N];
         for(int i=0;i<N;i++) {
             for(int e : graph.get(i)){
