@@ -20,7 +20,7 @@ class Solution {
             int size = que.size();
             while(size-- >0){
                 int rvtx = que.removeFirst();
-                ans.addFirst(rvtx);
+                ans.addLast(rvtx);
 
                 for(int e : graph.get(rvtx)) {
                     // inDegree[e.v]--;
@@ -50,7 +50,7 @@ class Solution {
         if(ans.size() != numCourses) return new int[0];
         int[] Rans = new int[numCourses];
         for(int i=0;i<numCourses;i++){
-            Rans[i] = ans.removeFirst();
+            Rans[i] = ans.removeLast();
     }
         
         return Rans;
