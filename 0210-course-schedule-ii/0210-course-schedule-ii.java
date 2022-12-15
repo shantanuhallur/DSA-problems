@@ -1,5 +1,5 @@
 class Solution {
-            public ArrayList<Integer> kahnsAlgo (int N,  List<List<Integer>> graph) {
+            public LinkedList<Integer> kahnsAlgo (int N,  List<List<Integer>> graph) {
         int[] inDegree = new int[N];
         for(int i=0;i<N;i++) {
             for(int e : graph.get(i)){
@@ -7,7 +7,7 @@ class Solution {
             }
         }
 
-        ArrayList<Integer> ans = new ArrayList<>();
+        LinkedList<Integer> ans = new LinkedList<>();
         LinkedList<Integer> que = new LinkedList<>();
 
         for(int i=0;i<N;i++) {
@@ -20,7 +20,7 @@ class Solution {
             int size = que.size();
             while(size-- >0){
                 int rvtx = que.removeFirst();
-                ans.add(rvtx);
+                ans.addLast(rvtx);
 
                 for(int e : graph.get(rvtx)) {
                     // inDegree[e.v]--;
@@ -46,12 +46,11 @@ class Solution {
 
             graph.get(start).add(end); 
         }
-        ArrayList<Integer> ans = kahnsAlgo(numCourses,graph);
+        LinkedList<Integer> ans = kahnsAlgo(numCourses,graph);
         if(ans.size() != numCourses) return new int[0];
-        Collections.reverse(ans);
         int[] Rans = new int[numCourses];
         for(int i=0;i<numCourses;i++){
-            Rans[i] = ans.get(i);
+            Rans[i] = ans.removeLast();
     }
         
         return Rans;
