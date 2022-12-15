@@ -1,5 +1,5 @@
 class Solution {
-            public LinkedList<Integer> kahnsAlgo (int N,  List<List<Integer>> graph) {
+            public int[] kahnsAlgo (int N,  List<List<Integer>> graph) {
         int[] inDegree = new int[N];
         for(int i=0;i<N;i++) {
             for(int e : graph.get(i)){
@@ -7,7 +7,8 @@ class Solution {
             }
         }
 
-        LinkedList<Integer> ans = new LinkedList<>();
+        int[] ans = new int[N];
+        int indexForAns = N-1;
         LinkedList<Integer> que = new LinkedList<>();
 
         for(int i=0;i<N;i++) {
@@ -20,7 +21,7 @@ class Solution {
             int size = que.size();
             while(size-- >0){
                 int rvtx = que.removeFirst();
-                ans.addLast(rvtx);
+                ans[indexForAns--] = rvtx;
 
                 for(int e : graph.get(rvtx)) {
                     // inDegree[e.v]--;
@@ -31,8 +32,8 @@ class Solution {
             }
             level++;
         }
-
-        return ans;
+        
+        return indexForAns==-1?ans:new int[0];
     }
     
     public int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -46,13 +47,14 @@ class Solution {
 
             graph.get(start).add(end); 
         }
-        LinkedList<Integer> ans = kahnsAlgo(numCourses,graph);
-        if(ans.size() != numCourses) return new int[0];
-        int[] Rans = new int[numCourses];
-        for(int i=0;i<numCourses;i++){
-            Rans[i] = ans.removeLast();
-    }
+        // int[] ans = kahnsAlgo(numCourses,graph);
+        //  if(ans.length != numCourses) return new int[0];
+//         int[] Rans = new int[numCourses];
+//         for(int i=0;i<numCourses;i++){
+//             Rans[i] = ans.removeLast();
+//     }
         
-        return Rans;
+//         return Rans;
+        return kahnsAlgo(numCourses,graph);
 }
 }
