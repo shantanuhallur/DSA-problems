@@ -1,56 +1,24 @@
 class Solution {
-    static int[] par;
-    static int[] size;
-    public static int findParent(int u) {
-        return (par[u] == u ? u : (par[u] = findParent(par[u])));
+    int[] par;
+    public int findParent(int u){
+        return par[u] == -1 ? u : (par[u] = findParent(par[u])); 
     }
     
-    public static void merge(int p1,int p2) {
-        if(size[p1] > size[p2]) {
-            par[p2] = p1;
-            size[p1] += size[p2];
-        }
-        else {
-            par[p1] = p2;
-            size[p2] += size[p1];
-        }
-
-    }
-    
-    public static int[] unionFind(int N, int[][] Edges) {
-        //@SuppressWarnings("unchecked");
-        //ArrayList<Edge>[] graph = new ArrayList<>(N);
-        //for(int i=0;i<N;i++) graph[i] = new ArrayList<>();
-
-        par = new int[N+1]; //indexes start from 1 not 0
-        size = new int[N];
-        for(int i=0;i<N;i++) {
-            size[i] = 1;
-            par[i] = i;    
-        }
-
-        boolean cycle = false;
-        for(int[] edge : Edges) {
-            int u = edge[0], v = edge[1];
-            int p1 = findParent(u);
-            int p2 = findParent(v);
-
-            if(p1 != p2){
-                merge(p1, p2);
-                //addEdge(graph, u, v, w);
-            }
-            else {
-                cycle = true;
-                int[] ansEdge = {u,v};
-                return ansEdge;
-            }
-        }
-
-        //display(N, graph);
-        //System.out.println(cycle);
-        return new int [0];
-    }
     public int[] findRedundantConnection(int[][] edges) {
-        return unionFind(edges.length,edges);
+        int N = edges.length; //V vertices have v-1 edges in spanning tree.
+                                //V vertices + 1 edge = V edges in this tree.
+        par = new int[N+1];
+        Arrays.fill(par,-1); //as counting is started from 1 not 0;
+        for(int[] edge : edges) {
+            int p1 = findParent(edge[0]);
+            int p2 = findParent(edge[1]);
+            
+            if(p1 != p2) {
+                par[p1] = p2;
+            }
+            else return edge;
+            
+        }
+        return new int[0];
     }
 }
