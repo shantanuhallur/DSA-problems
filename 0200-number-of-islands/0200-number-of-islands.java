@@ -13,7 +13,7 @@ class Solution {
                 int p2 = findPar(nrow*m + ncol);
                 
                 if(p1 != p2) {
-                    par[p2] = p1;
+                    par[p1] = p2;
                     cost++;
                 }
             }
