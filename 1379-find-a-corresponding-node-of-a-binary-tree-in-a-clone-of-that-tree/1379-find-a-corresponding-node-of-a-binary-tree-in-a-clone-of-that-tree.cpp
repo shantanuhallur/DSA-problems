@@ -10,24 +10,22 @@
 
 class Solution {
 public:
-    
     TreeNode* getTargetCopy_01(TreeNode* node, TreeNode* target) {
-        
-        // if node.val == target.val
+        //base case 
         if(node->val == target->val) return node;
         
-        //Recursive call for left
+        //left Recursive
         if(node->left != nullptr) {
-            TreeNode* left = getTargetCopy_01(node->left,target);
-            if(left->val == target->val) return left;
+            TreeNode* leftAns = getTargetCopy_01(node->left, target);
+            if(leftAns->val == target->val) return leftAns;
         }
         
-        //Recursive call for right
+        //right Recursive
         if(node->right != nullptr) {
-            TreeNode* right = getTargetCopy_01(node->right,target);
-            if(right->val == target->val) return right;
+            TreeNode* rightAns = getTargetCopy_01(node->right, target);
+            if(rightAns->val == target->val) return rightAns;
         }
-        
+
         return new TreeNode(-1);
     }
     
