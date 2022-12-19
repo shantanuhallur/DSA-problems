@@ -10,25 +10,30 @@
 
 class Solution {
     
-    public final TreeNode getTargetCopy_01(final TreeNode node, final TreeNode tar) {
-        //preOrder work.
-        if(node.val == tar.val) return node;
-        //Recursive call for left
+    public final TreeNode getTargetCopy_01(final TreeNode node, final TreeNode target) {
+        //base case.
+        if(node.val == target.val) return node;
+        
+        //left Recursive call
         if(node.left != null) {
-            TreeNode left = getTargetCopy_01(node.left,tar);
-            if(left.val == tar.val) return left;
+            TreeNode leftAns = getTargetCopy_01(node.left, target);
+            if(leftAns.val == target.val) {
+                return leftAns;
+            }
         }
-        //Recursive call for right
+        //right Recursive call
         if(node.right != null) {
-            TreeNode right = getTargetCopy_01(node.right,tar);
-            if(right.val == tar.val) return right;
+            TreeNode rightAns = getTargetCopy_01(node.right, target);
+                if(rightAns.val == target.val) {
+                return rightAns;
+            }
         }
         
         return new TreeNode(-1);
     }
     
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
-        TreeNode ans = getTargetCopy_01(cloned, target);
+        TreeNode ans = getTargetCopy_01(cloned,target);
         return ans;
     }
 }
