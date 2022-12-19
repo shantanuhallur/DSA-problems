@@ -10,26 +10,25 @@
 
 class Solution {
     
-    public final TreeNode getTargetCopy_01(TreeNode cloned, final TreeNode target) {
-        if(cloned==null) return new TreeNode();
+    public final TreeNode getTargetCopy_01(final TreeNode node, final TreeNode tar) {
+        //preOrder work.
+        if(node.val == tar.val) return node;
+        //Recursive call for left
+        if(node.left != null) {
+            TreeNode left = getTargetCopy_01(node.left,tar);
+            if(left.val == tar.val) return left;
+        }
+        //Recursive call for right
+        if(node.right != null) {
+            TreeNode right = getTargetCopy_01(node.right,tar);
+            if(right.val == tar.val) return right;
+        }
         
-        if(cloned.val == target.val){
-            return cloned;
-        }
-        if(cloned.left!=null){
-            TreeNode left = getTargetCopy_01(cloned.left,target);
-            if(left.val == target.val) return left;
-        }
-        
-        if(cloned.right!=null){
-            TreeNode right = getTargetCopy_01(cloned.right,target);
-            if(right.val == target.val) return right;
-        }
-        return new TreeNode();
+        return new TreeNode(-1);
     }
     
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
-        TreeNode ans = getTargetCopy_01(cloned,target);
+        TreeNode ans = getTargetCopy_01(cloned, target);
         return ans;
     }
 }
