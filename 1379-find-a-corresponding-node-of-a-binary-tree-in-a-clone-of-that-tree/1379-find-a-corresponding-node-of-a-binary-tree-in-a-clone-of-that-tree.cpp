@@ -10,28 +10,29 @@
 
 class Solution {
 public:
-    TreeNode* getTargetCopy(TreeNode* cloned, TreeNode* target) {
-        if(cloned==nullptr) return new TreeNode();
+    
+    TreeNode* getTargetCopy_01(TreeNode* node, TreeNode* target) {
         
-        if(cloned->val == target->val){
-            return cloned;
+        // if node.val == target.val
+        if(node->val == target->val) return node;
+        
+        //Recursive call for left
+        if(node->left != nullptr) {
+            TreeNode* left = getTargetCopy_01(node->left,target);
+            if(left->val == target->val) return left;
         }
         
-        if(cloned->left != nullptr){
-            TreeNode* left = getTargetCopy(cloned->left,target);
-            if(left->val == target->val)return left;
+        //Recursive call for right
+        if(node->right != nullptr) {
+            TreeNode* right = getTargetCopy_01(node->right,target);
+            if(right->val == target->val) return right;
         }
         
-        if(cloned->right != nullptr){
-            TreeNode* right = getTargetCopy(cloned->right,target);
-            if(right->val == target->val)return right;
-        }
-        
-        return new TreeNode();
+        return new TreeNode(-1);
     }
     
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        TreeNode* ans = getTargetCopy(cloned,target);
+        TreeNode* ans = getTargetCopy_01(cloned,target);
         return ans;
     }
 };
