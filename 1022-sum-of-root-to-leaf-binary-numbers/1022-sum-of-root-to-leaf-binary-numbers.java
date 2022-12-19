@@ -40,7 +40,7 @@ class Solution {
         List<LinkedList<Integer>> ans = new LinkedList<>();
         sumRootToLeaf_01(root,ans,smallAns);
         for(LinkedList<Integer> onePath : ans) {
-            for(int i=onePath.size()-1;i>=0;i--) {
+            for(int i=0;i<onePath.size();i++) {
                 if(onePath.get(i)==1){
                     finalAns += Math.pow(2,i);
                 }
