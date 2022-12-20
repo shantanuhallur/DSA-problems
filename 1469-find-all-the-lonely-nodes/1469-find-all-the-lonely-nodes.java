@@ -14,26 +14,24 @@
  * }
  */
 class Solution {
-    public boolean getLonelyNodes_01(TreeNode node,List<Integer> ans) {
-        if(node == null) return false;
-        
-        boolean leftChild = getLonelyNodes_01(node.left,ans);
-        boolean rightChild =  getLonelyNodes_01(node.right,ans);
-        
-        if(leftChild && !rightChild) {
+    public boolean getLonelyNodes_01(TreeNode node,List<Integer> ans) { 
+        //Base Case
+        if(node==null) return false;
+        //Left Recursive call
+        boolean hasLeftChild = getLonelyNodes_01(node.left,ans);
+        //Right Recursive call
+        boolean hasRightChild = getLonelyNodes_01(node.right,ans);
+        //if has left child buit not right child.
+        if(hasLeftChild && !hasRightChild) {
             ans.add(node.left.val);
         }
-        
-        if(rightChild && !leftChild) {
+        //if has right child buit not left child.
+        if(hasRightChild && !hasLeftChild) {
             ans.add(node.right.val);
         }
         
         return true;
- 
     }
-        
-    
-    
     public List<Integer> getLonelyNodes(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
         getLonelyNodes_01(root,ans);
