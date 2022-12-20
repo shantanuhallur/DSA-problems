@@ -12,7 +12,6 @@
 class Solution {
 public:
     int tilt = 0;
-    
     int findSum(TreeNode* node) {
         if(node == nullptr) return 0;
         
