@@ -14,31 +14,34 @@
  * }
  */
 class Solution {
-    public List<Double> averageOfLevels(TreeNode root) {
-        LinkedList<Double> ans = new LinkedList<>();
+    public void averageOfLevels_01(TreeNode node,List<Double> ans) {
+        //Create a que and add root node.
         LinkedList<TreeNode> que = new LinkedList<>();
-        int level = 0;
-        que.addFirst(root);
+        que.add(node);
         
         while(que.size()!=0) {
-            int size = que.size();
-            double orSize = size;
-            double levelAns = 0;
-            while(size-- >0) {
-                TreeNode rn = que.removeFirst();
-                levelAns += rn.val;
-                
-                if(rn.left != null) {
-                    que.addLast(rn.left);
+            double size = que.size();
+            double originalSize = size;
+            double sum = 0;
+            while(size-->0) {
+                TreeNode removeN = que.pop();
+                sum += removeN.val;
+                //add childs of next level
+                if(removeN.left !=null) {
+                    que.addLast(removeN.left);
                 }
                 
-                if(rn.right != null) {
-                    que.addLast(rn.right);
+                if(removeN.right !=null) {
+                    que.addLast(removeN.right);
                 }
             }
-            ans.addLast(levelAns/orSize);
-            level++;
+            ans.add(sum/originalSize);
         }
+    }
+    
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> ans = new ArrayList<>();
+        averageOfLevels_01(root,ans);
         return ans;
     }
 }
