@@ -21,13 +21,9 @@ class Solution {
             return;
         }
         
-
             getleafS(node.left,ans);            
 
-        
-
             getleafS(node.right,ans);            
-        
     }
     
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
