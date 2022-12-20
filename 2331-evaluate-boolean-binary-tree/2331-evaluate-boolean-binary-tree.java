@@ -14,40 +14,30 @@
  * }
  */
 class Solution {
-    
-    public int evaluateTree_01(TreeNode root) {
-        int operation=0;
-        int right = 0;
-        int left = 0;
+    public int evaluateTree_01(TreeNode node) {
+        //Leaf Node base case
+        if(node.left == null && node.right ==null) return node.val;
         
-        if(root.left == null && root.right==null) {
-            return root.val;
+        int leftAns = 0;
+        int rightAns = 0;
+        int operation = 0;
+        //Left Recursive Call
+        leftAns = evaluateTree_01(node.left);
+        //Right Recursive Call
+        rightAns = evaluateTree_01(node.right);
+        //OR operation
+        if(node.val == 2) {
+            operation = (leftAns | rightAns);
+        }
+        //AND opeartion
+        if(node.val == 3) {
+            operation = (leftAns & rightAns);
         }
         
-        if(root.left != null) {
-            left = evaluateTree_01(root.left);
-        }
-        
-        if(root.right != null) {
-            right = evaluateTree_01(root.right);
-        }
-        
-        
-        // OR Opearation 
-        if(root.val == 2){
-            operation = (left | right);
-        }
-        
-        // AND Opearation 
-        if(root.val == 3){
-            operation = (left & right);
-        }
-        
-        root.val = operation;
         return operation;
     }
+    
     public boolean evaluateTree(TreeNode root) {
-        int ans =  evaluateTree_01(root);
-        return ans==1 ? true : false;
+        return evaluateTree_01(root) == 1 ? true : false;
     }
 }
