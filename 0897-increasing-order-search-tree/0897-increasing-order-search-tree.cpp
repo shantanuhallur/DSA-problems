@@ -14,22 +14,29 @@ public:
     TreeNode* dummy = new TreeNode(-1);
     TreeNode* prev = dummy;
     
-    void increasingBST_01(TreeNode* node) {
+    void makeBSTLinear(TreeNode* node) {
+        //Base Case.
         if(node == nullptr) return;
-        increasingBST_01(node->left);
         
-        prev->right = node;
+        //Left Recursive Call
+        makeBSTLinear(node->left);
+        //INORDER ------>>>>
         
+        //Make Current node's left null;
         node->left = nullptr;
         
+        //Initialize prev right to node in Inorder
+        prev->right = node;
+        
+        // Move Previous Ahead
         prev = node;
-        
-        increasingBST_01(node->right);
-        
+        //INORDER ------>>>>
+        //Right Recursive Call
+         makeBSTLinear(node->right);
     }
-    
+        
     TreeNode* increasingBST(TreeNode* root) {
-        increasingBST_01(root);
+        makeBSTLinear(root);
         return dummy->right;
     }
 };
