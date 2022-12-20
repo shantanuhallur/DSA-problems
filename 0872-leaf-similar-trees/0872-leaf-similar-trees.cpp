@@ -14,6 +14,7 @@ public:
     void fillList(TreeNode* node,vector<int>& list) {
         if(node->left == nullptr && node->right == nullptr) {
             list.push_back(node->val);
+            return;
         }
         
         //Left Recursive Call
