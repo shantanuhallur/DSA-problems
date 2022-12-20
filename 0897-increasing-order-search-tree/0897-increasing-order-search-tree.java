@@ -14,27 +14,27 @@
  * }
  */
 class Solution {
-    TreeNode dummy = new TreeNode(-1);
+    TreeNode dummy = new TreeNode(1);
     TreeNode prev = dummy;
     
-    void increasingBST_01(TreeNode node) {
-        if(node==null) return;
-        
-        increasingBST(node.left);
-        
-        prev.right = node;
-        
+    public void makeBSTLinear(TreeNode node) {
+        if(node == null) return;
+        //Left Recursive Call
+        makeBSTLinear(node.left);
+        //INORDER ---->
+        //Make Current Node null
         node.left = null;
-        
+        //Attach node to prev's Right
+        prev.right = node;
+        //Move Prev ahead
         prev = node;
-        
-        increasingBST(node.right);
-        
-       
+        //INORDER ---->
+        //Right Recursive Call
+        makeBSTLinear(node.right);
     }
     
     public TreeNode increasingBST(TreeNode root) {
-        increasingBST_01(root);
+        makeBSTLinear(root);
         return dummy.right;
     }
 }
