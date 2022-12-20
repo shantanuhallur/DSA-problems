@@ -11,35 +11,39 @@
  */
 class Solution {
 public:
-    void getleafS(TreeNode* node,vector<int>& ans) {
-        if(node == nullptr) return;
-        if(node->left == nullptr && node->right == nullptr){
-            ans.push_back(node->val);
+    void fillList(TreeNode* node,vector<int>& list) {
+        if(node->left == nullptr && node->right == nullptr) {
+            list.push_back(node->val);
         }
         
-        getleafS(node->left,ans);
-        getleafS(node->right,ans);
+        //Left Recursive Call
+        if(node->left != nullptr) {
+            fillList(node->left,list);
+        }
         
+        //Right Recursive Call
+        if(node->right != nullptr) {
+            fillList(node->right,list);
+        }
     }
     
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        vector<int> ans1;
-        vector<int> ans2;
+        vector<int> list1,list2;
+        //fill the Lists
+        fillList(root1,list1);
+        fillList(root2,list2);
         
-        getleafS(root1,ans1);
-        getleafS(root2,ans2);
+        //check if the sizes of both lists are same if not return false;
+        int list1Size = list1.size();
+        int list2Size = list2.size();
         
-        int i = ans1.size();
-        int j = ans2.size();
-        
-        if(i!=j){
-            return false;
+        if(list1Size != list2Size) return false;
+        //check if all the integers inside the lists are same at same indexes.
+        while(--list1Size >=0) {
+            //if not return false
+            if(list1[list1Size] != list2[list1Size]) return false;
         }
-        
-        while(--i >=0) {
-            if(ans1[i] != ans2[i]) return false;
-        }
-        
+        //else return true;
         return true;
     }
 };
