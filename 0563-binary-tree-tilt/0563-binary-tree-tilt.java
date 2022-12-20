@@ -14,20 +14,20 @@
  * }
  */
 class Solution {
-    int tilt = 0;
-    public int findSum(TreeNode node) {
+    public int findSum(TreeNode node,int[] ans) {
         if(node == null) return 0;
         
-        int leftSum = findSum(node.left);
-        int rightSum = findSum(node.right);
+        int leftSum = findSum(node.left,ans);
+        int rightSum = findSum(node.right,ans);
         
-        tilt += Math.abs(leftSum-rightSum);
+        ans[0] += Math.abs(leftSum-rightSum);
         
         return (leftSum + rightSum + node.val);
     }
     
     public int findTilt(TreeNode root) {
-        int sum = findSum(root);
-        return tilt;
+        int[] ans = new int[1];
+        int sum = findSum(root,ans);
+        return ans[0];
     }
 }
