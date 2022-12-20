@@ -11,40 +11,33 @@
  */
 class Solution {
 public:
-    int evaluateTree_01(TreeNode* root) {
-        
-        if(root->left == nullptr && root->right == nullptr) {
-            return root->val;
-        }
-        int operation = 0;
-        int left = 0;
-        int right = 0;
-        
-        if(root->left != nullptr) {
-            left = evaluateTree_01(root->left);
-        }
-        
-        if(root->right != nullptr) {
-            right = evaluateTree_01(root->right);
-        }
-        
-        //OR operation
-        if(root-> val == 2) {
-            operation = (left | right);
-        }
-        
-        //AND operation
-        if(root-> val == 3) {
-            operation = (left & right);
-        }
-        
-        root->val = operation;
-        return root->val;
-       
+     int evaluateTree_01(TreeNode* node) {
+        //Leaf Node Base Case
+         if(node->left == nullptr && node->right==nullptr) return node->val;
+         int leftAns = 0;
+         int rightAns = 0;
+         int operation = 0;
+         //Left Recursive Call
+         if(node->left != nullptr){
+             leftAns = evaluateTree_01(node->left);
+         }
+         //Right Recursive Call
+          if(node->right != nullptr){
+             rightAns = evaluateTree_01(node->right);
+         }
+         
+         //PostOrder Operation
+         if(node->val == 2) {
+             operation = (leftAns | rightAns);
+         }
+         
+        if(node->val == 3) {
+             operation = (leftAns & rightAns);
+         }
+          
+         return operation;
     }
     bool evaluateTree(TreeNode* root) {
-        int ans = evaluateTree_01(root);
-        
-        return ans == 1 ? true : false;
+      return evaluateTree_01(root) == 1 ? true : false;
     }
 };
