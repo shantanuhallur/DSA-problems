@@ -21,13 +21,13 @@ class Solution {
             return;
         }
         
-        if(node.left != null) {
+
             getleafS(node.left,ans);            
-        }
+
         
-        if(node.right != null) {
+
             getleafS(node.right,ans);            
-        }
+        
     }
     
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
