@@ -14,8 +14,7 @@
  * }
  */
 class Solution {
-    int ans = (int)1e8;
-    
+
     public int getMin(int... arr) {
         int min = arr[0];
         for(int ele : arr) {
@@ -24,21 +23,13 @@ class Solution {
         return min;
     }
     
+    int ans = (int)1e8;
     public int[] getMinMax(TreeNode node) {
-        if(node.left == null && node.right == null) return new int[]{node.val,node.val};
+        if(node == null) return new int[]{(int)1e8,-(int)1e8};
             
-        int[] leftMinMax = new int[]{(int)1e8,-(int)1e8};
+        int[] leftMinMax =  getMinMax(node.left);
            
-        int[] rightMinMax = new int[]{(int)1e8,-(int)1e8};
-           
-        
-        if(node.left != null) {
-            leftMinMax = getMinMax(node.left);
-        }
-        
-        if(node.right != null) {
-            rightMinMax = getMinMax(node.right);
-        }
+        int[] rightMinMax = getMinMax(node.right);
         
         //ans
         ans = getMin(ans,Math.abs(leftMinMax[0]-node.val),Math.abs(leftMinMax[1]-node.val),Math.abs(rightMinMax[0]-node.val),
@@ -51,9 +42,9 @@ class Solution {
         //max
         myNodeMinMax[1] = Math.max(leftMinMax[1],Math.max(node.val,rightMinMax[1]));
         
-        
         return myNodeMinMax; 
     }
+    
     public int minDiffInBST(TreeNode root) {
         int[] dummy = getMinMax(root);
         return ans;
