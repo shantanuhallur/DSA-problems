@@ -14,25 +14,13 @@
  * }
  */
 class Solution {
-    int closestVal = -1;
-    double minDiff = 1e10;
-    public void closestValue_01(TreeNode node, double target) {
-        if(Math.abs(node.val - target) < minDiff) {
-            minDiff = Math.abs(node.val - target);
-            closestVal = node.val;
-        }
-        
-        if(node.left != null) {
-            closestValue_01(node.left,target);
-        }
-        
-        if(node.right != null) {
-            closestValue_01(node.right,target);
-        }
-    }
-    
     public int closestValue(TreeNode root, double target) {
-        closestValue_01(root,target);
-        return closestVal;
+        int val, closest = root.val;
+        while(root != null) {
+            val = root.val;
+            closest = Math.abs(val - target) < Math.abs(closest - target) ? val : closest;
+            root = target < root.val ? root.left : root.right;
+        }
+        return closest;
     }
 }
