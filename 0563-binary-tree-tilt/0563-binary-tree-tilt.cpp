@@ -12,18 +12,26 @@
 class Solution {
 public:
     int tilt = 0;
-    int findSum(TreeNode* node) {
+    int findTilt_01(TreeNode* node) {
+        //Base Case 
         if(node == nullptr) return 0;
         
-        int leftSum = findSum(node->left);
-        int rightSum = findSum(node->right);
+        //get Left subtree sumation
+        int leftSumation = findTilt_01(node->left);
         
-        tilt += abs(leftSum-rightSum);
+        //get Right subtree sumation
+        int rightSumation = findTilt_01(node->right);
         
-        return (leftSum + rightSum + node->val);
+        tilt += abs(leftSumation-rightSumation);
+        
+        int sum = (leftSumation + rightSumation + node->val);
+        
+        return sum;
     }
     int findTilt(TreeNode* root) {
-        findSum(root);
+        
+        findTilt_01(root);
+        
         return tilt;
     }
 };
