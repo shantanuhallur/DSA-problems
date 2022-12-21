@@ -14,30 +14,23 @@
  * }
  */
 class Solution {
+    public void preorderTraversal_01(TreeNode node,ArrayList<Integer> ans) {
+        ans.add(node.val);
+        
+        if(node.left != null){
+            preorderTraversal_01(node.left,ans);
+        }
+        
+        if(node.right != null){
+            preorderTraversal_01(node.right,ans);
+         }
+    }
+    
     public List<Integer> preorderTraversal(TreeNode root) {
         //Base case
-        List<Integer> list = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
         if(root==null)  return list;
-        
-        LinkedList<TreeNode> st = new LinkedList<>();
-        //add root node
-        st.addLast(root);
-        //while our stack is not empty
-        while(st.size()!=0) {
-            //Remove the node from last
-            TreeNode removeN = st.removeLast();
-            
-            //add right node if exists
-            if(removeN.right != null) {
-                st.addLast(removeN.right);
-            }
-            //add left node if exists
-            if(removeN.left != null) {
-                st.addLast(removeN.left);
-            }
-            
-            list.add(removeN.val);
-        }
+        preorderTraversal_01(root,list);
         
         return list;
     }
