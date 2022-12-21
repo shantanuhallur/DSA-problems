@@ -14,14 +14,13 @@
  * }
  */
 class Solution {
-    //expectation function will give max height.
     public int maxDepth(TreeNode root) {
-        //base case
-        if(root==null)return 0;
-        //faith it will give us depth of its nodes
-        int left =  maxDepth(root.left);
-        int right = maxDepth(root.right);
-        //expectation -> faith
-        return Math.max(left,right)+1;
+        //Base Case -> null node has 0 depth.
+        if(root == null) return 0;
+        //Left recursive calls for depths of both.
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        // Choosing maximum depth from both and adding 1 as i am 1 level greater from them.        
+        return Math.max(leftDepth,rightDepth) + 1;
     }
 }
