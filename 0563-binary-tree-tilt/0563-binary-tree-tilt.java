@@ -14,20 +14,30 @@
  * }
  */
 class Solution {
-    public int findSum(TreeNode node,int[] ans) {
-        if(node == null) return 0;
+    int tilt = 0;
+    
+    public int findTilt_01(TreeNode node) {
+        //Base Case
+        if(node==null) return 0;
         
-        int leftSum = findSum(node.left,ans);
-        int rightSum = findSum(node.right,ans);
+        //Recursive Sumation of whole left Subtree
+        int leftSumation = findTilt_01(node.left);
         
-        ans[0] += Math.abs(leftSum-rightSum);
+         //Recursive Sumation of whole left Subtree
+        int rightSumation = findTilt_01(node.right);
         
-        return (leftSum + rightSum + node.val);
+        tilt += Math.abs(leftSumation-rightSumation);
+        
+        int sum = leftSumation + rightSumation + node.val;
+            
+        return sum;
     }
     
     public int findTilt(TreeNode root) {
-        int[] ans = new int[1];
-        int sum = findSum(root,ans);
-        return ans[0];
+        if(root == null) return 0;
+        
+        System.out.print(findTilt_01(root));
+        
+        return tilt;
     }
 }
