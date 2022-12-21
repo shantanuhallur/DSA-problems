@@ -30,7 +30,7 @@ public:
     }
     int findTilt(TreeNode* root) {
         
-        findTilt_01(root);
+        cout<<findTilt_01(root);
         
         return tilt;
     }
