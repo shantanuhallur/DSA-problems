@@ -15,18 +15,17 @@
  */
 class Solution {
     public void postorderTraversal_01(TreeNode node,ArrayList<Integer> ans) {
+        //Base Case return if node is null.
         if(node == null) return;
-
-            postorderTraversal_01(node.left,ans);
-
-            postorderTraversal_01(node.right,ans);
-
+        //Left Recursive Call
+        postorderTraversal_01(node.left,ans);
+        //Right Recursive Call
+        postorderTraversal_01(node.right,ans);
+        //PostOrder Work
         ans.add(node.val);
     }
-    
     public List<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> ans = new ArrayList<>();
-        if(root == null) return ans;
         postorderTraversal_01(root,ans);
         return ans;
     }
