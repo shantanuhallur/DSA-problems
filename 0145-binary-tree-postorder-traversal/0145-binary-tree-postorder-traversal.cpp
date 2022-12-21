@@ -14,15 +14,13 @@ public:
     void postorderTraversal_01(TreeNode* node,vector<int>& ans) {
         //Base Case
         if(node == nullptr) return;
-        
+
         //Left Recursive Call
         postorderTraversal_01(node->left,ans);
-        // INORDER ------>>>>
-        // INORDER ------>>>>
         //Right Recursive Call
         postorderTraversal_01(node->right,ans);
-        
-         ans.push_back(node->val);
+        //PostOrder Work
+        ans.push_back(node->val);
     }
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> ans;
