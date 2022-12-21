@@ -15,14 +15,12 @@
  */
 class Solution {
     public void postorderTraversal_01(TreeNode node,ArrayList<Integer> ans) {
+        if(node == null) return;
 
-        if(node.left != null){
             postorderTraversal_01(node.left,ans);
-        }
-        
-        if(node.right != null){
+
             postorderTraversal_01(node.right,ans);
-         }
+
         ans.add(node.val);
     }
     
