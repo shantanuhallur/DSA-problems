@@ -14,18 +14,20 @@
  * }
  */
 class Solution {
-    boolean isUnivalTree_01(TreeNode node,int val) {
-        if(node == null) return true;   
+    public boolean isUnivalTree_01(TreeNode root,int val) {
+        //Base
+        if(root==null) return true;
+        //Left Recursive Call
+        boolean hasSameLeftVal = isUnivalTree_01(root.left,val);
+        //Right Recursive Call
+        boolean hasSameRightVal = isUnivalTree_01(root.right,val);
         
-        boolean hasLeft = isUnivalTree_01(node.left,val);
-        boolean hasRight = isUnivalTree_01(node.right,val);
-        
-        if(node.val == val && hasLeft && hasRight)return true;
+        if(hasSameLeftVal && hasSameRightVal && root.val == val) return true;
         else return false;
     }
-    
     public boolean isUnivalTree(TreeNode root) {
-        if(root == null) return true;
+        //Base
+        if(root==null) return true;
         int val = root.val;
         return isUnivalTree_01(root,val);
     }
