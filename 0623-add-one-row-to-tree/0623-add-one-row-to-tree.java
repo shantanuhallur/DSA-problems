@@ -35,6 +35,7 @@ class Solution {
                 if(removeN.left != null) {
                     que.addLast(removeN.left);
                 }
+                
                 if(removeN.right != null) {
                     que.addLast(removeN.right);
                 }
@@ -53,8 +54,9 @@ class Solution {
             //attach these nodes
             removeN.left = leftN;
             removeN.right = rightN;
-            leftN.left = temp1;
-            rightN.right = temp2;
+            
+            removeN.left.left = temp1;
+            removeN.right.right = temp2;
         }
         
         return root;
