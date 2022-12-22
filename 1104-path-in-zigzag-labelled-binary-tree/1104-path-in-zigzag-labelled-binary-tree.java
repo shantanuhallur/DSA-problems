@@ -28,10 +28,8 @@ class Solution {
         }
         rEle = rEle/2;
         
-        int par = 100;
-        while(par>=1){
-            int x = sum - tar + rEle;
-            par = x/2;
+        while(sum>=1){
+            int par = (sum - tar + rEle)/2;
             if(par!=0)ans.addFirst(par);
             tar = par;
             rEle = rEle/2;
