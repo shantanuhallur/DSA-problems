@@ -13,8 +13,11 @@ class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
         if(root == nullptr) return false;
-        if(root->left == nullptr && root->right == nullptr) return(targetSum-root->val ==0);
+        // I AM A LEAF
+        if(root->left == nullptr && root->right == nullptr){
+            return (targetSum - root->val == 0);
+        } 
         
-        return hasPathSum(root->left,targetSum-root->val) || hasPathSum(root->right,targetSum-root->val);
+        return hasPathSum(root->right,targetSum-root->val) || hasPathSum(root->left,targetSum-root->val);
     }
 };
