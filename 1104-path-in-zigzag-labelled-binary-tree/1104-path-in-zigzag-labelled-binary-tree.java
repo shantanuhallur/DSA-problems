@@ -30,8 +30,7 @@ class Solution {
         
         int par = 100;
         while(par>=1){
-            int firstEle = rEle;
-            int x = sum - tar + firstEle;
+            int x = sum - tar + rEle;
             par = x/2;
             if(par!=0)ans.addFirst(par);
             tar = par;
