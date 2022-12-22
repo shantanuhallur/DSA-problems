@@ -28,13 +28,13 @@ public:
         st.push(root);
         
         while(st.size()!=0) {
-            Node* rn = st.top(); st.pop();
+            Node* removeN = st.top(); st.pop();
             
-            for(Node* child : rn->children) {
+            for(Node* child : removeN->children) {
                 st.push(child);
             }
             
-            ans.insert(ans.begin(),rn->val);
+            ans.insert(ans.begin(),removeN->val);
         }
         
         return ans;
