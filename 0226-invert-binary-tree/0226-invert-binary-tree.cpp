@@ -12,11 +12,14 @@
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
+        //Base Case
         if(root == nullptr) return nullptr;
         
+        //Left & Right Recursive Call
         invertTree(root->left);
         invertTree(root->right);
         
+        //Invert Of Left and Right
         TreeNode* temp = root->left;
         root->left = root->right;
         root->right = temp;
