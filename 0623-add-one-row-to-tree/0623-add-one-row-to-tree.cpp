@@ -12,45 +12,51 @@
 class Solution {
 public:
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        //Base case
         if(depth == 1) {
             TreeNode* base = new TreeNode(val);
             base->left = root;
             return base;
         }
-        
         int level = 1;
-        
+        //Declare define a que
         queue<TreeNode*> que;
-        
         que.push(root);
         
-        while(level < depth-1) {
+        while(level < depth-1){
             int size = que.size();
             while(size-- >0) {
-                TreeNode* rn = que.front(); que.pop();
+                TreeNode* removeN = que.front(); que.pop();
                 
-                if(rn->left != nullptr) {
-                    que.push(rn->left);
+                if(removeN ->left != nullptr) {
+                    que.push(removeN ->left);
                 }
                 
-                if(rn->right != nullptr) {
-                    que.push(rn->right);
+                if(removeN ->right != nullptr) {
+                    que.push(removeN ->right);
                 }
             }
             level++;
         }
         
-        while(que.size() != 0) {
-            TreeNode* rn = que.front(); que.pop();
+        //Add Nodes.
+        while(que.size()!=0) {
+            TreeNode* removeN = que.front(); que.pop();
             
-                TreeNode* temp1 = rn->left;
-                TreeNode* temp2 = rn->right;
-                rn->left = new TreeNode(val);
-                rn->right = new TreeNode(val);
-                rn->left->left = temp1;
-                rn->right->right = temp2;
-            }
+            TreeNode* temp1 = removeN->left;
+            TreeNode* temp2 = removeN->right;
             
+            TreeNode* newLeftN = new TreeNode(val);
+            TreeNode* newRightN = new TreeNode(val);
+            
+            removeN->left = newLeftN;
+            removeN->right = newRightN;
+            
+            newLeftN->left = temp1;
+            newRightN->right = temp2;
+            
+        }
+        
         return root;
     }
 };
