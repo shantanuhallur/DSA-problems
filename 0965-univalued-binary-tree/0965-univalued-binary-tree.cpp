@@ -11,16 +11,20 @@
  */
 class Solution {
 public:
-    bool isUnivalTree_01(TreeNode* node,int val) {
-        if(node == nullptr) return true;
+    bool isUnivalTree_01(TreeNode* root, int val) {
+        //Base Case
+        if(root == nullptr) return true;
+        //Left Recursive Call
+        bool hasLeftSameVal = isUnivalTree_01(root->left,val);
+        //Right Recursive Call
+        bool hasRightSameVal = isUnivalTree_01(root->right,val);
         
-        bool hasLeft = isUnivalTree_01(node->left,val);
-        bool hasRight = isUnivalTree_01(node->right,val);
-        
-        if(hasLeft && hasRight && node->val == val) return true;
+        if(hasLeftSameVal && hasRightSameVal && root->val == val) return true;
         else return false;
     }
+    
     bool isUnivalTree(TreeNode* root) {
+        //Base Case
         if(root == nullptr) return true;
         int val = root->val;
         return isUnivalTree_01(root,val);
