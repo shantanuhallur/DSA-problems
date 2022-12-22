@@ -16,10 +16,12 @@ public:
         if(root == nullptr) return true;
         //Left Recursive Call
         bool hasLeftSameVal = isUnivalTree_01(root->left,val);
+        if(!hasLeftSameVal) return false;
         //Right Recursive Call
         bool hasRightSameVal = isUnivalTree_01(root->right,val);
+        if(!hasRightSameVal) return false;
         
-        if(hasLeftSameVal && hasRightSameVal && root->val == val) return true;
+        if(root->val == val) return true;
         else return false;
     }
     
