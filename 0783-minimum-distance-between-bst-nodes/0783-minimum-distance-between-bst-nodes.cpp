@@ -11,41 +11,23 @@
  */
 class Solution {
 public:
-        int getMin(vector<int>& arr) {
-        int min_ = arr[0];
-        for(int ele : arr) {
-            min_ = min(ele,min_);
+    int minDiff = INT_MAX;
+    TreeNode* prev = nullptr;
+    void minDiffInBST_01(TreeNode* node) {
+        if(node == nullptr) return;
+        
+        minDiffInBST_01(node->left);
+        
+        if(prev!= nullptr){
+            int diff = node->val-prev->val;
+            minDiff = min(minDiff,diff);
         }
-        return min_;
+        
+        prev = node;
+        minDiffInBST_01(node->right);
     }
-    
-    int ans = (int)1e8;
-     vector<int> getMinMax(TreeNode* node) {
-        if(node == nullptr) {
-            vector<int> base = {(int)1e8,-(int)1e8};
-            return base;
-        }
-            
-        vector<int> leftMinMax =  getMinMax(node->left);
-           
-        vector<int> rightMinMax = getMinMax(node->right);
-        
-        //ans
-         vector<int> arr = {ans,abs(leftMinMax[0]-node->val),abs(leftMinMax[1]-node->val),abs(rightMinMax[0]-                                      node->val),abs(rightMinMax[1]-node->val)};
-        ans = getMin(arr);
-        
-        vector<int> myNodeMinMax = {(int)1e8,-(int)1e8};
-        
-        //min
-        myNodeMinMax[0] = min(leftMinMax[0],min(node->val,rightMinMax[0]));
-        //max
-        myNodeMinMax[1] = max(leftMinMax[1],max(node->val,rightMinMax[1]));
-        
-        return myNodeMinMax; 
-    }
-    
     int minDiffInBST(TreeNode* root) {
-        vector<int> dummy = getMinMax(root);
-        return ans;
+        minDiffInBST_01(root);
+        return minDiff;
     }
 };
