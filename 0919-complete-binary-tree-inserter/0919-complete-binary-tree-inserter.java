@@ -17,6 +17,7 @@ class CBTInserter {
     TreeNode h = null;
     TreeNode currPtr = null;
     Queue<TreeNode> que = new LinkedList<>();
+    
     public CBTInserter(TreeNode root) {
         h = root;
         que.add(root);
