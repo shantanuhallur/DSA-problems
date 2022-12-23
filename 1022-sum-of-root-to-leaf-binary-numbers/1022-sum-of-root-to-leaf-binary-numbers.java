@@ -14,39 +14,15 @@
  * }
  */
 class Solution {
-    public void sumRootToLeaf_01(TreeNode node,List<LinkedList<Integer>> ans, LinkedList<Integer> smallAns) {
-        if(node.left == null && node.right == null){
-            LinkedList<Integer> base = new LinkedList<>(smallAns);
-            base.addFirst(node.val);
-            ans.add(base);
-            
-        }
+    public int sumRootToLeaf_01(TreeNode root, int sum) {
+        if(root == null )return 0;
         
-        smallAns.addFirst(node.val);
-
-        if(node.left != null) {
-            sumRootToLeaf_01(node.left,ans,smallAns);
-        }
+        sum = (2*sum) + root.val;
+        if(root.left == null && root.right == null) return sum;
         
-        if(node.right != null) {
-            sumRootToLeaf_01(node.right,ans,smallAns);
-        }
-        smallAns.removeFirst();
+        return sumRootToLeaf_01(root.left,sum) + sumRootToLeaf_01(root.right,sum);
     }
-    
     public int sumRootToLeaf(TreeNode root) {
-        int finalAns = 0;
-        LinkedList<Integer> smallAns = new LinkedList<>();
-        List<LinkedList<Integer>> ans = new LinkedList<>();
-        sumRootToLeaf_01(root,ans,smallAns);
-        for(LinkedList<Integer> onePath : ans) {
-            for(int i=0;i<onePath.size();i++) {
-                if(onePath.get(i)==1){
-                    finalAns += Math.pow(2,i);
-                }
-                
-            }
-        }
-        return finalAns;
+        return sumRootToLeaf_01(root,0);
     }
 }
