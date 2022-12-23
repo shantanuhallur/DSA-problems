@@ -25,8 +25,8 @@ class Solution {
             List<TreeNode> leftSubtreeList = allPossibleFBT(i);
             List<TreeNode> rightSubtreeList = allPossibleFBT(n-i-1);
             
-            for(TreeNode r : rightSubtreeList) {
-                for(TreeNode l : leftSubtreeList){
+            for(TreeNode l : leftSubtreeList) {
+                for(TreeNode r : rightSubtreeList){
                     TreeNode root = new TreeNode(0);
                     root.left = l;
                     root.right = r;
