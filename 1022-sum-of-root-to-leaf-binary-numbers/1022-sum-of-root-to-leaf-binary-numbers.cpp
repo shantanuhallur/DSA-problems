@@ -11,18 +11,24 @@
  */
 class Solution {
 public:
-    int sumRootToLeaf_01(TreeNode* root , int sum) {
-        if(root == nullptr) return 0;
+    int sumRootToLeaf_01(TreeNode* node,int sum) {
+        //If tree Doesnt exist.
+        if(node == nullptr) return 0;
         
-        sum = (2*sum) + root->val;
-        if(root->left == nullptr && root->right == nullptr) {
-            return sum;
-        }
+        //Calculate Sum
+        sum = (2*sum) + node->val;
+        //Leaf condition
+        if(node->left == nullptr && node->right == nullptr) return sum;
+        //Get decimal sumation of left and right Paths.
+        int leftSum = sumRootToLeaf_01(node->left,sum);
+        int rightSum = sumRootToLeaf_01(node->right,sum);
         
-        return sumRootToLeaf_01(root->left,sum) + sumRootToLeaf_01(root->right,sum);
+        int totalSum = leftSum + rightSum;
+        
+        return totalSum;
     }
+    
     int sumRootToLeaf(TreeNode* root) {
-        
         return sumRootToLeaf_01(root,0);
     }
 };
