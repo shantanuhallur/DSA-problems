@@ -16,19 +16,24 @@
 class Solution {
     int minDiff = Integer.MAX_VALUE;
     TreeNode prev = null;
-    public void minDiffInBST_01(TreeNode node) {
+    
+    void minDiffInBST_01(TreeNode node) {
+        //Base Case
         if(node==null) return;
+        //Left Recursive Call
         minDiffInBST_01(node.left);
+        //INORDER AREA -------------->>>
         
-        if(prev!=null){
-            int diff = node.val-prev.val;
-            minDiff = Math.min(minDiff,diff);
+        if(prev != null) {
+            int minVal =  node.val - prev.val;
+            minDiff = Math.min(minDiff,minVal);
         }
         
-        prev=node;
+        prev = node;
+        //INORDER AREA -------------->>>
+        //Left Recursive Call
         minDiffInBST_01(node.right);
     }
-    
     public int minDiffInBST(TreeNode root) {
         minDiffInBST_01(root);
         return minDiff;
