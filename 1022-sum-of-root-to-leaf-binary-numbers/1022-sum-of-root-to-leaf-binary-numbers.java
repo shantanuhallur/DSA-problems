@@ -19,8 +19,12 @@ class Solution {
         
         sum = (2*sum) + root.val;
         if(root.left == null && root.right == null) return sum;
+        int leftSum = sumRootToLeaf_01(root.left,sum);
+        int rightSum = sumRootToLeaf_01(root.right,sum);
         
-        return sumRootToLeaf_01(root.left,sum) + sumRootToLeaf_01(root.right,sum);
+        int totalSum = leftSum+rightSum;
+        
+        return totalSum;
     }
     public int sumRootToLeaf(TreeNode root) {
         return sumRootToLeaf_01(root,0);
