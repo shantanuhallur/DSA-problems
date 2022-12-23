@@ -15,20 +15,17 @@
  */
 class Solution {
     int rangeSum = 0;
-    public void rangeSumBST_01(TreeNode root, int low, int high) {
-        if(root == null) return;
+    public void rangeSumBST_01(TreeNode node, int low, int high) {
+        //Base Case -->>>
+        if(node == null) return;
+        //condition to check if we should add the current nodes value or not?
+        if(low <= node.val && node.val <= high) rangeSum += node.val;
+         //condition to check if we should recurse in left & right or not.
+        if(low <= node.val) rangeSumBST_01(node.left,low,high);
         
-        if(root.val >= low && root.val<= high) {
-            rangeSum += root.val;
-        }
+        if(node.val<= high) rangeSumBST_01(node.right,low,high);
         
-        if(root.val >= low) {
-            rangeSumBST_01(root.left,low,high);
-        }
         
-        if(root.val <= high) {
-            rangeSumBST_01(root.right,low,high);
-        }
     }
     public int rangeSumBST(TreeNode root, int low, int high) {
         rangeSumBST_01(root,low,high);
