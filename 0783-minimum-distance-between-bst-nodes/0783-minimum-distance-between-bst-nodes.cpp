@@ -13,18 +13,26 @@ class Solution {
 public:
     int minDiff = INT_MAX;
     TreeNode* prev = nullptr;
-    void minDiffInBST_01(TreeNode* node) {
-        if(node == nullptr) return;
-        
-        minDiffInBST_01(node->left);
-        
-        if(prev!= nullptr){
-            int diff = node->val-prev->val;
-            minDiff = min(minDiff,diff);
-        }
-        
-        prev = node;
-        minDiffInBST_01(node->right);
+     void minDiffInBST_01(TreeNode* node) {
+        //Base Case 
+         if(node == nullptr) return;
+         
+         //Left Recursive Call
+         minDiffInBST_01(node->left);
+         //INORDER AREA ---->>>>>>>>>>>>
+         
+         if(prev != nullptr) {
+             int minVal = node->val - prev->val;
+             minDiff = min(minDiff,minVal);
+         }
+         
+         prev = node;
+         //INORDER AREA ---->>>>>>>>>>>>
+         //Right Recursive Call
+         minDiffInBST_01(node->right);
+         
+         
+         
     }
     int minDiffInBST(TreeNode* root) {
         minDiffInBST_01(root);
