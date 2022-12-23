@@ -41,12 +41,11 @@ class CBTInserter {
     }
     
     public int insert(int val) {
-        int rnVal = 0;
+        int rnVal = currPtr.val;
         if(currPtr.left == null){
             TreeNode node = new TreeNode(val);
             currPtr.left = node;
             que.add(node);
-            rnVal = currPtr.val;
         }
         else{
             TreeNode node = new TreeNode(val);
