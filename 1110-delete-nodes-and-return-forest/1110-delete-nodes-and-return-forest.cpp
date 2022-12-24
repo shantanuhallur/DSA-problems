@@ -41,8 +41,9 @@ public:
         vector<TreeNode*> ans;
         //if we dont have root value to delete add this value to our ans;
         auto pos = mySet.find(root->val);
-        if(pos == mySet.end()) ans.push_back(root); 
-        delNodes_01(root,ans,mySet);
+        // if(pos == mySet.end()) ans.push_back(root); 
+        
+        if(delNodes_01(root,ans,mySet)) ans.push_back(root);
         return ans;
     }
 };
