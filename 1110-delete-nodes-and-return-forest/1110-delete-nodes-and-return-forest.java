@@ -13,36 +13,38 @@
  *     }
  * }
  */
-class Solution {
-    public TreeNode delNodes_01(TreeNode node,  HashSet<Integer> set,ArrayList<TreeNode> ans) {
+class Solution {    
+    public TreeNode delNodes_01(TreeNode node, HashSet<Integer> s,ArrayList<TreeNode> ans) {
+        //Base Case
         if(node == null) return null;
-        
-        node.left = delNodes_01(node.left,set,ans);
-        node.right = delNodes_01(node.right,set,ans);
-        
-        if(set.contains(node.val)) {
+        //Left and Right Recursive Calls
+        node.left = delNodes_01(node.left,s,ans);
+        node.right = delNodes_01(node.right,s,ans);
+        //If current node is to be deleted.
+        if(s.contains(node.val)) {
             if(node.left != null) {
                 ans.add(node.left);
             }
-            
             if(node.right != null) {
                 ans.add(node.right);
             }
+
             return null;
         }
+        //If we dont want to delete the current Node.
         return node;
     }
-            
     public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
         ArrayList<TreeNode> ans = new ArrayList<>();
-        HashSet<Integer> set = new HashSet<>();
+        HashSet<Integer> s = new HashSet<>();
+        //Quick lookup for deletion.
         for(int ele : to_delete) {
-            set.add(ele);
+            s.add(ele);
         }
-        if(!set.contains(root.val)){
+        if(!s.contains(root.val)) {
             ans.add(root);
         }
-        delNodes_01(root,set,ans);
+        delNodes_01(root,s,ans);
         return ans;
     }
 }
