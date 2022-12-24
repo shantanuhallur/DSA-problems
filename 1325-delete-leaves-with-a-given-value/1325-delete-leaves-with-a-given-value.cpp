@@ -11,20 +11,15 @@
  */
 class Solution {
 public:
-    TreeNode* removeLeafNodes_01(TreeNode* root, int target) {
-        if(root == nullptr) return nullptr;
+    TreeNode* removeLeafNodes(TreeNode* node, int target) {
+        //Base Case
+        if(!node) return nullptr;
+        //Recursive Calls
+        node->left = removeLeafNodes(node->left,target);
+        node->right = removeLeafNodes(node->right,target);
+        //Checking the condition of Leafs
+        if(!node->left && !node->right && node->val == target) return nullptr;
         
-        root->left = removeLeafNodes_01(root->left,target);
-        
-        root->right = removeLeafNodes_01(root->right,target);
-        
-        if(root->left == nullptr && root->right == nullptr && root->val == target) return nullptr;
-        else return root;
-    }
-    
-    TreeNode* removeLeafNodes(TreeNode* root, int target) {
-        if(root == nullptr || (root->val == target && root->left == nullptr && root->right == nullptr)) return nullptr;
-      
-        return removeLeafNodes_01(root,target);
+        return node;
     }
 };
