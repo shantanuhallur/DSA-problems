@@ -14,19 +14,22 @@
  * }
  */
 class Solution {
-    public void binaryTreePaths_01(TreeNode node,String currPath,ArrayList<String> ans) {
-        if(node.left==null && node.right == null) {
-            ans.add(currPath + node.val);
-            return;  
-        } 
-        
-        currPath += node.val + "->";
-        if(node.left != null)binaryTreePaths_01(node.left,currPath,ans);    
-        if(node.right != null)binaryTreePaths_01(node.right,currPath,ans);    
+    public void binaryTreePaths_01(TreeNode node, ArrayList<String> ans,String currPath) {
+        //Base case of LEAF
+        if(node.left == null && node.right == null) {
+            currPath += node.val;
+            ans.add(currPath);
+            return;
+        }
+        //Update our CurrPath
+        currPath += node.val +"->";
+        //Make calls and recurse in left and right of node if exists.
+        if(node.left != null) binaryTreePaths_01(node.left,ans,currPath);
+        if(node.right != null) binaryTreePaths_01(node.right,ans,currPath);
     }
     public List<String> binaryTreePaths(TreeNode root) {
-        ArrayList<String> ans = new ArrayList<>();
-        binaryTreePaths_01(root,"",ans);
+        ArrayList<String> ans = new ArrayList<>(); 
+        binaryTreePaths_01(root,ans,"");
         return ans;
     }
 }
