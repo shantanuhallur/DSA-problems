@@ -15,18 +15,20 @@
  */
 class Solution {
     public TreeNode removeLeafNodes_01(TreeNode node, int target) {
-        if(node==null) return null;
-        
+        //Base Condition
+        if(node == null) return null;
+        // Recursive Calls
         node.left = removeLeafNodes_01(node.left,target);
-        
         node.right = removeLeafNodes_01(node.right,target);
         
-        if(node.val == target && node.left == null && node.right == null) return null;
-        else return node;
+        //PostOrder checking of leafs
+        if(node.left == null && node.right == null && node.val == target) return null;
+        
+        return node;
     }
+    
     public TreeNode removeLeafNodes(TreeNode root, int target) {
         if(root == null) return null;
-        
         return removeLeafNodes_01(root,target);
     }
 }
