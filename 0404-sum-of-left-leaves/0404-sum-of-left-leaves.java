@@ -15,19 +15,17 @@
  */
 class Solution {
     int sum = 0;
-    public void sumOfLeftLeaves_01(TreeNode root) {
-        if(root == null) return;
-        if(root.left != null) {
-            if(root.left.left == null && root.left.right == null) {
-                sum += root.left.val;
-            }
-        }
+    public void sumOfLeftLeaves_01(TreeNode node) {
+        //Base Case return
+        if(node == null) return;
+        //left Node exists -> Node's left child's left and right are null
+        if(node.left != null && node.left.left == null && node.left.right == null) sum += node.left.val;
         
-        sumOfLeftLeaves(root.left);
-        sumOfLeftLeaves(root.right);
+        //Recursive Call to left and right Nodes.
+        sumOfLeftLeaves_01(node.left);
+        sumOfLeftLeaves_01(node.right);
     }
     public int sumOfLeftLeaves(TreeNode root) {
-        if(root == null) return 0;
         sumOfLeftLeaves_01(root);
         return sum;
     }
