@@ -14,16 +14,13 @@
  * }
  */
 class Solution {
+    TreeNode flatten_01(TreeNode node) {
+        if(node == null || (node.left == null && node.right == null)) return node;
     
-    public TreeNode flatten_(TreeNode node) {
-        if(node == null || (node.left == null && node.right == null)){
-            return node; //basecase for leaves as they will become tails and null node.
-        }
+        TreeNode leftTail = flatten_01(node.left);
+        TreeNode rightTail = flatten_01(node.right);
         
-        TreeNode leftTail = flatten_(node.left);
-        TreeNode rightTail = flatten_(node.right);
-        
-        if(leftTail!=null) {
+        if(leftTail != null) {
             leftTail.right = node.right;
             node.right = node.left;
             node.left = null;
@@ -31,9 +28,8 @@ class Solution {
         
         return rightTail != null ? rightTail : leftTail;
     }
+    
     public void flatten(TreeNode root) {
-        if(root==null) 
-            return;
-        flatten_(root);
+        flatten_01(root);
     }
 }
