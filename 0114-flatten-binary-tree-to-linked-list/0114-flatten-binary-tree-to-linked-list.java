@@ -14,13 +14,14 @@
  * }
  */
 class Solution {
-    TreeNode flatten_01(TreeNode node) {
-        if(node == null || (node.left == null && node.right == null)) return node;
-    
+    public TreeNode flatten_01(TreeNode node) {
+        //Base Case handle leafs
+        if(node == null ||(node.left == null && node.right == null)) return node;
+        //Left and Right recursive Call
         TreeNode leftTail = flatten_01(node.left);
         TreeNode rightTail = flatten_01(node.right);
-        
-        if(leftTail != null) {
+        //Flatten the tree for This Node
+        if(leftTail != null){
             leftTail.right = node.right;
             node.right = node.left;
             node.left = null;
