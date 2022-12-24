@@ -25,7 +25,7 @@ class Solution {
         else return node;
     }
     public TreeNode removeLeafNodes(TreeNode root, int target) {
-        if(root == null ||(root.left == null && root.right == null && root.val == target)) return null;
+        if(root == null) return null;
         
         return removeLeafNodes_01(root,target);
     }
