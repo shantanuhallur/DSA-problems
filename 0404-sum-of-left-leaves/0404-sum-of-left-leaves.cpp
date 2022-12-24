@@ -13,15 +13,16 @@ class Solution {
 public:
     int sum = 0;
     void sumOfLeftLeaves_01(TreeNode* node) {
+        //Base Case for return
         if(!node) return;
+        //Checking if left child exists and of its a leaf then adding it to the sum.
+        if(node->left && !node->left->left && !node->left->right) sum += node->left->val;
         
-        if(node->left && !node->left->left && !node->left->right) sum+= node->left->val;
-        
+        //Recursively add the left leaves sum for current nodes left and right.
         sumOfLeftLeaves_01(node->left);
         sumOfLeftLeaves_01(node->right);
     }
     int sumOfLeftLeaves(TreeNode* root) {
-        if(!root) return 0;
         sumOfLeftLeaves_01(root);
         return sum;
     }
