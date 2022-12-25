@@ -38,13 +38,13 @@ class Solution {
         }
         else if(leftAns.data == node.val) {
             //for ans
-            ans = Math.max(ans,Math.max(leftAns.height+1,rightAns.height));
+            ans = Math.max(ans,leftAns.height+1);
             //for myPair
             myPair.height = leftAns.height+1;
         }
         else if(rightAns.data == node.val) {
             //for ans
-            ans = Math.max(ans,Math.max(leftAns.height,rightAns.height+1));
+            ans = Math.max(ans,rightAns.height+1);
             //for myPair
             myPair.height = rightAns.height+1;
         }
