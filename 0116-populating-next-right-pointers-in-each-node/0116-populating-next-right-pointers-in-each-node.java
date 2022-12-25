@@ -23,26 +23,16 @@ class Node {
 
 class Solution {
     public void connect_01(Node node) {
-        LinkedList<Node> que1 = new LinkedList<>();
-        LinkedList<Node> que2 = new LinkedList<>();
-        que1.addLast(node);
-        
-        while(que1.size()!=0) {
-            int size = que1.size();
-            while(size-->0) {
-                Node rn = que1.pop();
-                if(!que1.isEmpty()){
-                    rn.next = que1.peekFirst();
-                }
-                else{
-                    rn.next = null;
-                }
-                
-                if(rn.left !=null) que2.addLast(rn.left);
-                if(rn.right !=null) que2.addLast(rn.right);
+        while(node.left != null){
+            Node firstPtr = node.left;
+            while(true) {
+                node.left.next = node.right;
+
+                if(node.next != null) node.right.next = node.next.left;
+                else break;
+                node = node.next;
             }
-            que1 = que2;
-            que2 = new LinkedList<>();
+            node = firstPtr;
         }
     }
     public Node connect(Node root) {
