@@ -53,8 +53,16 @@ class Solution {
         
         return myPair;
     }
-    // ans -> storing longest length in overall tree of same nodes
-    // myPair.height storing longest length through the current node
+// ans -> storing longest length in overall tree of same nodes
+// myPair.height storing longest height from *CURRENT* node to left *or* right 
+// --> if in myPair 3 cases arise
+//1->if l=r=me ->myMax height will be max(l,r) + 1
+//2 -> if l=me -> myMaxHeight will be 1+leftHeight 
+//3 -> if r=me -> myMaxHeight will be 1+rightHeight
+// --> if in total ans 3 cases will arise
+// -->if l=r=me ansMax will be max(ans,lh+rh+1)
+//  -->if l=me ansMax will be max(ans,lh+1,rh)
+//  -->if r=me ansMax will be max(ans,rh+1,lh)
     public int longestUnivaluePath(TreeNode root) {
         if (root == null) return 0;
         longestUnivaluePath_01(root);
