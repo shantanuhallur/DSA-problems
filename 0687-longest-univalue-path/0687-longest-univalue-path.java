@@ -17,55 +17,48 @@ class Solution {
     public class pair {
         int data;
         int height;
-        pair(int data, int height) {
-            this.data = data;
-            this.height = height;
-        }
-        
+         pair(int data,int height) {
+             this.data = data;
+             this.height = height;
+         }
     }
-    public int ans=0;
-    public pair longestUnivaluePath_01(TreeNode node) {
-      if(node == null) return new pair(0,0);
+    int ans = 0;
+    public pair dfs(TreeNode node) {
+        if(node == null) return new pair(0,0);
         
-        pair leftAns = longestUnivaluePath_01(node.left);
-        pair rightAns = longestUnivaluePath_01(node.right);
-        
+        pair leftAns = dfs(node.left);
+        pair rightAns = dfs(node.right);
         pair myPair = new pair(node.val,1);
-        //Cases
-        if(node.val == leftAns.data && node.val == rightAns.data) {
-            ans = Math.max(ans,leftAns.height+rightAns.height+1);
-            myPair.height = Math.max(1,Math.max(leftAns.height,rightAns.height)+1);
-            
+        //Cases for ans and myPair
+        if(leftAns.data == node.val && node.val == rightAns.data) {
+            //for ans
+            ans = Math.max(ans,leftAns.height + rightAns.height + 1);
+            //for myPair
+            myPair.height = Math.max(leftAns.height,rightAns.height) +1;
         }
-        else if(node.val == leftAns.data) {
-            ans = Math.max(ans,Math.max(leftAns.height + 1 , rightAns.height));
-            int myHeight = leftAns.height + 1; 
-            myPair.height = myHeight;
+        else if(leftAns.data == node.val) {
+            //for ans
+            ans = Math.max(ans,Math.max(leftAns.height+1,rightAns.height));
+            //for myPair
+            myPair.height = leftAns.height+1;
         }
-        else if(node.val == rightAns.data) {
-            ans = Math.max(ans,Math.max(leftAns.height, rightAns.height + 1));
-            int myHeight = rightAns.height + 1; 
-            myPair.height = myHeight;
+        else if(rightAns.data == node.val) {
+            //for ans
+            ans = Math.max(ans,Math.max(leftAns.height,rightAns.height+1));
+            //for myPair
+            myPair.height = rightAns.height+1;
         }
         else {
-            ans = Math.max(1,ans);
+            //for ans
+            ans = Math.max(ans,1);
+            //for myPair
+            myPair.height = 1;
         }
-        
         return myPair;
     }
-// ans -> storing longest length in overall tree of same nodes
-// myPair.height storing longest height from *CURRENT* node to left *or* right 
-// --> if in myPair 3 cases arise
-//1->if l=r=me ->myMax height will be max(l,r) + 1
-//2 -> if l=me -> myMaxHeight will be 1+leftHeight 
-//3 -> if r=me -> myMaxHeight will be 1+rightHeight
-// --> if in total ans 3 cases will arise
-// -->if l=r=me ansMax will be max(ans,lh+rh+1)
-//  -->if l=me ansMax will be max(ans,lh+1,rh)
-//  -->if r=me ansMax will be max(ans,rh+1,lh)
     public int longestUnivaluePath(TreeNode root) {
         if (root == null) return 0;
-        longestUnivaluePath_01(root);
-        return ans-1;  
+        dfs(root);
+        return ans-1;
     }
 }
