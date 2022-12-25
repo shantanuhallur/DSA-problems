@@ -31,22 +31,22 @@ class Solution {
         pair myPair = new pair(node.val,1);
         //Cases for ans and myPair
         if(leftAns.data == node.val && node.val == rightAns.data) {
-            //for ans
-            ans = Math.max(ans,leftAns.height + rightAns.height + 1);
             //for myPair
             myPair.height = Math.max(leftAns.height,rightAns.height) +1;
+            //for ans
+            ans = Math.max(ans,leftAns.height + rightAns.height + 1);
         }
         else if(leftAns.data == node.val) {
-            //for ans
-            ans = Math.max(ans,leftAns.height+1);
             //for myPair
             myPair.height = leftAns.height+1;
+            //for ans
+            ans = Math.max(ans,myPair.height);
         }
         else if(rightAns.data == node.val) {
-            //for ans
-            ans = Math.max(ans,rightAns.height+1);
             //for myPair
             myPair.height = rightAns.height+1;
+            //for ans
+            ans = Math.max(ans,myPair.height);
         }
         else {
             //for ans
