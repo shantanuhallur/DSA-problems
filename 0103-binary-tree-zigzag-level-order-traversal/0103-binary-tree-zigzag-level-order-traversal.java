@@ -16,33 +16,38 @@
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         if(root==null) return new ArrayList<>();
-        LinkedList<TreeNode> q = new LinkedList<>();
-        q.add(root);
         List<List<Integer>> ans = new ArrayList<>();
-        int lvl = 1;
-        while(q.size()!=0) {
-            int size = q.size();
-            List<Integer> smallAns = new ArrayList<>();
+        //prepare the que
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
+        int level = 1;
+        //Begin Level Order Traversal
+        while(que.size()!=0) {
+            LinkedList<Integer> levelAns = new LinkedList<>();
+            int size = que.size();
             while(size-->0) {
-                TreeNode rn = q.removeFirst();
-                if(rn.left!=null) {
-                    q.addLast(rn.left);
-                }
-                if(rn.right!=null) {
-                    q.addLast(rn.right);
+                TreeNode removeN = que.removeFirst();
+                //Set up next level in the que
+                if(removeN.left != null) {
+                    que.addLast(removeN.left);
                 }
                 
-                if(lvl%2==0) {
-                    smallAns.add(0,rn.val);
+                if(removeN.right != null) {
+                    que.addLast(removeN.right);
                 }
+                //IF LEVEL EVEN ---->>>>
+                if(level%2==0) {
+                    levelAns.addFirst(removeN.val);
+                }//ELSE IF LEVEL ODD -->>>>>>
                 else{
-                    smallAns.add(rn.val);
+                    levelAns.addLast(removeN.val);
                 }
             }
-            ans.add(new ArrayList<>(smallAns));
-            lvl++;
+            //Increament the level as the processing of this level is finished.
+            level++;
+            //add the created level's ans in our main ans.
+            ans.add(levelAns);
         }
-        
         return ans;
     }
 }
