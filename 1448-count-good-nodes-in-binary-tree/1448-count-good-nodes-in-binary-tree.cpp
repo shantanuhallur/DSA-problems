@@ -12,21 +12,22 @@
 class Solution {
 public:
     int totalGoodNodes = 0;
-    
-    void goodNodes_01(TreeNode* root,int maxVal) {
-        if(!root) return;
+    void goodNodes_01(TreeNode* node,int maxVal) {
+        //Base Case
+        if(!node) return;
         
-        if(root->val>=maxVal) {
+        //Check if Good Node or Not
+        if(node->val >= maxVal) {
             totalGoodNodes++;
-            maxVal = root->val;
+            maxVal = node->val;
         }
         
-        goodNodes_01(root->left,maxVal);
-        goodNodes_01(root->right,maxVal);
+        //Recursive Call
+        goodNodes_01(node->left,maxVal);
+        goodNodes_01(node->right,maxVal);
     }
     
     int goodNodes(TreeNode* root) {
-        if(!root) return 0;
         goodNodes_01(root,-(int)1e5);
         return totalGoodNodes;
     }
