@@ -13,17 +13,19 @@ class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         if(!root) return {};
+        
         vector<vector<int>> ans;
-        int level = 1;
         queue<TreeNode*> que;
         que.push(root);
-        
+        int level = 1;
+        //Level Order Traversal
         while(que.size()!=0) {
             int size = que.size();
             vector<int> levelAns;
+            // process every level
             while(size-->0) {
                 TreeNode* removeN = que.front(); que.pop();
-                
+                //Set up the next level
                 if(removeN->left) {
                     que.push(removeN->left);
                 }
@@ -31,14 +33,19 @@ public:
                 if(removeN->right) {
                     que.push(removeN->right);
                 }
-                
-                if(level % 2 != 0) {
+                //UNIQUE PROCESS OF OUR LEVEL ANS
+                if(level%2 ==0) {
+                    //IF EVEN -->>
+                    levelAns.insert(levelAns.begin(),removeN->val);
+                }
+                else {
                     levelAns.push_back(removeN->val);
                 }
-                else levelAns.insert(levelAns.begin(),removeN->val);
             }
-            ans.push_back(levelAns);
+            //INCREMENT OUR LEVEL
             level++;
+            //SAVE OUR PREOCESSED LEVEL ANS
+            ans.push_back(levelAns);
         }
         return ans;
     }
