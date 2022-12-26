@@ -12,10 +12,13 @@
 class Solution {
 public:
     TreeNode* makeBST(vector<int>& nums,int si,int ei) {
+        //Base Case
         if(si>ei) return nullptr;
         
+        //Create mid (root) node
         int mid = (si+ei)/2;
         TreeNode* root = new TreeNode(nums[mid]);
+        //Capture left & Right Subtrees in your left and right pointers of your root
         root->left = makeBST(nums,si,mid-1);
         root->right = makeBST(nums,mid+1,ei);
         
