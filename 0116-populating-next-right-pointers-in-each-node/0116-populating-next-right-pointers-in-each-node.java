@@ -18,22 +18,25 @@ class Node {
         right = _right;
         next = _next;
     }
-[-1,#,0,1,#,2,3,4,5,#,6,7,8,9,#]};
+};
 */
 
 class Solution {
     public void connect_01(Node node) {
+        //TRAVELS THE LEVEL ROW by ROw
         while(node.left!=null) {
-            Node firstPtr = node.left;
+            Node firstN = node.left;
+            //Inner While loop to complete the level (nody by node)
             while(true) {
                 node.left.next = node.right;
                 
-                if(node.next!=null) node.right.next = node.next.left;
+                if(node.next != null) node.right.next = node.next.left;
                 else break;
                 
                 node = node.next;
             }
-            node = firstPtr;
+            
+            node = firstN;
         }
     }
     public Node connect(Node root) {
