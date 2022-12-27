@@ -12,24 +12,27 @@
 class BSTIterator {
 public:
     stack<TreeNode*> st;
-    void addAllLeft(TreeNode* node) {
-        if(!node) return;
-        
-        while(node != nullptr){
-            st.push(node);
-            node = node->left;
+    void addAllLeftN(TreeNode* curr) {
+        //Base Case
+        if(curr==nullptr) return;
+        //Add all the left nodes till we get null.
+        while(curr != nullptr) {
+            st.push(curr);
+            curr = curr->left;
         }
+        
     }
-    
     BSTIterator(TreeNode* root) {
-        addAllLeft(root);
+        //Constructor call -> all all left of root node
+        addAllLeftN(root);
     }
-
     
     int next() {
-        TreeNode* rn = st.top(); st.pop();
-        addAllLeft(rn->right);
-        return rn->val;
+        //Get the inorder node in curr removeN
+        TreeNode* removeN = st.top(); st.pop();
+        addAllLeftN(removeN->right);
+        
+        return removeN->val;
     }
     
     bool hasNext() {
