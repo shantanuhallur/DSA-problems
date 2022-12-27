@@ -14,29 +14,21 @@
  * }
  */
 class Solution {
-    
-    TreeNode a=null,b=null,prev=null;
-    public boolean recoverTree_01(TreeNode root) {
-        if(root==null) return true;
+    TreeNode prev = null;
+    TreeNode a = null;
+    TreeNode b = null;
+    public void recoverTree_01(TreeNode node) {
+        if(node == null) return;
+        recoverTree_01(node.left);
         
-        if(!recoverTree_01(root.left)) {
-            return false;
-        }
-        //inorder area ***
-        if(prev!=null && prev.val>root.val) {
-            b = root;
-            if(a==null) a=prev;
-            else return false;
-        }
-        prev = root;
-        //inorder area ***
-        if(!recoverTree_01(root.right)) {
-            return false;
+        if(prev!=null && prev.val>node.val) {
+            b = node;
+            if(a==null) a = prev;
         }
         
-        return true;
+        prev = node;
+        recoverTree_01(node.right);
     }
-    
     public void recoverTree(TreeNode root) {
         recoverTree_01(root);
         int temp = a.val;
