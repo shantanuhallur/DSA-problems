@@ -17,18 +17,26 @@ class Solution {
     TreeNode prev = null;
     TreeNode a = null;
     TreeNode b = null;
-    public void recoverTree_01(TreeNode node) {
-        if(node == null) return;
-        recoverTree_01(node.left);
+    
+    public void recoverTree_01(TreeNode curr) {
+        //Base Case
+        if(curr == null) return;
         
-        if(prev!=null && prev.val>node.val) {
-            b = node;
+        //Left Recursive Call
+        recoverTree_01(curr.left);
+        // INORDER ----- >>>>>>
+        //check if prev is first set or not.
+        if(prev!=null && prev.val > curr.val) {
+            b = curr;
             if(a==null) a = prev;
         }
         
-        prev = node;
-        recoverTree_01(node.right);
+        prev = curr;
+        // INORDER ----- >>>>>>
+        //Right Recursive Call
+        recoverTree_01(curr.right);
     }
+    
     public void recoverTree(TreeNode root) {
         recoverTree_01(root);
         int temp = a.val;
