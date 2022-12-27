@@ -28,12 +28,11 @@ class Solution {
             while(true) {
                 node.left.next = node.right;
                 
-               if(node.next!=null) node.right.next = node.next.left;
+                if(node.next!=null) node.right.next = node.next.left;
                 else break;
                 
                 node = node.next;
             }
-            
             node = firstPtr;
         }
     }
