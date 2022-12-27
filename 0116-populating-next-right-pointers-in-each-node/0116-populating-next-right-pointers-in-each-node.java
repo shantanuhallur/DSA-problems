@@ -23,15 +23,17 @@ class Node {
 
 class Solution {
     public void connect_01(Node node) {
-        while(node.left != null){
+        while(node.left!=null) {
             Node firstPtr = node.left;
             while(true) {
                 node.left.next = node.right;
-
-                if(node.next != null) node.right.next = node.next.left;
+                
+               if(node.next!=null) node.right.next = node.next.left;
                 else break;
+                
                 node = node.next;
             }
+            
             node = firstPtr;
         }
     }
