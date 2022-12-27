@@ -14,21 +14,27 @@ public:
     TreeNode* prev = nullptr;
     TreeNode* a = nullptr;
     TreeNode* b = nullptr;
-    void recoverTree_01(TreeNode* node) {
-        if(!node) return;
+    void recoverTree_01(TreeNode* curr) {
+        if(!curr) return;
         
-        recoverTree_01(node->left);
-        
-        if(prev!=nullptr && prev->val > node->val) {
-            b = node;
+        //Left Recursive Call
+        recoverTree_01(curr->left);
+        //INORDER ------->>>>>>>
+        //condition
+        if(prev != nullptr && prev->val > curr->val) {
+            b = curr;
             if(a==nullptr) a = prev;
         }
-        
-        prev = node;
-        recoverTree_01(node->right);
+        //update prev so that we can move our previous ahead.
+        prev = curr;
+        //INORDER ------->>>>>>>
+        //Right Recursive Call
+        recoverTree_01(curr->right);
     }
+    
     void recoverTree(TreeNode* root) {
         recoverTree_01(root);
+        //SWAPPING
         int temp = a->val;
         a->val = b->val;
         b->val = temp;
