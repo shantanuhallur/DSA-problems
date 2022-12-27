@@ -19,18 +19,19 @@ public:
 class Solution {
 public:
     void connect_01(Node* node) {
-        
+        //Outer While loop for each level
         while(node->left) {
-            Node* firstPtr = node->left;
+            //Capture starting Node of each Row
+            Node* firstN = node->left;
             while(true) {
                 node->left->next = node->right;
                 
                 if(node->next) node->right->next = node->next->left;
                 else break;
-                
+                //increament node in the row till last node.
                 node = node->next;
             }
-            node = firstPtr;
+            node = firstN;
         }
     }
     
