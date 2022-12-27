@@ -15,22 +15,26 @@
  */
 class BSTIterator {
     LinkedList<TreeNode> st = new LinkedList<>();
-    public void addAllLeft(TreeNode node) {
+    public void addAllLeftN(TreeNode curr) {
+        //Base curr -> null
+        if(curr == null) return;
         
-        while(node !=null) {
-            st.addLast(node);
-            node = node.left;
-        }    
+        while(curr != null) {
+            st.addLast(curr);
+            curr = curr.left;
+        }
     }
     
     public BSTIterator(TreeNode root) {
-        addAllLeft(root);
+        addAllLeftN(root);
     }
     
     public int next() {
-        TreeNode rn = st.removeLast();
-        if(rn != null)  addAllLeft(rn.right);
-        return rn.val;
+        TreeNode removeN = st.removeLast();
+        //add all the left nodes of right of removeN.
+        addAllLeftN(removeN.right);
+
+        return removeN.val;
     }
     
     public boolean hasNext() {
