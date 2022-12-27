@@ -14,26 +14,29 @@
  * }
  */
 class Solution {
-   
     public List<Integer> rightSideView(TreeNode root) {
-        if(root == null) return new ArrayList<>();
-        List<Integer> ans = new LinkedList<>();
+        if(root==null) return new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        
+        //Create que for level order traversal
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
+        //Begin BFS
         while(que.size()!=0) {
             int size = que.size();
+            //Inner while loop for each level
             while(size-->0) {
-                TreeNode rn = que.removeFirst();
-                
-                if(rn.left!=null) {
-                    que.add(rn.left);
+                TreeNode removeN = que.removeFirst();
+                //SETUP next level in que
+                if(removeN.left !=null) {
+                    que.addLast(removeN.left);
                 }
                 
-                if(rn.right!=null) {
-                    que.add(rn.right);
+                if(removeN.right !=null) {
+                    que.addLast(removeN.right);
                 }
-                
-                if(size==0) ans.add(rn.val);
+                //Add last node of this level in our ans
+                if(size==0) ans.add(removeN.val);
             }
         }
         return ans;
