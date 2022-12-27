@@ -14,20 +14,23 @@ public:
     vector<int> rightSideView(TreeNode* root) {
         if(root == nullptr) return {};
         vector<int> ans;
-        
+        //setup que for BFS
         queue<TreeNode*> que;
         que.push(root);
         
+        //start bfs
         while(que.size()!=0) {
             int size = que.size();
+            //Inner loop for every level
             while(size-->0) {
-                TreeNode* rn = que.front(); que.pop();
+                TreeNode* removeN = que.front(); que.pop();
                 
-                if(rn->left) que.push(rn->left);
+                if(removeN->left) que.push(removeN->left);
                 
-                if(rn->right) que.push(rn->right);
+                if(removeN->right) que.push(removeN->right);
                 
-                if(size==0) ans.push_back(rn->val);
+                //last node save in ans;
+                if(size==0) ans.push_back(removeN->val);
             }
         }
         return ans;
