@@ -16,8 +16,10 @@ public:
         que.push(root);
         
         while(que.size()!=0) {
+            //remove the node in front of que
             root = que.front(); que.pop();
             
+            //FIRST add RIGHT child then LEFT child.
             if(root->right) que.push(root->right);
             
             if(root->left) que.push(root->left);
