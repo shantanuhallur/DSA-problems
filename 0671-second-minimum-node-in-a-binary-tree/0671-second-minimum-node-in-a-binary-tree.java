@@ -14,25 +14,25 @@
  * }
  */
 class Solution {
-    long min = (long)1e13;
-    long smin = (long)1e13;
-    public void findSecondMinimumValue_01(TreeNode node) {
-        if(node==null) return;
-        
-        findSecondMinimumValue_01(node.left);
-        findSecondMinimumValue_01(node.right);
-        
-        if(node.val < min) {
-            smin = min;
-            min = node.val;
-        }
-        else if(node.val<smin && node.val !=min) {
-            smin = node.val;
-        }
-    }
-    
     public int findSecondMinimumValue(TreeNode root) {
-        findSecondMinimumValue_01(root);
-        return smin==(long)1e13?-1:(int)smin;
+        if(root == null) return -1;
+        
+        if(root.left == null && root.right == null){
+            return -1;
+        }
+        
+        int left = root.left.val;
+        int right = root.right.val;
+        
+        if(root.val == root.left.val) left = findSecondMinimumValue(root.left);
+        if(root.val == root.right.val) right = findSecondMinimumValue(root.right);
+        
+        if(left!=-1 && right!=-1) {
+            return Math.min(left,right);
+        } else if(left!=-1) {
+            return left;
+        } else {
+            return right;
+        }
     }
 }
