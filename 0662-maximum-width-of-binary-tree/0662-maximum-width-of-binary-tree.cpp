@@ -12,9 +12,10 @@
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
+        int width = 0;
         queue<pair<TreeNode*,int>> que;
         que.push({root,0});
-        int ans=0;
+        //LEVEL ORDER TRAVERSAL
         while(que.size()!=0) {
             int startId = 0;
             int endId = 0;
@@ -22,15 +23,24 @@ public:
             for(int i=0;i<size;i++) {
                 pair removeP = que.front(); que.pop();
                 
-                if(removeP.first->left) que.push({removeP.first->left,(long long)removeP.second*2 +1});
+                //add left and right children if exist of removeP of node
+                if(removeP.first->left){
+                    pair addPair = {removeP.first->left,(long long)removeP.second*2+1};
+                    que.push(addPair);
+                }
                 
-                if(removeP.first->right) que.push({removeP.first->right,(long long)removeP.second*2 +2});
-                //start
-                if(i==0) startId = removeP.second;
-                if(i==size-1) endId = removeP.second;
+                if(removeP.first->right){
+                    pair addPair = {removeP.first->right,(long long)removeP.second*2+2};
+                    que.push(addPair);
+                }
+                //startId
+                if(i == 0) startId = removeP.second;
+                //endId
+                if(i == size-1) endId = removeP.second;
             }
-            ans = max(ans,endId-startId+1);
+            //MAXIMIZE OUR width
+            width = max(width,endId-startId+1);
         }
-        return ans;
+        return width;
     }
 };
