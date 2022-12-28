@@ -21,18 +21,18 @@ class Solution {
             return -1;
         }
         
-        int left = root.left.val;
-        int right = root.right.val;
+        int leftVal = root.left.val;
+        int rightVal = root.right.val;
         
-        if(root.val == root.left.val) left = findSecondMinimumValue(root.left);
-        if(root.val == root.right.val) right = findSecondMinimumValue(root.right);
+        if(root.val == root.left.val) leftVal = findSecondMinimumValue(root.left);
+        if(root.val == root.right.val) rightVal = findSecondMinimumValue(root.right);
         
-        if(left!=-1 && right!=-1) {
-            return Math.min(left,right);
-        } else if(left!=-1) {
-            return left;
+        if(leftVal!=-1 && rightVal!=-1) {
+            return Math.min(leftVal,rightVal);
+        } else if(leftVal!=-1) {
+            return leftVal;
         } else {
-            return right;
+            return rightVal;
         }
     }
 }
