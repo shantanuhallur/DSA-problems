@@ -15,23 +15,19 @@
  */
 class Solution {
     public int findBottomLeftValue(TreeNode root) {
-        LinkedList<TreeNode> q = new LinkedList<>();
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
         
-        q.addLast(root);
+        while(que.size()!=0) {
+            //remove the node from the que
+            root = que.removeFirst();
+            // add first right child then left child.
+            if(root.right != null) que.addLast(root.right);
+            
+            if(root.left != null) que.addLast(root.left); 
         
-        while(!q.isEmpty()){
-            root = q.removeFirst();
-                        
-            if(root.right!=null){
-                q.addLast(root.right);
-            }         
-                        
-            if(root.left!=null){
-                q.addLast(root.left);
-            }
-
         }
-        
+        //Now we have our leftmost node saved in root.
         return root.val;
     }
 }
