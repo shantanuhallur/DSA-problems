@@ -14,36 +14,33 @@
  * }
  */
 class Solution {
-    public class pair{
+    public class pair {
+        int data;
         TreeNode node;
-        int id;
-        pair(TreeNode node,int id) {
+        
+        pair(TreeNode node,int data) {
             this.node = node;
-            this.id = id;
+            this.data = data;
         }
     }
     public int widthOfBinaryTree(TreeNode root) {
         LinkedList<pair> que = new LinkedList<>();
         que.addLast(new pair(root,0));
-        int ans = -1;
+        int ans = 0;
         while(que.size()!=0) {
+            int startId=0;
+            int endId = 0;
             int size = que.size();
-            int firstNodeId = 0; int lastNodeId=0;
             for(int i=0;i<size;i++) {
                 pair removeP = que.removeFirst();
+                if(removeP.node.left!=null)que.addLast(new pair(removeP.node.left,removeP.data*2+1));
                 
-                if(removeP.node.left!=null) {
-                    que.addLast(new pair(removeP.node.left,removeP.id*2+1));
-                }
-                
-                if(removeP.node.right!=null) {
-                    que.addLast(new pair(removeP.node.right,removeP.id*2+2));
-                }
-                
-                if(i==0) firstNodeId = removeP.id;
-                if(i==size-1) lastNodeId = removeP.id;
+                if(removeP.node.right!=null)que.addLast(new pair(removeP.node.right,removeP.data*2+2));
+            
+            if(i==0) startId = removeP.data;
+            if(i==size-1) endId = removeP.data;
             }
-            ans = Math.max(ans,lastNodeId-firstNodeId+1);
+            ans = Math.max(ans,endId-startId+1);
         }
         return ans;
     }
