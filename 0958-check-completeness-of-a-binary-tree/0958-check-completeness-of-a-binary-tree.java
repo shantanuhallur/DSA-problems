@@ -15,22 +15,25 @@
  */
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
-        boolean end=false;
-        LinkedList<TreeNode> q = new LinkedList<>();
+        boolean treeEnd = false;
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
         
-        q.addLast(root);
-        
-        while(!q.isEmpty()){
-            TreeNode curr = q.removeFirst();
-            if(curr==null){
-                end=true;
+        while(que.size()!=0) {
+            TreeNode removeN = que.removeFirst();
+            //check if removeN is null
+            if(removeN == null) {
+                treeEnd = true;
             }
             else{
-                if(end)return false;
-                q.addLast(curr.left);
-                q.addLast(curr.right);
+                //check if tree has already ended
+                if(treeEnd == true) return false;
+                
+                que.addLast(removeN.left);
+                que.addLast(removeN.right);
             }
         }
+        
         return true;
     }
 }
