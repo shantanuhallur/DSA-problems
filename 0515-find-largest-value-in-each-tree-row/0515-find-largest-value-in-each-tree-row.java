@@ -15,30 +15,27 @@
  */
 class Solution {
     public List<Integer> largestValues(TreeNode root) {
-        if(root==null) return new ArrayList<>();
         List<Integer> ans = new ArrayList<>();
-        LinkedList<TreeNode> que = new LinkedList<>();
+        if(root == null) return ans;
         
+        LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
+        //LVL ORDER TRAVERSAL
         while(que.size()!=0) {
             int size = que.size();
-            int largest = que.peek().val; 
+            int largest = que.peek().val;
             while(size-->0) {
+                //Remove Node
                 TreeNode removeN = que.removeFirst();
                 
-                if(removeN.left!=null) {
-                    que.addLast(removeN.left);
-                }
+                if(removeN.left != null) que.addLast(removeN.left);
                 
-                if(removeN.right!=null) {
-                    que.addLast(removeN.right);
-                }
+                if(removeN.right != null) que.addLast(removeN.right);
                 
-                if(removeN.val >= largest)largest = removeN.val;
+                if(removeN.val >= largest) largest = removeN.val;
             }
-            ans.add(largest);
+           ans.add(largest); 
         }
-        
         return ans;
     }
 }
