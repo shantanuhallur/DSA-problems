@@ -12,26 +12,21 @@
 class Solution {
 public:
     vector<int> largestValues(TreeNode* root) {
-        if(root == nullptr) return {};
+        if(!root) return {};
         vector<int> ans;
         queue<TreeNode*> que;
         que.push(root);
-        
+        //LVL ORFER TRAVERSAL
         while(que.size()!=0) {
             int size = que.size();
-            // TreeNode* temp = ; 
             int largest = que.front()->val;
             while(size-->0) {
                 TreeNode* removeN = que.front(); que.pop();
                 
-                if(removeN->left) {
-                    que.push(removeN->left);
-                }
+                if(removeN->left) que.push(removeN->left);
                 
-                if(removeN->right) {
-                    que.push(removeN->right);
-                }
-                
+                if(removeN->right) que.push(removeN->right);
+                //UPDATE LARGEST
                 if(removeN->val >= largest) largest = removeN->val;
             }
             ans.push_back(largest);
