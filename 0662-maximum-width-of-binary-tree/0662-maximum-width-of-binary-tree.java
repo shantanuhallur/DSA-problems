@@ -15,33 +15,39 @@
  */
 class Solution {
     public class pair {
-        int data;
         TreeNode node;
-        
-        pair(TreeNode node,int data) {
+        int id;
+        pair(TreeNode node,int id) {
             this.node = node;
-            this.data = data;
+            this.id = id;
         }
     }
     public int widthOfBinaryTree(TreeNode root) {
+        int width = 0;
         LinkedList<pair> que = new LinkedList<>();
         que.addLast(new pair(root,0));
-        int ans = 0;
+        //start level order traversal
         while(que.size()!=0) {
-            int startId=0;
-            int endId = 0;
             int size = que.size();
-            for(int i=0;i<size;i++) {
+            int startId = 0;
+            int endId = 0;
+            for(int i =0;i<size;i++) {
                 pair removeP = que.removeFirst();
-                if(removeP.node.left!=null)que.addLast(new pair(removeP.node.left,removeP.data*2+1));
-                
-                if(removeP.node.right!=null)que.addLast(new pair(removeP.node.right,removeP.data*2+2));
-            
-            if(i==0) startId = removeP.data;
-            if(i==size-1) endId = removeP.data;
+                //LEFT CHILD myNode id * 2 +1
+                if(removeP.node.left != null){
+                    que.addLast(new pair(removeP.node.left, removeP.id*2 + 1));
+                }
+                //LEFT CHILD myNode id * 2 +2
+                if(removeP.node.right != null){
+                    que.addLast(new pair(removeP.node.right, removeP.id*2 + 2));
+                }
+                //to capture Starting id
+                if(i==0) startId = removeP.id;
+                if(i==size-1) endId = removeP.id;
             }
-            ans = Math.max(ans,endId-startId+1);
+            //Keep maximized updated width at each level
+            width = Math.max(width,endId-startId+1);
         }
-        return ans;
+        return width;
     }
 }
