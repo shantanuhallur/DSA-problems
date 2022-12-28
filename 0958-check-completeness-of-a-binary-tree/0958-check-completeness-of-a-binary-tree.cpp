@@ -12,18 +12,19 @@
 class Solution {
 public:
     bool isCompleteTree(TreeNode* root) {
-        bool end = false;
+        bool treeEnd = false;
         queue<TreeNode*> que;
         que.push(root);
-        
+        //inserting nodes level by level
         while(que.size()!=0) {
             TreeNode* removeN = que.front(); que.pop();
-            
+            //if the remove node is null it means that tree has ended.
             if(!removeN) {
-                end = true;
+                treeEnd = true;
             }
             else{
-                if(end) return false;
+                //check if tree has ended and if we have recieved an existant node return false.
+                if(treeEnd) return false;
                 que.push(removeN->left);
                 que.push(removeN->right);
             }
