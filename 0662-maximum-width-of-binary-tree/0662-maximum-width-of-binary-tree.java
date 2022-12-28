@@ -14,43 +14,36 @@
  * }
  */
 class Solution {
-    //left child index = 2 * parent_index right child index = 2 * parent_index +1
-    class Pair{
-        int num;
+    public class pair{
         TreeNode node;
-            Pair( TreeNode _node,int _num){
-                this.num = _num;
-                this.node = _node;
+        int id;
+        pair(TreeNode node,int id) {
+            this.node = node;
+            this.id = id;
         }
     }
     public int widthOfBinaryTree(TreeNode root) {
-        if(root==null)return 0;
-       int ans = 0;
-        Queue<Pair>q = new LinkedList<>();
-        q.offer(new Pair(root,0));
-        
-        while(!q.isEmpty()){
-            int size = q.size();
-            int mmin = q.peek().num; //min is the first Pair's num at that level;
-            int first=0,last=0; //first and last for that level;
-            for(int i=0;i<size;i++){
-                int curr_id = q.peek().num-mmin; // curr_id needs to be set for each                                             node in that level ranging from 1 to node n;
-                TreeNode node = q.peek().node; //get the node
-                q.poll(); //remove the node;
-                if(i==0)first = curr_id; //first will be initialized at first node at                                              that level
-                if(i==size-1) last = curr_id; //as obviously last node at that level                                                   will be the last curr_id at that level.
-                //for left node first curr_id*2+1
-                if(node.left!=null){
-                    q.offer(new Pair(node.left,curr_id*2+1));
+        LinkedList<pair> que = new LinkedList<>();
+        que.addLast(new pair(root,0));
+        int ans = -1;
+        while(que.size()!=0) {
+            int size = que.size();
+            int firstNodeId = 0; int lastNodeId=0;
+            for(int i=0;i<size;i++) {
+                pair removeP = que.removeFirst();
+                
+                if(removeP.node.left!=null) {
+                    que.addLast(new pair(removeP.node.left,removeP.id*2+1));
                 }
-                //for right node second curr_id*2+2
-                if(node.right!=null){
-                    q.offer(new Pair(node.right,curr_id*2+2));
+                
+                if(removeP.node.right!=null) {
+                    que.addLast(new pair(removeP.node.right,removeP.id*2+2));
                 }
+                
+                if(i==0) firstNodeId = removeP.id;
+                if(i==size-1) lastNodeId = removeP.id;
             }
-            //Maximize answer at that level;
-            ans = Math.max(ans,last-first+1);
-            
+            ans = Math.max(ans,lastNodeId-firstNodeId+1);
         }
         return ans;
     }
