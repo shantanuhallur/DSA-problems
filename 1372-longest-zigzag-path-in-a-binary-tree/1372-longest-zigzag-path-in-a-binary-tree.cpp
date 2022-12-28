@@ -30,7 +30,6 @@ public:
     }
     
     int longestZigZag(TreeNode* root) {
-
         int ans = longestZigZag_01(root,0);
         ans = max(longest,ans);
         return ans;
