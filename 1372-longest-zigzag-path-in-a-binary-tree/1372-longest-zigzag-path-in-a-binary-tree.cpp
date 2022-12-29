@@ -12,26 +12,27 @@
 class Solution {
 public:
     int longest = -1;
-    int longestZigZag_01(TreeNode* node,int dir) {
+    
+    int longestZigZag_01(TreeNode* node,int path) {
         if(!node) return 0;
         
-        int leftPath = longestZigZag_01(node->left,1);
-        int rightPath = longestZigZag_01(node->right,2);
-        
-        if(dir == 1) {
-            if(rightPath+1>longest) longest = rightPath+1;
-            return rightPath+1;
+        //left and right recursive Call
+        int leftLongestPath = longestZigZag_01(node->left,1);
+        int rightLongestPath = longestZigZag_01(node->right,2);
+        //i AM LEFT CHILD of my parent NODE
+        if(path == 1) {
+            longest = max(longest,rightLongestPath+1);
+            return rightLongestPath+1;
         }
-        else if(dir == 2) {
-            if(leftPath+1>longest) longest = leftPath+1;
-            return leftPath+1;
+        //i AM RIGHT CHILD of my parent NODE
+        else if(path == 2) {
+            longest = max(longest,leftLongestPath+1);
+            return leftLongestPath+1;
         }
-        else return max(leftPath,rightPath);
+        else return max(leftLongestPath,rightLongestPath);
     }
-    
     int longestZigZag(TreeNode* root) {
         int ans = longestZigZag_01(root,0);
-        ans = max(longest,ans);
-        return ans;
+        return max(ans,longest);
     }
 };
