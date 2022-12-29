@@ -17,19 +17,20 @@ class Solution {
     int longest = -1;
     public int longestZigZag_01(TreeNode node,int path) {
         if(node==null) return 0;
-        
-        int leftLongest = longestZigZag_01(node.left,1);
-        int rightLongest = longestZigZag_01(node.right,2);
-        
-        if(path == 1){
-            if(rightLongest+1>longest) longest = rightLongest+1;
-            return rightLongest+1;
+        //left & right recursive calls
+        int leftLongestPath = longestZigZag_01(node.left,1);
+        int rightLongestPath = longestZigZag_01(node.right,2);
+        //IF i am the left child of zigzagPath
+        if(path == 1) {
+            if(rightLongestPath+1 > longest) longest = rightLongestPath+1;
+            return rightLongestPath + 1;
         }
-        else if(path == 2) {
-            if(leftLongest+1>longest) longest = leftLongest+1;
-            return leftLongest+1;
+        //IF i am the right child of zigzagPath
+        if(path == 2) {
+            if(leftLongestPath+1 > longest) longest = leftLongestPath+1;
+            return leftLongestPath+1;
         }
-        else return Math.max(leftLongest,rightLongest);
+        else return Math.max(leftLongestPath,rightLongestPath);
     }
     
     public int longestZigZag(TreeNode root) {
