@@ -18,7 +18,7 @@ class Solution {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
         int level = 0;
-        //BFS/LVL ORDER TRAVERSAL
+        //LVL ORDER TRAVERSAL/BFS
         while(que.size()!=0) {
             int size = que.size();
             int increasing = -1;
@@ -26,28 +26,25 @@ class Solution {
             while(size-->0) {
                 TreeNode removeN = que.removeFirst();
                 
-                //IF Even Level
-                if(level%2==0) {
+                //Even Level -- ODD -- strictly increasing
+                if(level%2==0){
                     if(removeN.val % 2 == 0 || increasing >= removeN.val) return false;
                     increasing = removeN.val;
                 }
-                else {
-                    if(removeN.val %2 == 1 || decreasing <= removeN.val) return false;
+                //Odd level
+                else{
+                    if(removeN.val % 2 == 1 || decreasing <= removeN.val) return false;
                     decreasing = removeN.val;
                 }
-                //Setting next level in the que
-                if(removeN.left!=null) {
-                    que.addLast(removeN.left);
-                }
+                //set up the next level inside the que
+                if(removeN.left!=null)que.addLast(removeN.left);
                 
-                if(removeN.right!=null) {
-                    que.addLast(removeN.right);
-                }
+                if(removeN.right!=null)que.addLast(removeN.right);
+                
             }
-            //INCREASING THE LEVEL
-            level++;
+            //increasing the level.
+            level ++;
         }
-        
         return true;
     }
 }
