@@ -18,29 +18,36 @@ class Solution {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
         int level = 0;
+        //BFS/LVL ORDER TRAVERSAL
         while(que.size()!=0) {
             int size = que.size();
-            int evenS = -1;
-            int oddS = (int)1e8;
+            int increasing = -1;
+            int decreasing = (int)1e8;
             while(size-->0) {
-                TreeNode rn = que.removeFirst();
+                TreeNode removeN = que.removeFirst();
                 
-                //EVEN LEVEL
-                if(level%2 == 0) {
-                    if(rn.val%2 !=1 || rn.val <= evenS) return false;
-                    evenS = rn.val;
+                //IF Even Level
+                if(level%2==0) {
+                    if(removeN.val % 2 == 0 || increasing >= removeN.val) return false;
+                    increasing = removeN.val;
                 }
-                //ODD LEVEL
                 else {
-                    if(rn.val%2 !=0 || rn.val >= oddS) return false;
-                    oddS = rn.val;
+                    if(removeN.val %2 == 1 || decreasing <= removeN.val) return false;
+                    decreasing = removeN.val;
                 }
-                if(rn.left != null) que.addLast(rn.left);
+                //Setting next level in the que
+                if(removeN.left!=null) {
+                    que.addLast(removeN.left);
+                }
                 
-                if(rn.right != null) que.addLast(rn.right);
+                if(removeN.right!=null) {
+                    que.addLast(removeN.right);
+                }
             }
+            //INCREASING THE LEVEL
             level++;
         }
+        
         return true;
     }
 }
