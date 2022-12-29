@@ -16,25 +16,24 @@
 class Solution {
     int longest = -1;
     public int longestZigZag_01(TreeNode node,int path) {
-        if(node == null) return 0;
+        if(node==null) return 0;
         
-        int leftLength = longestZigZag_01(node.left,1);
-        int rightLength = longestZigZag_01(node.right,2);
+        int leftLongest = longestZigZag_01(node.left,1);
+        int rightLongest = longestZigZag_01(node.right,2);
         
         if(path == 1){
-            if(rightLength+1>longest) longest = rightLength+1;
-            return rightLength+1;
+            if(rightLongest+1>longest) longest = rightLongest+1;
+            return rightLongest+1;
         }
-        else if(path == 2){
-            if(leftLength+1>longest) longest = leftLength+1;
-            return leftLength+1;
+        else if(path == 2) {
+            if(leftLongest+1>longest) longest = leftLongest+1;
+            return leftLongest+1;
         }
-        else return Math.max(leftLength,rightLength);
+        else return Math.max(leftLongest,rightLongest);
     }
+    
     public int longestZigZag(TreeNode root) {
-       int ans = longestZigZag_01(root,0);
-        System.out.print(ans);
-        if(ans>longest) longest = ans;
-        return longest;
+        int ans = longestZigZag_01(root,0);
+        return Math.max(ans,longest);
     }
 }
