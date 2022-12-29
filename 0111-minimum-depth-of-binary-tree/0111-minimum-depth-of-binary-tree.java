@@ -14,26 +14,27 @@
  * }
  */
 class Solution {
-    public int minDepth(TreeNode root) {
-        if(root==null) return 0;
-        int height = dfs(root);
-        return height;
+    public int minDepth_01(TreeNode node) {
+        //Base Case
+        if(node.left == null && node.right ==null) return 1;
+        
+        int leftMinH = (int)1e6;
+        int rightMinH = (int)1e6;
+        //Left recursive Call of FAITH
+        if(node.left!=null) {
+            leftMinH = minDepth_01(node.left);
+        }
+        //Right recursive call of FAITH
+        if(node.right!=null) {
+            rightMinH = minDepth_01(node.right);
+        }
+        
+        return Math.min(leftMinH,rightMinH) + 1;
     }
     
-    public int dfs(TreeNode node){
-        //if(node==null)return 0;
-        if(node.left == null && node.right == null)return 1;
-        
-        int leftHeight= Integer.MAX_VALUE;
-        int rightHeight= Integer.MAX_VALUE;
-        
-        if(node.left!=null){
-             leftHeight=  dfs(node.left);    
-        }
-        if(node.right!=null){
-            rightHeight= dfs(node.right);
-        }
-        
-        return 1+Math.min(leftHeight,rightHeight);
+    public int minDepth(TreeNode root) {
+        //Edge Case
+        if(root == null) return 0;
+        return minDepth_01(root);
     }
 }
