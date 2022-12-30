@@ -23,12 +23,14 @@ public:
     Node* cloneTree(Node* root) {
         if(!root) return nullptr;
         
-        Node* croot = new Node(root->val);
+        Node* cloneRoot = new Node(root->val);
+        
         int size = root->children.size();
+        //Clone every node in root's children and add it in cloneRoot's children.
         for(int i=0;i<size;i++) {
-            if(root->children[i]) croot->children.push_back(cloneTree(root->children[i]));
-            //else croot->children.push_back(nullptr);
+            if(root->children[i]) cloneRoot->children.push_back(cloneTree(root->children[i]));
         }
-        return croot;
+        
+        return cloneRoot;
     }
 };
