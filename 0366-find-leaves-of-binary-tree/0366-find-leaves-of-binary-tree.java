@@ -14,27 +14,27 @@
  * }
  */
 class Solution {
-    List<Integer> smallAns;
-    public TreeNode remLeaves_01(TreeNode node) {
-        if(node.left == null && node.right == null) {
-            smallAns.add(node.val);
+    List<Integer> leaves;
+    public TreeNode removeLeaves(TreeNode root) {
+        if(root.left == null && root.right == null) {
+            leaves.add(root.val);
             return null;
         }
-        if(node.left!=null) node.left = remLeaves_01(node.left);
         
-        if(node.right!=null) node.right = remLeaves_01(node.right);
+        if(root.left!=null)root.left = removeLeaves(root.left);
+        if(root.right!=null)root.right = removeLeaves(root.right);
         
-        return node;
+        return root;
     }
     public List<List<Integer>> findLeaves(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
+        
         while(true) {
-            smallAns = new ArrayList<>();
-            if(root !=null) {
-                root = remLeaves_01(root); 
-            }
-            else break;
-            ans.add(smallAns);
+            leaves = new ArrayList<>();
+            if(root!=null) {
+                root = removeLeaves(root);
+            }else break;
+            ans.add(leaves);
         }
         return ans;
     }
