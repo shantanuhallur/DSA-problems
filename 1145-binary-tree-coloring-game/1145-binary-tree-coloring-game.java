@@ -14,27 +14,27 @@
  * }
  */
 class Solution {
-    int leftNCounts = 0;
-    int rightNCounts = 0;
-    int lrSum = 0;
-    public int countNodes(TreeNode node,int x) {
+    int xLeftCount = 0;
+    int xRightCount = 0;
+    int countNodes(TreeNode node, int x) {
         //Base Case
         if(node==null) return 0;
-        //left right recursive call
-        int leftN = countNodes(node.left,x);
-        int rightN = countNodes(node.right,x);
-        
+        //Left and Right Node recursive calls
+        int leftCount = countNodes(node.left,x);
+        int rightCount = countNodes(node.right,x);
+        //check if current node is the node of which we want to find leftC & rightC
         if(node.val == x) {
-            leftNCounts = leftN;
-            rightNCounts = rightN;
-            lrSum = leftN+rightN +1;
+            xLeftCount = leftCount;
+            xRightCount = rightCount;
         }
-      return leftN+rightN+1;  
+        
+        return leftCount+rightCount+1;
     }
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
         countNodes(root,x);
+        int remainingNodesCount = n - (xLeftCount+xRightCount+1);
         
-        if(leftNCounts>n/2 || rightNCounts>n/2 || n-lrSum>n/2)return true;
+        if(xLeftCount > n/2 || xRightCount > n/2 || remainingNodesCount > n/2) return true;
         else return false;
     }
 }
