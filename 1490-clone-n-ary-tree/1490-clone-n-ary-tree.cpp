@@ -27,7 +27,7 @@ public:
         int size = root->children.size();
         for(int i=0;i<size;i++) {
             if(root->children[i]) croot->children.push_back(cloneTree(root->children[i]));
-            else croot->children.push_back(nullptr);
+            //else croot->children.push_back(nullptr);
         }
         return croot;
     }
