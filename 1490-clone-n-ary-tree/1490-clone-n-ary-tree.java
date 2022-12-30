@@ -23,16 +23,17 @@ class Node {
 
 class Solution {
     public Node cloneTree(Node root) {
+        //Basce Case
         if(root==null) return null;
-        
-        Node croot = new Node(root.val);
-        croot.children = new ArrayList<>();
+    
+        Node cloneRoot = new Node(root.val);
+        cloneRoot.children = new ArrayList<>();
         int size = root.children.size();
+        //Traverse on every child of this root to clone
         for(int i=0;i<size;i++) {
-            if(root.children.get(i)!=null)croot.children.add(cloneTree(root.children.get(i))); 
-            //else croot.children.add(null);
-        }     
+            if(root.children.get(i)!=null) cloneRoot.children.add(cloneTree(root.children.get(i)));
+        }
         
-        return croot;
+        return cloneRoot;
     }
 }
