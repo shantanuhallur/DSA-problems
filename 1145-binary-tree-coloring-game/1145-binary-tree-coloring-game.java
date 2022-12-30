@@ -14,27 +14,27 @@
  * }
  */
 class Solution {
-    int leftChilds = 0;
-    int rightChilds = 0;
-    int lrc = 0;
+    int leftNCounts = 0;
+    int rightNCounts = 0;
+    int lrSum = 0;
     public int countNodes(TreeNode node,int x) {
-        if(node == null) return 0;
-        int leftCount = countNodes(node.left,x);
-        int rightCount = countNodes(node.right,x);
+        //Base Case
+        if(node==null) return 0;
+        //left right recursive call
+        int leftN = countNodes(node.left,x);
+        int rightN = countNodes(node.right,x);
+        
         if(node.val == x) {
-            leftChilds = leftCount;
-            rightChilds = rightCount;
-            lrc = leftCount+rightCount +1;
+            leftNCounts = leftN;
+            rightNCounts = rightN;
+            lrSum = leftN+rightN +1;
         }
-        return leftCount+rightCount +1;
+      return leftN+rightN+1;  
     }
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
         countNodes(root,x);
-        int totalNodesExcludingX = n - lrc;
-        int left = leftChilds;
-        int right = rightChilds;
-        //number of nodes that can be blocked.
-        if(totalNodesExcludingX>n/2 || leftChilds>n/2 || rightChilds>n/2) return true;
+        
+        if(leftNCounts>n/2 || rightNCounts>n/2 || n-lrSum>n/2)return true;
         else return false;
     }
 }
