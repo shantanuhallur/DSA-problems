@@ -30,7 +30,7 @@ class Solution {
         int size = root.children.size();
         for(int i=0;i<size;i++) {
             if(root.children.get(i)!=null)croot.children.add(cloneTree(root.children.get(i))); 
-            else croot.children.add(null);
+            //else croot.children.add(null);
         }     
         
         return croot;
