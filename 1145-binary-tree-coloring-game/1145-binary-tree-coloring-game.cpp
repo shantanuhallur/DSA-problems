@@ -11,28 +11,26 @@
  */
 class Solution {
 public:
-    int leftNCount = 0;
-    int rightNCount = 0;
-    int lrSum = 0;
+    int xLeftCount = 0;
+    int xRightCount = 0;
     int countNodes(TreeNode* node, int x) {
-        //Base Case
+        //Base Case 
         if(!node) return 0;
         
-        //left recursive call
-        int leftN = countNodes(node->left,x);
-        int rightN = countNodes(node->right,x);
-        
+        //Left&right Recursive Call
+        int leftNCount = countNodes(node->left,x);
+        int rightNCount = countNodes(node->right,x);
+        //Check if the current node is the one we want left and right subtrees Count
         if(node->val == x) {
-            leftNCount = leftN;
-            rightNCount = rightN;
-            lrSum = leftN+rightN+1;
+            xLeftCount = leftNCount;
+            xRightCount = rightNCount;
         }
-        
-        return leftN+rightN+1;
+        return leftNCount+rightNCount+1;
     }
     bool btreeGameWinningMove(TreeNode* root, int n, int x) {
         countNodes(root,x);
-        if(leftNCount> n/2 || rightNCount> n/2 || n-lrSum > n/2) return true;
+        int remainingN = n - (xLeftCount+xRightCount+1);
+        if(xLeftCount>n/2 || xRightCount>n/2 || remainingN>n/2) return true;
         else return false;
     }
 };
