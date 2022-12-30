@@ -14,21 +14,21 @@
  * }
  */
 class Solution {
-     int idx = 0;
-    public TreeNode bstFromPreorder_(int[] preorder,int lrange,int rrange) {
-        if(idx >= preorder.length || preorder[idx] > rrange || preorder[idx] < lrange) 
-            return null;
+    int idx = 0;
+    public TreeNode buildBST(int[] preorder,int lRange,int rRange) {
+        //Base Case
+        if(idx == preorder.length || preorder[idx] < lRange || preorder[idx]>rRange) return null;
         
         TreeNode root = new TreeNode(preorder[idx++]);
-        
-        root.left = bstFromPreorder_(preorder,lrange,root.val);
-        root.right = bstFromPreorder_(preorder,root.val,rrange);
+        //Recursive faith calls for left and right nodes of root.
+        root.left = buildBST(preorder,lRange,root.val);
+        root.right = buildBST(preorder,root.val,rRange);
         
         return root;
     }
     
     public TreeNode bstFromPreorder(int[] preorder) {
-        //int[] arr = {0};
-        return bstFromPreorder_(preorder,-(int)1e8,(int)1e8);
+        //return the built tree.
+        return buildBST(preorder,-1,1001);
     }
 }
