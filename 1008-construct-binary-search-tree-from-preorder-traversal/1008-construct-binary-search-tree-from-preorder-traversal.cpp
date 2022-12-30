@@ -11,20 +11,19 @@
  */
 class Solution {
 public:
-    int idx =0;
-    TreeNode* buildTree(vector<int>& preorder,int lrange,int rrange) {
-        if(idx>preorder.size()-1 || preorder[idx] < lrange || preorder[idx] > rrange) return nullptr;
-        
+    int idx = 0;
+    TreeNode* buildBST(vector<int>& preorder,int lRange,int rRange) {
+        //Base Case
+        if(idx > preorder.size()-1 || preorder[idx] < lRange || preorder[idx]>rRange) return nullptr;
+        //Root node of Preorder Tree
         TreeNode* root = new TreeNode(preorder[idx++]);
-        
-        root->left = buildTree(preorder,lrange,root->val);
-        root->right = buildTree(preorder,root->val,rrange);
+        //Left & Right recursive Faith Call's
+        root->left = buildBST(preorder,lRange,root->val);
+        root->right = buildBST(preorder,root->val,rRange);
         
         return root;
     }
-    
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        TreeNode* root = buildTree(preorder,-1,10001);
-        return root;
+        return buildBST(preorder,-1,1001);
     }
 };
