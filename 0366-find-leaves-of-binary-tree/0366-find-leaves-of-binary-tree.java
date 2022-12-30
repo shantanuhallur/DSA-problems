@@ -15,25 +15,30 @@
  */
 class Solution {
     List<Integer> leaves;
-    public TreeNode removeLeaves(TreeNode root) {
-        if(root.left == null && root.right == null) {
-            leaves.add(root.val);
+    public TreeNode removeLeaves(TreeNode node) {
+        //Base condition for leaf
+        if(node.left==null && node.right == null) {
+            leaves.add(node.val);
             return null;
         }
         
-        if(root.left!=null)root.left = removeLeaves(root.left);
-        if(root.right!=null)root.right = removeLeaves(root.right);
+        //Left & Right recursive call
+        if(node.left!=null)node.left = removeLeaves(node.left);
+        if(node.right!=null)node.right = removeLeaves(node.right);
         
-        return root;
+        return node;
     }
     public List<List<Integer>> findLeaves(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         
         while(true) {
             leaves = new ArrayList<>();
+            //if tree exists
             if(root!=null) {
                 root = removeLeaves(root);
-            }else break;
+            }
+            //Tree has finished removing every level
+            else break;
             ans.add(leaves);
         }
         return ans;
