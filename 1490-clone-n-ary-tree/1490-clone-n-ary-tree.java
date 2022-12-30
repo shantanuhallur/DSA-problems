@@ -28,8 +28,8 @@ class Solution {
         Node croot = new Node(root.val);
         croot.children = new ArrayList<>();
         int size = root.children.size();
-        for(int i=size-1;i>=0;i--) {
-            if(root.children.get(i)!=null)croot.children.add(0, cloneTree(root.children.get(i))); 
+        for(int i=0;i<size;i++) {
+            if(root.children.get(i)!=null)croot.children.add(cloneTree(root.children.get(i))); 
             else croot.children.add(null);
         }     
         
