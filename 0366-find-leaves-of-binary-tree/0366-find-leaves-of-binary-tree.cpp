@@ -11,29 +11,32 @@
  */
 class Solution {
 public:
-    vector<int> smallAns;
-    TreeNode* remLeaves(TreeNode* node) {
+    vector<int> leaves;
+    TreeNode* removeLeaves(TreeNode* node) {
+        //Base Case  for leaves.
         if(!node->left && !node->right){
-            smallAns.push_back(node->val);
-            return nullptr;  
-        } 
+            leaves.push_back(node->val);
+            return nullptr;
+        }
         
-        if(node->left) node->left = remLeaves(node->left);
-        
-        if(node->right) node->right = remLeaves(node->right);
+        //Left & right recursive call
+        if(node->left) node->left = removeLeaves(node->left);
+        if(node->right) node->right = removeLeaves(node->right);
         
         return node;
     }
-    
     vector<vector<int>> findLeaves(TreeNode* root) {
         vector<vector<int>> ans;
+        
         while(true) {
-            smallAns.clear();
+            leaves.clear();
+            //if Tree exists or root still exists
             if(root) {
-                root = remLeaves(root);
+                root = removeLeaves(root);
             }
+            //else tree is now null
             else break;
-            ans.push_back(smallAns);
+            ans.push_back(leaves);
         }
         return ans;
     }
