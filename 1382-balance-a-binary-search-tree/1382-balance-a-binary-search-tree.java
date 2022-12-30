@@ -27,11 +27,11 @@ class Solution {
     public TreeNode balance(int st,int end) {
         if(st>end) return null;
         int mid = (st+end)/2;
+        TreeNode root = new TreeNode(sortedList.get(mid));
         
-        TreeNode left = balance(st,mid-1);
-        TreeNode right = balance(mid+1,end);
+        root.left = balance(st,mid-1);
+        root.right = balance(mid+1,end);
         
-        TreeNode root = new TreeNode(sortedList.get(mid),left,right);
         
         return root;
     }
