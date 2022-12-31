@@ -12,22 +12,25 @@
 class Solution {
 public:
     int findSecondMinimumValue(TreeNode* root) {
+        //Base case for null root
         if(!root) return -1;
-        
+        //Base Case for leaf nodes
         if(!root->left && !root->right) return -1;
         
-        int leftMin = root->left->val;
-        int rightMin = root->right->val;
+        int leftSMin = root->left->val;
+        int rightSMin = root->right->val;
         
-        if(root->left->val == root->val)leftMin = findSecondMinimumValue(root->left);
-        if(root->right->val == root->val)rightMin = findSecondMinimumValue(root->right);
-            
-        if(leftMin!= -1 && rightMin !=-1) {
-            return min(leftMin,rightMin);
+        //Conditional Recursive Call
+        if(root->val == root->left->val) leftSMin = findSecondMinimumValue(root->left);
+        
+        if(root->val == root->right->val) rightSMin = findSecondMinimumValue(root->right);
+        
+        if(leftSMin != -1 && rightSMin != -1){
+            return min(leftSMin,rightSMin);
         }
-        else if(leftMin != -1) {
-            return leftMin;
+        else if(leftSMin != -1) {
+            return leftSMin;
         }
-        else return rightMin;
+        else return rightSMin;
     }
 };
