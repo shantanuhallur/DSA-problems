@@ -15,24 +15,22 @@
  */
 class Solution {
     public int findSecondMinimumValue(TreeNode root) {
-        if(root == null) return -1;
+        if(root==null) return -1;
         
-        if(root.left == null && root.right == null){
-            return -1;
+        if(root.left == null && root.right == null) return -1;
+        
+        int leftMin = root.left.val;
+        int rightMin = root.right.val;
+        
+        if(root.val == leftMin) leftMin = findSecondMinimumValue(root.left);
+        if(root.val == rightMin) rightMin = findSecondMinimumValue(root.right);
+        
+        if(leftMin != -1 && rightMin != -1) {
+            return Math.min(leftMin,rightMin);
         }
-        
-        int leftVal = root.left.val;
-        int rightVal = root.right.val;
-        
-        if(root.val == root.left.val) leftVal = findSecondMinimumValue(root.left);
-        if(root.val == root.right.val) rightVal = findSecondMinimumValue(root.right);
-        
-        if(leftVal!=-1 && rightVal!=-1) {
-            return Math.min(leftVal,rightVal);
-        } else if(leftVal!=-1) {
-            return leftVal;
-        } else {
-            return rightVal;
+        else if(leftMin != -1){
+            return leftMin;
         }
+        else return rightMin;
     }
 }
