@@ -30,6 +30,7 @@ public:
                 //checking if current removeN is equal to U
                 if(removeN->val == u->val && i != size-1) {
                     ans = que.front();
+                    break;
                 }
             }
         }
