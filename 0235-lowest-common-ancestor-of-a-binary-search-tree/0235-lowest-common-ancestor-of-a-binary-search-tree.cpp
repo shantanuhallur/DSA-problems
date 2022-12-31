@@ -12,14 +12,17 @@ class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         TreeNode* curr = root;
-        while(curr!=nullptr){
+        
+        while(curr) {
+            //IF our curr is smaller go to right subtree
             if(curr->val < p->val && curr->val < q->val) {
                 curr = curr->right;
             }
-            else if(curr->val > p->val && curr->val > q->val) {
+            // If our  curr is greater go to left subtree
+            else if (curr->val > p->val && curr->val > q->val) {
                 curr = curr->left;
             }
-            else return curr;
+            else return curr;   
         }
         return curr;
     }
