@@ -13,14 +13,18 @@ class Solution {
         TreeNode curr = root;
         
         while(curr!=null) {
-            if(curr.val <p.val && curr.val < q.val) {
+            //IF our curr's val is smaller we need to search in right
+            if(curr.val<p.val && curr.val < q.val) {
                 curr = curr.right;
             }
+            //IF our curr's val is greater we need to search in left
             else if(curr.val > p.val && curr.val > q.val) {
                 curr = curr.left;
             }
+            //ALREADY IN RANGE
             else return curr;
         }
+        
         return curr;
     }
 }
