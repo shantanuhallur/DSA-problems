@@ -33,9 +33,9 @@ class Solution {
         if(leftSMin !=-1 && rightSMin != -1) {
             return Math.min(leftSMin,rightSMin);
         }
-        else if (leftSMin == -1) {
-            return rightSMin;
+        else if (leftSMin != -1) {
+            return leftSMin;
         }
-        else return leftSMin;
+        else return rightSMin;
     }
 }
