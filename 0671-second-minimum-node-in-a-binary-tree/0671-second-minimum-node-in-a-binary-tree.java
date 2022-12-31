@@ -15,22 +15,27 @@
  */
 class Solution {
     public int findSecondMinimumValue(TreeNode root) {
-        if(root==null) return -1;
+        //Base case if root is null
+        if(root == null) return -1;
         
+        //If leaf , second min doesnt exist
         if(root.left == null && root.right == null) return -1;
         
-        int leftMin = root.left.val;
-        int rightMin = root.right.val;
+        int leftSMin = root.left.val;
+        int rightSMin = root.right.val;
         
-        if(root.val == leftMin) leftMin = findSecondMinimumValue(root.left);
-        if(root.val == rightMin) rightMin = findSecondMinimumValue(root.right);
+        //Conditional Recursive Faith of call
+        if(root.val == root.left.val) leftSMin = findSecondMinimumValue(root.left);
         
-        if(leftMin != -1 && rightMin != -1) {
-            return Math.min(leftMin,rightMin);
+        if(root.val == root.right.val) rightSMin = findSecondMinimumValue(root.right);
+        
+        //if there exists a second min val in leftSMin or rightSMin
+        if(leftSMin !=-1 && rightSMin != -1) {
+            return Math.min(leftSMin,rightSMin);
         }
-        else if(leftMin != -1){
-            return leftMin;
+        else if (leftSMin == -1) {
+            return rightSMin;
         }
-        else return rightMin;
+        else return leftSMin;
     }
 }
