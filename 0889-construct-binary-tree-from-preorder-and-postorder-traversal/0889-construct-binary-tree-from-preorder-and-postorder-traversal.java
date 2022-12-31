@@ -15,21 +15,20 @@
  */
 class Solution {
     int preIdx = 0;
-    int posIdx = 0;
-    public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
-        
-        TreeNode root = new TreeNode(preorder[preIdx++]);
-        
-        if(root.val != postorder[posIdx]) {
-            root.left = constructFromPrePost(preorder,postorder);
+    int postIdx = 0;
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        //Root creation
+        TreeNode root = new TreeNode(pre[preIdx++]);
+        //checking if that part of tree is completed if not then recursivly calling L & R.
+        if(root.val != post[postIdx]) {
+           root.left = constructFromPrePost(pre,post);
         }
         
-        if(root.val != postorder[posIdx]) {
-            root.right = constructFromPrePost(preorder,postorder);
+        if( root.val != post[postIdx]) {
+            root.right = constructFromPrePost(pre,post);
         }
-        
-        posIdx ++;
-        
+        //if both of the above functions are false means our tree is alredy created return root.
+        postIdx++;
         return root;
     }
 }
