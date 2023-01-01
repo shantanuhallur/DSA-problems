@@ -48,10 +48,10 @@ class Solution {
                 return root.left == null ? root.right : root.left;
             }
 
-            int minValue = minEle(root.right); // get max from left or min from right the node to delete will                                                    always
-            root.val = minValue; // be a leaf or one with 1 subtree only never a node with 2 subtrees
+            int maxValue = maxEle(root.left); // get max from left or min from right the node to delete will                                                    always
+            root.val = maxValue; // be a leaf or one with 1 subtree only never a node with 2 subtrees
                                  // as it will then not be the max or min node of that subtree.
-            root.right = deleteNode(root.right, minValue);
+            root.left = deleteNode(root.left, maxValue);
         }
 
         return root;
