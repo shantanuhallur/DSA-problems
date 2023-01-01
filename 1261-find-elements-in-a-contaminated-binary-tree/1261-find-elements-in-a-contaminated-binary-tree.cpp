@@ -11,22 +11,24 @@
  */
 class FindElements {
 public:
-    unordered_set<int> set;
-    void recoverTree(TreeNode* node,int idx) {
+    unordered_set<int>set;
+    void recoverTree(TreeNode* node, int idx) {
+        //Base Case
         if(!node) return;
-            
-        if(node->val != idx) node->val = idx;
-        set.insert(node->val);
+        //set our node's val to idx
+        node->val = idx;
+        set.insert(idx);
+        //left & right recursive calls
+        recoverTree(node->left,2*idx+1);
+        recoverTree(node->right,2*idx+2);
         
-        if(node->left) recoverTree(node->left,2*idx+1);
-        if(node->right) recoverTree(node->right,2*idx+2);
     }
     FindElements(TreeNode* root) {
         recoverTree(root,0);
     }
     
     bool find(int target) {
-        return set.find(target)==set.end() ?  false :  true;
+        return set.find(target) != set.end() ? true : false;
     }
 };
 
