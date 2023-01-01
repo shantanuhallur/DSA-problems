@@ -14,32 +14,29 @@
  * }
  */
 class Solution {
-    public int findMinInRight(TreeNode node) {
+    public int findMin(TreeNode node) {
         
-        while(node.left !=null) node = node.left;
-        
+        while(node.left != null) node = node.left;
         return node.val;
     }
     public TreeNode deleteNode(TreeNode root, int key) {
-        if(root==null) return null;
-        TreeNode curr = root;        
-    
-            if(curr.val > key) {
-                curr.left = deleteNode(curr.left,key);
+        if(root == null) return null;
+        
+        if(root.val < key) {
+            root.right = deleteNode(root.right,key);
+        }
+        else if(root.val > key) {
+            root.left = deleteNode(root.left,key);
+        }
+        else {
+            if(root.left == null || root.right == null) {
+                return root.left == null ? root.right : root.left;
             }
-            else if(curr.val < key) {
-                curr.right = deleteNode(curr.right,key);
-            }
-            else {
-                if(curr.left == null || curr.right == null)
-                    return curr.left == null? curr.right : curr.left; 
-            
-                int minEle = findMinInRight(curr.right);
-                
-                curr.val = minEle;
-                
-                curr. right = deleteNode(curr.right,minEle);
-            }
-        return curr;
+            //if both children nodes exist
+            int minEle = findMin(root.right);
+            root.val = minEle;
+            root.right = deleteNode(root.right,minEle);
+        }
+        return root;
     }
 }
