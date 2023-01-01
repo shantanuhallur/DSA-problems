@@ -14,19 +14,19 @@
  * }
  */
 class Solution {
-    int totalN = 0;
-    public int count(TreeNode node) {
-        if(node==null) return 0;
+    int totalN=0;
+    public int equalToDescendants_01(TreeNode root) {
+        if(root==null) return 0;
         
-        int leftSum = count(node.left);
-        int rightSum = count(node.right);
+        int leftSum = equalToDescendants_01(root.left);
+        int rightSum = equalToDescendants_01(root.right);
         
-        if(leftSum + rightSum == node.val) totalN++;
+        if(leftSum+rightSum == root.val) totalN++;
         
-        return leftSum+rightSum+node.val;
+        return leftSum+rightSum+root.val;
     }
     public int equalToDescendants(TreeNode root) {
-        count(root);
+        equalToDescendants_01(root);
         return totalN;
     }
 }
