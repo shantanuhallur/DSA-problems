@@ -15,19 +15,19 @@
  */
 class Solution {
     int ancestor = -1;
-    public void diff(TreeNode node,int max, int min) {
+    public void maxAncestorDiff_01(TreeNode node,int minE,int maxE) {
         if(node == null) return;
         
-        max = Math.max(max, node.val);
-        min = Math.min(min,node.val);
+        minE = Math.min(node.val,minE);
+        maxE = Math.max(node.val,maxE);
         
-        ancestor = Math.max(ancestor,Math.abs(max-min));
-        diff(node.left,max,min);
-        diff(node.right,max,min);
+        ancestor = Math.max(ancestor,Math.abs(minE-maxE));
         
+        maxAncestorDiff_01(node.left,minE,maxE);
+        maxAncestorDiff_01(node.right,minE,maxE);
     }
     public int maxAncestorDiff(TreeNode root) {
-        diff(root,root.val,root.val);
+        maxAncestorDiff_01(root,root.val,root.val);
         return ancestor;
     }
 }
