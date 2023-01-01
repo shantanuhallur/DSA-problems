@@ -12,19 +12,22 @@
 class Solution {
 public:
     int ancestor = -1;
-    void diff(TreeNode* node,int minE,int maxE) {
+    void maxAncestorDiff_01(TreeNode* node,int maxE,int minE) {
+        //Base Case
         if(!node) return;
         
+        //Maximize minE & maxE
         minE = min(minE,node->val);
         maxE = max(maxE,node->val);
-        
+        //Maximize our ancestor
         ancestor = max(ancestor,abs(maxE-minE));
+        //Left and Right recursive Call
+        maxAncestorDiff_01(node->left,maxE,minE);
+        maxAncestorDiff_01(node->right,maxE,minE);
         
-        diff(node->left,minE,maxE);
-        diff(node->right,minE,maxE);
     }
     int maxAncestorDiff(TreeNode* root) {
-        diff(root,root->val,root->val);
+        maxAncestorDiff_01(root,root->val,root->val);
         return ancestor;
     }
 };
