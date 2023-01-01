@@ -11,19 +11,21 @@
  */
 class Solution {
 public:
-    int totalN = 0;
-    int count(TreeNode* node) {
+    int countN=0;
+    int equalToDescendants_01(TreeNode* node) {
+        //Base case 
         if(!node) return 0;
         
-        long leftSum = count(node->left);
-        long rightSum = count(node->right);
-        
-        if(leftSum + rightSum == node->val) totalN++;
-        
-        return rightSum+leftSum+node->val;
+        //left & right sum
+        long leftSum = equalToDescendants_01(node->left);
+        long rightSum = equalToDescendants_01(node->right);
+        //check condition
+        if(leftSum+rightSum == node->val) countN++;
+        //return current cumulative sum to our nodes parent
+        return leftSum + rightSum + node->val;
     }
     int equalToDescendants(TreeNode* root) {
-        count(root);
-        return totalN;
+        equalToDescendants_01(root);
+        return countN;
     }
 };
