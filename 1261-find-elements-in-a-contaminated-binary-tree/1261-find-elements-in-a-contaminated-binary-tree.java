@@ -15,16 +15,15 @@
  */
 class FindElements {
     HashSet<Integer> set;
-    public void recoverTree(TreeNode node,int idx){
+    public void recoverTree(TreeNode node,int idx) {
         if(node == null) return;
         
         if(node.val != idx) node.val = idx;
         set.add(node.val);
+        if(node.left!=null) recoverTree(node.left,2*idx+1);
+        if(node.right!=null) recoverTree(node.right,2*idx+2);
         
-        recoverTree(node.left,idx*2+1);
-        recoverTree(node.right,idx*2+2);
     }
-    
     public FindElements(TreeNode root) {
         set = new HashSet<>();
         recoverTree(root,0);
