@@ -14,46 +14,32 @@
  * }
  */
 class Solution {
-    public static int maxEle(TreeNode root) {
-        TreeNode curr = root;
-
-        while (curr.right != null) {
-            curr = curr.right;
-        }
-
-        return curr.val;
+    public int findMinInRight(TreeNode node) {
+        
+        while(node.left !=null) node = node.left;
+        
+        return node.val;
     }
-    
-    
-    public static int minEle(TreeNode root) {
-        TreeNode curr = root;
-
-        while (curr.left != null) {
-            curr = curr.left;
-        }
-
-        return curr.val;
-    }
-    
     public TreeNode deleteNode(TreeNode root, int key) {
-        if (root == null)
-            return null;
-
-        if (root.val > key) {
-            root.left = deleteNode(root.left, key);
-        } else if (root.val < key)
-            root.right = deleteNode(root.right, key);
-        else {
-            if (root.left == null || root.right == null) {
-                return root.left == null ? root.right : root.left;
+        if(root==null) return null;
+        TreeNode curr = root;        
+    
+            if(curr.val > key) {
+                curr.left = deleteNode(curr.left,key);
             }
-
-            int maxValue = maxEle(root.left); // get max from left or min from right the node to delete will                                                    always
-            root.val = maxValue; // be a leaf or one with 1 subtree only never a node with 2 subtrees
-                                 // as it will then not be the max or min node of that subtree.
-            root.left = deleteNode(root.left, maxValue);
-        }
-
-        return root;
+            else if(curr.val < key) {
+                curr.right = deleteNode(curr.right,key);
+            }
+            else {
+                if(curr.left == null || curr.right == null)
+                    return curr.left == null? curr.right : curr.left; 
+            
+                int minEle = findMinInRight(curr.right);
+                
+                curr.val = minEle;
+                
+                curr. right = deleteNode(curr.right,minEle);
+            }
+        return curr;
     }
 }
