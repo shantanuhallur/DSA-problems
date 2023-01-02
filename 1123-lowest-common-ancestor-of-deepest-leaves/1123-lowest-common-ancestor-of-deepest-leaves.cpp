@@ -14,21 +14,25 @@ public:
     int height(TreeNode* node) {
         if(!node) return 0;
         
-        int leftHeight = height(node->left);
-        int rightHeight = height(node->right);
+        int leftH = height(node->left);
+        int rightH = height(node->right);
         
-        return max(leftHeight,rightHeight) + 1;
+        return max(leftH,rightH) + 1;
     }
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        if(!root) return nullptr;
+        if(root == nullptr) return nullptr;
         
-        int leftSubtreeHeight = height(root->left);
-        int rightSubtreeHeight = height(root->right);
+        int leftSubTree = height(root->left);
         
-        if(leftSubtreeHeight == rightSubtreeHeight) return root;
+        int rightSubTree = height(root->right);
         
-        else if(leftSubtreeHeight > rightSubtreeHeight)
-            return lcaDeepestLeaves (root->left);
-        else return lcaDeepestLeaves(root->right);
+        if(leftSubTree == rightSubTree) return root;
+        
+        else if(leftSubTree < rightSubTree) {
+            return lcaDeepestLeaves(root->right);
+        }
+        else{
+            return lcaDeepestLeaves(root->left);
+        }
     }
 };
