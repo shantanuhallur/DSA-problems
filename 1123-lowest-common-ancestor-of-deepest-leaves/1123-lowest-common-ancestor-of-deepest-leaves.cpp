@@ -12,23 +12,27 @@
 class Solution {
 public:
     int height(TreeNode* node) {
+        //base case
         if(!node) return 0;
-        
+        //recursive faith of left and right node
         int leftH = height(node->left);
         int rightH = height(node->right);
-        
+        //calculate current node's height
         return max(leftH,rightH) + 1;
     }
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        if(root == nullptr) return nullptr;
+        //Base Case
+        if(root==nullptr) return nullptr;
         
-        int leftSubTree = height(root->left);
+        //get left and right subtrees height
+        int leftSubtreeH = height(root->left);
+        int rightSubtreeH = height(root->right);
         
-        int rightSubTree = height(root->right);
-        
-        if(leftSubTree == rightSubTree) return root;
-        
-        else if(leftSubTree < rightSubTree) {
+        //check our 3 CASES
+        if(leftSubtreeH==rightSubtreeH) {
+            return root; // current node is our LCA
+        }
+        else if(leftSubtreeH < rightSubtreeH) {
             return lcaDeepestLeaves(root->right);
         }
         else{
