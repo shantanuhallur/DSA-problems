@@ -14,53 +14,49 @@
  * }
  */
 class CBTInserter {
-    TreeNode h = null;
+    TreeNode dummyRoot;
+    LinkedList<TreeNode> que;
     TreeNode currPtr = null;
-    Queue<TreeNode> que = new LinkedList<>();
-    
     public CBTInserter(TreeNode root) {
-        h = root;
-        que.add(root);
-        
+        dummyRoot = root;
+        que = new LinkedList<>();
+        que.addLast(root);
+        //LEVEL ORDER
         while(true) {
-            TreeNode rn = que.peek();
-            currPtr = que.peek();
-            if(rn.left !=null) {
-                que.add(rn.left);
-            }
+            TreeNode rn = que.peekFirst();
+            currPtr = rn;
+            
+            if(rn.left !=null) que.addLast(rn.left);
             else break;
             
-            if(rn.right !=null) {
-                que.add(rn.right);
-            }
+            if(rn.right !=null) que.addLast(rn.right);
             else break;
             
-            que.poll();
+            que.removeFirst();
         }
-        
-        
     }
     
     public int insert(int val) {
-        int rnVal = currPtr.val;
-        if(currPtr.left == null){
+        int returnVal = currPtr.val;
+        //if left child doesnt exist
+        if(currPtr.left ==null) {
             TreeNode node = new TreeNode(val);
             currPtr.left = node;
-            que.add(node);
+            que.addLast(node);
         }
-        else{
+        else{ // left child exists
             TreeNode node = new TreeNode(val);
             currPtr.right = node;
-            que.add(node);
-            que.poll();
-            currPtr = que.peek();
-            
+            que.addLast(node); //add usefull node
+            que.removeFirst(); //remove useless node
+            currPtr = que.peekFirst(); //reset currPtr in que
         }
-        return rnVal;
+        
+        return returnVal;
     }
     
     public TreeNode get_root() {
-        return h;
+        return dummyRoot;
     }
 }
 
