@@ -15,23 +15,32 @@
  */
 class Solution {
     public int height(TreeNode node) {
+        //Base Case
         if(node==null) return 0;
+        //Left recursive call of Faith
+        int leftH = height(node.left);
         
-        int leftHeight = height(node.left);
-        int rightHeight = height(node.right);
-        
-        return Math.max(leftHeight,rightHeight) +1;
+        //right recursive faith of call
+        int rightH = height(node.right);
+        //calculate height of current node
+        return Math.max(leftH,rightH) + 1;
     }
     public TreeNode lcaDeepestLeaves(TreeNode root) {
+        //base case 
         if(root == null) return null;
         
-        int leftSubtreeHeight = height(root.left);
-        int rightSubtreeHeight = height(root.right);
+        //get left & right Subtree's height
+        int leftSubtreeH = height(root.left);
+        int rightSubtreeH = height(root.right);
         
-        if(leftSubtreeHeight == rightSubtreeHeight) return root;
-        
-        else if(leftSubtreeHeight > rightSubtreeHeight) 
+        //check whichever height is max we have our lca on that side of our root
+        if(leftSubtreeH == rightSubtreeH) return root;
+        else if(leftSubtreeH < rightSubtreeH) {
+            return lcaDeepestLeaves(root.right);
+        }
+        else{//we will eget LCA in left side
             return lcaDeepestLeaves(root.left);
-        else return lcaDeepestLeaves(root.right);
+        }
+        
     }
 }
