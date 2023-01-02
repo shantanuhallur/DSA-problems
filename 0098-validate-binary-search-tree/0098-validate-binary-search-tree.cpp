@@ -20,7 +20,7 @@ public:
         //Left recursive Call
         traverseInorder(node->left);
         //INORDER AREA --->>>>
-        //check condition
+        //check condition the val of node should be greater than and not equal to smaller than prev.
         if(prev && prev->val >= node->val) isBST = false;
         //update prev
         prev = node;
