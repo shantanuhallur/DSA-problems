@@ -11,18 +11,26 @@
  */
 class Solution {
 public:
-    bool isBTree = true;
+    bool isBST = true;
     TreeNode* prev = nullptr;
-    void isValidBST_01(TreeNode* root) {
-        if(!root) return;
-        
-        isValidBST_01(root->left);
-        if(prev!= nullptr && prev->val >= root->val) isBTree = false;
-        prev = root;
-        isValidBST_01(root->right);
+    void traverseInorder(TreeNode* node) {
+        //Base case
+        if(!node) return;
+        //preorder area
+        //Left recursive Call
+        traverseInorder(node->left);
+        //INORDER AREA --->>>>
+        //check condition
+        if(prev && prev->val >= node->val) isBST = false;
+        //update prev
+        prev = node;
+        //INORDER AREA --->>>>
+        //Right recursive call
+        traverseInorder(node->right);
+        //posorder area
     }
     bool isValidBST(TreeNode* root) {
-        isValidBST_01(root);
-        return isBTree;
+        traverseInorder(root);
+        return isBST;
     }
 };
