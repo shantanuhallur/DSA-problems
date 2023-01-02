@@ -9,7 +9,7 @@ public:
 
         for (int i = 2; i <= n; i++) {
             nodes[i] ^= nodes[i / 2];
-            result += nodes[i];
+            result += nodes[i]; // CHECK XOR TABLE
         }
 
         return result;
