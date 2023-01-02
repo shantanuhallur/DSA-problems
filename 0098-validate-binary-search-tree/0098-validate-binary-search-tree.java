@@ -14,18 +14,26 @@
  * }
  */
 class Solution {
-    boolean isValidTree = true;
+    boolean isBST = true;
     TreeNode prev = null;
-    public void isValidBST_01(TreeNode root) {
-        if(root == null) return;
+    public void traverseInorder(TreeNode node) {
+        //base Case
+        if(node == null) return;
         
-        isValidBST(root.left);
-        if(prev!=null && prev.val >= root.val)isValidTree = false;
-        prev = root;
-        isValidBST(root.right);
+        //left recursive call
+        traverseInorder(node.left);
+        //Inorder area ---->>>>>>
+        //condition
+        if(prev!= null && prev.val >= node.val) isBST = false;
+        //update prev
+        prev = node;
+        //Inorder area ---->>>>>>
+        //right recursive call
+        traverseInorder(node.right);
+        
     }
     public boolean isValidBST(TreeNode root) {
-        isValidBST_01(root);
-        return isValidTree;
+        traverseInorder(root);
+        return isBST;
     }
 }
