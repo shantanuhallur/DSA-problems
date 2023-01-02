@@ -52,7 +52,7 @@ class CBTInserter {
             TreeNode node = new TreeNode(val);
             currPtr.right = node;
             que.add(node);
-            rnVal = currPtr.val;
+            // rnVal = currPtr.val;
             que.poll();
             currPtr = que.peek();
             
