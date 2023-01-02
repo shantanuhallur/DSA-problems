@@ -15,23 +15,23 @@
  */
 class Solution {
     public int height(TreeNode node) {
+        //Base Case
         if(node==null) return 0;
-        
-        int leftHeight = height(node.left);
-        int rightHeight = height(node.right);
-        
-        return Math.max(leftHeight,rightHeight) +1;
+        //Recusive call of faith
+        int leftH = height(node.left);
+        int rightH = height(node.right);
+        //calculate my node's height 
+        return Math.max(leftH,rightH) + 1;
     }
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
-        if(root == null) return null;
+        //base case
+        if(root==null) return null;
+        //get left and right rubtreeH
+        int leftSubTreeH = height(root.left);
+        int rightSubTreeH = height(root.right);
         
-        int leftSubtreeHeight = height(root.left);
-        int rightSubtreeHeight = height(root.right);
-        
-        if(leftSubtreeHeight == rightSubtreeHeight) return root;
-        
-        else if(leftSubtreeHeight > rightSubtreeHeight) 
-            return subtreeWithAllDeepest(root.left);
-        else return subtreeWithAllDeepest(root.right);
+        if(leftSubTreeH==rightSubTreeH) return root;
+        else if(leftSubTreeH<rightSubTreeH) return subtreeWithAllDeepest(root.right);
+        else return subtreeWithAllDeepest(root.left);
     }
 }
