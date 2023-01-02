@@ -11,18 +11,21 @@
  */
 class CBTInserter {
 public:
-    TreeNode* currPtr = nullptr;
+    TreeNode* dummyRoot;
     queue<TreeNode*> que;
-    TreeNode* rt;
-    CBTInserter(TreeNode* root) {    
-        rt = root;
+    TreeNode* currPtr = nullptr;
+    CBTInserter(TreeNode* root) {
+        dummyRoot = root;
+        //levelOrderTraversal
         que.push(root);
         
         while(true) {
             TreeNode* rn = que.front();
             currPtr = rn;
+            //if left child doesnt not exist we have our first incomplete filled node
             if(rn->left) que.push(rn->left);
             else break;
+            //if right child doesnt not exist we have our first incomplete filled node
             if(rn->right) que.push(rn->right);
             else break;
             
@@ -32,24 +35,27 @@ public:
     
     int insert(int val) {
         int returnVal = currPtr->val;
-        //add in left
+        //if left node if not filled of our node then add the new node to the left.
         if(!currPtr->left) {
             TreeNode* node = new TreeNode(val);
             currPtr->left = node;
-            que.push(node);
+            //add the usefull node in que
+            que.push(currPtr->left);
         }
+        //if my node is filled in left add the node in right and update my currPtr
         else{
             TreeNode* node = new TreeNode(val);
             currPtr->right = node;
-            que.push(node);
+            que.push(currPtr->right);
             que.pop();
             currPtr = que.front();
         }
+        
         return returnVal;
     }
     
     TreeNode* get_root() {
-        return rt;
+        return dummyRoot;
     }
 };
 
