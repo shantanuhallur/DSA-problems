@@ -8,10 +8,10 @@ class Solution {
         }
         
         for(int i=1;i<n+1;i++) {
-            if(i!=1) {
+            if(i!=1) { //as 1 doesnt have any parents
                 dp[i] += dp[i/2];
             }
-            
+            //check if bulb is on or not after all the queries done.   
             if(dp[i]%2 == 1) result++;
         }
         return result;
