@@ -14,33 +14,22 @@
  * }
  */
 class Solution {
-    public String evaluate(Node node){
-        if(node ==null) return "";
+    public void dfs(Node node,int[] alphabet){
+        if(node==null) return;
         
-        String leftVal = evaluate(node.left);
-        String rightVal = evaluate(node.right);
+        if(node.val != '+') alphabet[node.val-'a']++;
         
-        String myVal = leftVal+node.val+rightVal;
-        return myVal;
-    }
-    public boolean checkAnagram(String s1,String s2) {
-        if(s1.length()!=s2.length()) return false;
-        HashMap<Character,Integer> map = new HashMap<>();
-        for(Character ch:s1.toCharArray()) {
-            map.put(ch,map.getOrDefault(ch,0)+1);
-        }
-        for(Character ch:s2.toCharArray()) {
-            map.put(ch,map.getOrDefault(ch,0)-1);
-        }
-        
-        for(int value:map.values()) {
-            if(value<0) return false;
-        }
-        return true;
+        dfs(node.left,alphabet);
+        dfs(node.right,alphabet);
     }
     public boolean checkEquivalence(Node root1, Node root2) {
-        String s1 = evaluate(root1);
-        String s2 = evaluate(root2);
-        return checkAnagram(s1,s2);
+        int[] alphabet= new int[26];
+        dfs(root1,alphabet);
+        dfs(root2,alphabet);
+        
+        for(int i=0;i<26;i++){
+            if(alphabet[i]%2 != 0) return false;
+        }
+        return true;
     }
 }
