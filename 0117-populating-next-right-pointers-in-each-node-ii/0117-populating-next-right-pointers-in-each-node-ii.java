@@ -23,24 +23,28 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
+        //base case
         if(root==null) return null;
-        LinkedList<Node> que = new LinkedList<>();
         
+        LinkedList<Node> que = new LinkedList<>();
+        //add root in que for BFS
         que.addLast(root);
-        while(que.size()!=0){
-            int size=que.size();
+        //start BFS/Level Order Traversal
+        while(que.size()!=0) {
+            //get size of que
+            int size = que.size();
             for(int i=0;i<size;i++) {
-                Node rn = que.removeFirst();
-                if(i!=size-1) {
-                    rn.next = que.peek();
+                Node removeN = que.removeFirst();
+                //if next node exists in que
+                if(i!= size-1) {
+                    removeN.next = que.peekFirst();
                 }
-                else{
-                    rn.next = null;
+                else{ // this is the last node in the level
+                    removeN.next = null;
                 }
-                
-                if(rn.left!=null) que.addLast(rn.left);
-                
-                if(rn.right!=null) que.addLast(rn.right);
+                //set up next level in the que if exists
+                if(removeN.left !=null) que.addLast(removeN.left);
+                if(removeN.right !=null)que.addLast(removeN.right);
             }
         }
         return root;
