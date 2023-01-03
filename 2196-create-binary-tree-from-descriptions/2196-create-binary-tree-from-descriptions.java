@@ -19,24 +19,20 @@ class Solution {
         HashMap<Integer,Integer> freq = new HashMap<>();
         //add frequencies and create all nodes.
         for(int[] node : descriptions) {
-             if(!map.containsKey(node[0])){ 
-                TreeNode createdNode = new TreeNode(node[0]);
-                 map.put(node[0],createdNode);
-             }
-            if(!map.containsKey(node[1])){ 
-                TreeNode createdNode = new TreeNode(node[1]);
-                 map.put(node[1],createdNode);
-             }
-                 freq.put(node[1],freq.getOrDefault(node[1],0)+1);
-        }
-        //attach nodes
-        for(int[] node : descriptions) {
-            TreeNode from = map.get(node[0]);
-            TreeNode to = map.get(node[1]);
-            //attach left
-            if(node[2]==1) from.left = to;
-        //attach right
-            else from.right = to;
+            int parent = node[0]; int child = node[1]; int isLeft = node[2];
+            TreeNode par = map.getOrDefault(parent,new TreeNode(parent));
+            map.put(parent,par);
+            
+            if(isLeft==1) {
+                par.left = map.getOrDefault(child,new TreeNode(child));
+                map.put(child,par.left);
+            }
+            else{
+                par.right = map.getOrDefault(child,new TreeNode(child));
+                map.put(child,par.right);
+            }
+            
+            freq.put(child,1);
         }
          // Return root;  
          for(int[] node : descriptions) {
