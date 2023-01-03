@@ -14,22 +14,23 @@
  * }
  */
 class Solution {
-    void dfs(Node node,int[] alphabet) {
-        if(node==null)return;
+    public void dfs(Node node,int[] freq) {
+        //Base Case
+        if(node==null) return;
+        //condition to check if i dont have a + in the node
+        if(node.val != '+') freq[node.val-'a']++;
+        //recurse to left and right side to cover the whole tree
+        dfs(node.left,freq);
+        dfs(node.right,freq);
         
-        if(node.val !='+') alphabet[node.val-'a']++;
-        
-        dfs(node.left,alphabet);
-        dfs(node.right,alphabet);
     }
     public boolean checkEquivalence(Node root1, Node root2) {
-        int[] alphabet = new int[26];
-        
-        dfs(root1,alphabet);
-        dfs(root2,alphabet);
-        
-        for(int i=0;i<26;i++) {
-            if(alphabet[i]%2!=0) return false;
+        int[] freq = new int[26];
+        dfs(root1,freq);
+        dfs(root2,freq);
+        //if any freq is odd return false else return true;
+        for(int i=0;i<26;i++){
+            if(freq[i]%2!=0) return false;
         }
         return true;
     }
