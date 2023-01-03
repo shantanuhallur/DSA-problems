@@ -1,19 +1,18 @@
 class Solution {
     public int numberOfNodes(int n, int[] queries) {
-        int result=0;
         int[] dp = new int[n+1];
-        //on and off the bulb these many times.
+        int on = 0;
         for(int query : queries) {
             dp[query]++;
         }
         
         for(int i=1;i<n+1;i++) {
-            if(i!=1) { //as 1 doesnt have any parents
+            if(i!=1) {
                 dp[i] += dp[i/2];
+                
             }
-            //check if bulb is on or not after all the queries done.   
-            if(dp[i]%2 == 1) result++;
+                if(dp[i]%2==1) on++;
         }
-        return result;
+        return on;
     }
 }
