@@ -11,21 +11,23 @@
  */
 class Solution {
 public:
-    void dfs(Node* node,vector<int>& arr) {
+    void dfs(Node* node,vector<int>& freq){
+        //Base Case
         if(!node) return;
-        
-        if(node->val != '+') arr[node->val-'a']++;
-        
-        dfs(node->left,arr);
-        dfs(node->right,arr);
+        //check if node val is not + if not then increment the corresponding mapping index int freq.
+        if(node->val != '+') freq[node->val-'a']++;
+        //Frequency calculated by traversing the whole tree by left and right recursive call
+        dfs(node->left,freq);
+        dfs(node->right,freq);
     }
     bool checkEquivalence(Node* root1, Node* root2) {
-        vector<int> arr(26,0);
-        dfs(root1,arr);
-        dfs(root2,arr);
-        
-        for(int i=0;i<26;i++){
-            if(arr[i]%2 !=0)return false;
+        //get freq filled
+        vector<int> freq(26,0);
+        dfs(root1,freq);
+        dfs(root2,freq);
+        //check of any freq is odd if yes return false else return true
+        for(int i=0;i<26;i++) {
+            if(freq[i]%2 != 0) return false;
         }
         return true;
     }
