@@ -19,25 +19,28 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
+        //Base Case
         if(!root) return nullptr;
-        
         queue<Node*> que;
         que.push(root);
-        
+        //BFS/Level Order Traversal
         while(que.size()!=0) {
             int size = que.size();
+            //inner for loop for getting last size-1th iteration
             for(int i=0;i<size;i++) {
-                Node* rn = que.front(); que.pop();
-                
+                //get our first Node
+                Node* removeN = que.front(); que.pop();
+                //if not last iteration set next to que front
                 if(i!=size-1) {
-                    rn->next = que.front();
+                    removeN->next = que.front();
                 }
-                else{
-                    rn->next = nullptr;
+                else{ // we are at the last iteration attach null to next of removeN
+                    removeN->next = nullptr;
                 }
                 
-                if(rn->left) que.push(rn->left);
-                if(rn->right) que.push(rn->right);
+                //set up our next level of the que
+                if(removeN->left) que.push(removeN->left);
+                if(removeN->right) que.push(removeN->right);
             }
         }
         return root;
