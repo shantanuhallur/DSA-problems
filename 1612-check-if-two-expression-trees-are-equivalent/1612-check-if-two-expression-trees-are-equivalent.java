@@ -14,21 +14,22 @@
  * }
  */
 class Solution {
-    public void dfs(Node node,int[] alphabet){
-        if(node==null) return;
+    void dfs(Node node,int[] alphabet) {
+        if(node==null)return;
         
-        if(node.val != '+') alphabet[node.val-'a']++;
+        if(node.val !='+') alphabet[node.val-'a']++;
         
         dfs(node.left,alphabet);
         dfs(node.right,alphabet);
     }
     public boolean checkEquivalence(Node root1, Node root2) {
-        int[] alphabet= new int[26];
+        int[] alphabet = new int[26];
+        
         dfs(root1,alphabet);
         dfs(root2,alphabet);
         
-        for(int i=0;i<26;i++){
-            if(alphabet[i]%2 != 0) return false;
+        for(int i=0;i<26;i++) {
+            if(alphabet[i]%2!=0) return false;
         }
         return true;
     }
