@@ -22,33 +22,27 @@ class Node {
 */
 
 class Solution {
-    public void connect_01(Node node) {
-        LinkedList<Node> que1 = new LinkedList<>();
-        LinkedList<Node> que2 = new LinkedList<>();
-        que1.addLast(node);
+    public Node connect(Node root) {
+        if(root==null) return null;
+        LinkedList<Node> que = new LinkedList<>();
         
-        while(que1.size()!=0) {
-            int size = que1.size();
-            while(size-->0) {
-                Node rn = que1.pop();
-                if(!que1.isEmpty()){
-                    rn.next = que1.peekFirst();
+        que.addLast(root);
+        while(que.size()!=0){
+            int size=que.size();
+            for(int i=0;i<size;i++) {
+                Node rn = que.removeFirst();
+                if(i!=size-1) {
+                    rn.next = que.peek();
                 }
                 else{
                     rn.next = null;
                 }
                 
-                if(rn.left !=null) que2.addLast(rn.left);
-                if(rn.right !=null) que2.addLast(rn.right);
+                if(rn.left!=null) que.addLast(rn.left);
+                
+                if(rn.right!=null) que.addLast(rn.right);
             }
-            que1 = que2;
-            que2 = new LinkedList<>();
         }
-    }
-    
-    public Node connect(Node root) {
-        if(root == null) return null;
-        connect_01(root);
         return root;
     }
 }
