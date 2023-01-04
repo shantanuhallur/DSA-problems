@@ -14,16 +14,16 @@
  * }
  */
 class Solution {
-    public int PresentAt(TreeNode node,int p,int q) {
-        if(node == null)return 0;
+    public TreeNode getLCA(TreeNode node,int p,int q) {
+        if(node==null) return null;
+        if(node.val == p || node.val ==q) return node;
         
-        int leftCount = PresentAt(node.left,p,q);
-        int rightCount = PresentAt(node.right,p,q);
+        TreeNode left = getLCA(node.left,p,q);
+        TreeNode right = getLCA(node.right,p,q);
         
-        int myCount = 0;
-        if(node.val == p || node.val == q) myCount++;
+        if(left!=null && right!=null) return node;
         
-        return leftCount+rightCount+myCount;
+        return left!=null?left:right;
     }
     public int kDown(TreeNode node,int val, int len) {
         if(node==null) return 0;
@@ -39,16 +39,10 @@ class Solution {
     public int findDistance(TreeNode root, int p, int q) {
         if(p==q) return 0;
         
-        if(PresentAt(root.left,p,q) ==  2) {
-            return findDistance(root.left,p,q);
-        }
-        else if(PresentAt(root.right,p,q) ==  2) {
-            return findDistance(root.right,p,q);
-        }
-        else { //pq passes through this node
-            int lenP = kDown(root,p,0);
-            int lenQ = kDown(root,q,0);
+        TreeNode lca = getLCA(root,p,q);
+    
+            int lenP = kDown(lca,p,0);
+            int lenQ = kDown(lca,q,0);
             return lenP+lenQ;
-        }
     }
 }
