@@ -14,26 +14,28 @@
  * }
  */
 class Solution {
-    int paths = 0;
-    void traverse(TreeNode node, int[] arr) {
-        if(node.left==null && node.right==null) {
+    int paths=0;
+    public void dfs(TreeNode node, int[] arr) {
+        if(node.left == null && node.right == null) {
             arr[node.val]++;
-            int count = 0;
+            int odd=0;
             for(int i=1;i<=9;i++) {
-                if(arr[i]%2 != 0) count++;
+                if(arr[i]%2==1) odd++;
             }
-            if(count<=1) paths++;
+            if(odd<=1) paths++;
             arr[node.val]--;
             return;
         }
+        
         arr[node.val]++;
-        if(node.left!=null)traverse(node.left,arr);
-        if(node.right!=null)traverse(node.right,arr);
+        if(node.left!=null) dfs(node.left,arr);
+        if(node.right!=null)dfs(node.right,arr);
         arr[node.val]--;
+        
     }
     public int pseudoPalindromicPaths (TreeNode root) {
         int[] arr = new int[10];
-        traverse(root,arr);
+        dfs(root,arr);
         return paths;
     }
 }
