@@ -14,20 +14,23 @@
  * }
  */
 class Solution {
-    TreeNode prev = null;
-    int cSum =0;
-    public void convert(TreeNode node) {
+    int greaterSum = 0;
+    public void traverse(TreeNode node) {
+        //Base Case
         if(node == null) return;
-        
-        convert(node.right);
-        cSum += node.val;
-        node.val = cSum;
-        prev = node;
-        convert(node.left);
+        //right recursive call
+        traverse(node.right);
+        //INORDER AREA --------->>
+         node.val += greaterSum;   
+         //cumulative greater sum 
+         greaterSum = node.val; 
+        //INORDER AREA --------->>    
+        //left recursive call
+        traverse(node.left);
         
     }
     public TreeNode convertBST(TreeNode root) {
-        convert(root);
+        traverse(root);
         return root;
     }
 }
