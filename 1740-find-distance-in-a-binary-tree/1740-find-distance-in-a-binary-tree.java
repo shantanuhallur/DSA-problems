@@ -14,34 +14,33 @@
  * }
  */
 class Solution {
-    public TreeNode getLCA(TreeNode node, int p, int q) {
-        if(node== null) return null;
-        if(node.val==p || node.val == q) return node;
+    public TreeNode LCA(TreeNode node,int p,int q) {
+        if(node == null) return null;
+        if(node.val ==p || node.val ==q) return node;
         
-        TreeNode left = getLCA(node.left,p,q);
-        TreeNode right = getLCA(node.right,p,q);
+        TreeNode left = LCA(node.left,p,q);
+        TreeNode right = LCA(node.right,p,q);
         
         if(left!=null && right!=null) return node;
         
-        return left == null ? right : left;
+        return left != null ? left : right;
     }
-    
-    int getDistanceToNode(TreeNode node,int val,int dist) {
+    int getDist(TreeNode node,int val, int dist) {
         if(node == null) return 0;
         if(node.val == val) return dist;
         
-        int leftDist = getDistanceToNode(node.left,val,dist+1);
-        if(leftDist>0) return leftDist;
-        int rightDist = getDistanceToNode(node.right,val,dist+1);
-        if(rightDist>0) return rightDist;
+        int left = getDist(node.left,val,dist+1);
+        if(left>0) return left;
+        int right = getDist(node.right,val,dist+1);
+        if(right>0) return right;
         
-        return leftDist+rightDist;
+        return left+right;
     }
-    
     public int findDistance(TreeNode root, int p, int q) {
-        TreeNode LCA = getLCA(root,p,q);
-        int leftD = getDistanceToNode(LCA,p,0);
-        int rightD = getDistanceToNode(LCA,q,0);
-        return leftD+rightD;
+        TreeNode LCA = LCA(root,p,q);
+        int distP = getDist(LCA,p,0);
+        int distQ = getDist(LCA,q,0);
+        
+        return distP+distQ;
     }
 }
