@@ -11,21 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* prev=nullptr;
-    int csum =0;
-    void convert(TreeNode* node) {
+    int greaterSum=0;
+    void traverse(TreeNode* node) {
+        //base case
         if(!node) return;
         
-        convert(node->right);
+        //right recursive call
+        traverse(node->right);
+        //Inorder area -->>>>
+        node->val += greaterSum;
         
-        csum += node->val;
-        node->val = csum;
-        
-        prev = node;
-        convert(node->left);
+        greaterSum = node->val;
+        //Inorder area -->>>>
+        //left recursive call
+        traverse(node->left);
     }
     TreeNode* convertBST(TreeNode* root) {
-        convert(root);
+        traverse(root);
         return root;
     }
 };
