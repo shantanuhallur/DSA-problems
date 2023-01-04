@@ -14,33 +14,41 @@
  * }
  */
 class Solution {
-    public TreeNode LCA(TreeNode node,int p,int q) {
-        if(node == null) return null;
+    public TreeNode getLCA(TreeNode node,int p,int q) {
+        //base case
+        if(node == null)return null;
+        //if node is equal to pq or q
         if(node.val ==p || node.val ==q) return node;
         
-        TreeNode left = LCA(node.left,p,q);
-        TreeNode right = LCA(node.right,p,q);
+        //left & right recursive call
+        TreeNode leftFound = getLCA(node.left,p,q);
+        TreeNode rightFound = getLCA(node.right,p,q);
         
-        if(left!=null && right!=null) return node;
+        if(leftFound!=null && rightFound!=null) return node; // I AM THE LCA
         
-        return left != null ? left : right;
+        return leftFound!=null ? leftFound : rightFound;
     }
-    int getDist(TreeNode node,int val, int dist) {
+    
+    public int findDist(TreeNode node,int val,int dist){
+        //base Case
         if(node == null) return 0;
         if(node.val == val) return dist;
         
-        int left = getDist(node.left,val,dist+1);
-        if(left>0) return left;
-        int right = getDist(node.right,val,dist+1);
-        if(right>0) return right;
+        //left and right recursive call
+        int leftDist = findDist(node.left,val,dist+1);
+        if(leftDist>0) return leftDist;
+        int rightDist = findDist(node.right,val,dist+1);
+        if(rightDist>0) return rightDist;
         
-        return left+right;
+        return (leftDist + rightDist);
     }
+    
     public int findDistance(TreeNode root, int p, int q) {
-        TreeNode LCA = LCA(root,p,q);
-        int distP = getDist(LCA,p,0);
-        int distQ = getDist(LCA,q,0);
+        TreeNode LCA = getLCA(root,p,q);
         
+        int distP = findDist(LCA,p,0);
+        int distQ = findDist(LCA,q,0);
+        //total distance between P and Q trhough our LCA.
         return distP+distQ;
     }
 }
