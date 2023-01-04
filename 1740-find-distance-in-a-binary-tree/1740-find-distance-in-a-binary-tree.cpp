@@ -12,35 +12,37 @@
 class Solution {
 public:
     TreeNode* getLCA(TreeNode* node,int p,int q) {
-        if(!node) return nullptr;
-        if(node->val == p || node->val == q) return node;
+        //base case
+        if(node==nullptr) return nullptr;
+        if(node->val == p || node->val==q) return node;
+        ///left and right recursive calls
+        TreeNode* leftFound = getLCA(node->left,p,q);
+        TreeNode* rightFound = getLCA(node->right,p,q);
         
-        TreeNode* left = getLCA(node->left,p,q);
-        TreeNode* right = getLCA(node->right,p,q);
+        if(leftFound && rightFound) return node; // IM THE LCA
         
-        if(left && right) return node;
-        
-        return (left ? left : right);
+        return leftFound != nullptr? leftFound : rightFound;
     }
-    int kDown(TreeNode* node,int val,int len) {
-        if(!node) return 0;
-        if(node->val == val) return len;
+    int getDist(TreeNode* node,int val,int dist) {
+        //Base case
+        if(node == nullptr) return 0;
+        //return the distance till now if node is found
+        if(node->val == val) return dist;
         
-        int left = kDown(node->left,val,len+1);
-        if(left>0) return left;
-        int right = kDown(node->right,val,len+1);
-        if(right>0) return right;
+        int leftDist =  getDist(node->left,val,dist+1);
+        if(leftDist>0) return leftDist;
+        int rightDist = getDist(node->right,val,dist+1);
+        if(rightDist>0) return rightDist;
         
-        return (left+right);
+        return leftDist+rightDist;
     }
     int findDistance(TreeNode* root, int p, int q) {
-        if(p==q) return 0;
-        
+        //get LCA
         TreeNode* LCA = getLCA(root,p,q);
-        cout<<LCA->val;
-        int leftLen = kDown(LCA,p,0);
-        int rightLen = kDown(LCA,q,0);
-        cout<<leftLen<<rightLen;
-        return leftLen+rightLen;
+        //get distance of p and q from LCA
+        int distP = getDist(LCA,p,0);
+        int distQ = getDist(LCA,q,0);
+        //return the sumation of these 2 distances.
+        return distP+distQ;     
     }
 };
