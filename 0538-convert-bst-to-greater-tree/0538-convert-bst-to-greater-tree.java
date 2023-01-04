@@ -15,20 +15,19 @@
  */
 class Solution {
     TreeNode prev = null;
-    int currSum = 0;
-    void bstToGst_01(TreeNode node) {
-        if(node==null) return;
+    int cSum =0;
+    public void convert(TreeNode node) {
+        if(node == null) return;
         
-        bstToGst_01(node.right);
-        
-        currSum += node.val;
-        node.val = currSum; 
-        
+        convert(node.right);
+        cSum += node.val;
+        node.val = cSum;
         prev = node;
-        bstToGst_01(node.left);
+        convert(node.left);
+        
     }
     public TreeNode convertBST(TreeNode root) {
-        bstToGst_01(root);
+        convert(root);
         return root;
     }
 }
