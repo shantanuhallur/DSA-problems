@@ -11,18 +11,21 @@
  */
 class Solution {
 public:
-    int total=0;
+    int moves = 0;
     int distribute(TreeNode* node) {
+        //Base Case
         if(!node) return 0;
-        
+        //Left and right recursive call of Faith to get excessive or deficit coins to trransact.
         int leftExDef = distribute(node->left);
         int rightExDef = distribute(node->right);
         
-        total += abs(leftExDef) + abs(rightExDef);
-        return leftExDef + rightExDef + node->val -1;
+        //number of excessive and deficit move of coins we want to pass or recieve
+        moves+= abs(leftExDef) + abs(rightExDef);
+        //total number of excessive or deficit coins remained after all the transactions from left and right
+        return leftExDef+rightExDef+node->val-1;
     }
     int distributeCoins(TreeNode* root) {
         distribute(root);
-        return total;
+        return moves;
     }
 };
