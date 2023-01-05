@@ -12,20 +12,19 @@
 class Solution {
 public:
     TreeNode* prev = nullptr;
-    int currSum = 0;
-    void bstToGst_01(TreeNode* node) {
+    int sum = 0;
+    void convert(TreeNode* node) {
         if(!node) return;
         
-        bstToGst_01(node->right);
-        
-        currSum += node->val;
-        node->val = currSum;
-        
+        convert(node->right);
+        node->val += sum; 
+        sum = node->val;
         prev = node;
-        bstToGst_01(node->left);
+        convert(node->left);
     }
+    
     TreeNode* bstToGst(TreeNode* root) {
-        bstToGst_01(root);
+        convert(root);
         return root;
     }
 };
