@@ -14,16 +14,19 @@
  * }
  */
 class Solution {
-    int moves = 0;
-    public int distribute(TreeNode node) {
-        if(node==null) return 0;
+    int moves =0;
+    int distribute(TreeNode node) {
+        //base case
+        if(node == null) return 0;
         
+        //left and right recursive call of faith for getting ex/Def coins
         int leftExDef = distribute(node.left);
         int rightExDef = distribute(node.right);
-        // moves are the number of excessive or deficit coins passed thorugh my current node
+        //as moves has no convention we will add all the compulsory moves from left and right
         moves += Math.abs(leftExDef) + Math.abs(rightExDef);
         
-        return leftExDef+rightExDef+node.val-1;
+        //return all the  excessive or deficit number of coins remained or to offer to our parent.
+        return leftExDef+rightExDef+node.val - 1;
     }
     public int distributeCoins(TreeNode root) {
         distribute(root);
