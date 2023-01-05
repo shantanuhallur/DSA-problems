@@ -14,20 +14,19 @@
  * }
  */
 class Solution {
-    TreeNode prev = null;
-    public void inOrder(TreeNode node,int[] arr) {
-        if(node == null) return;
-        
-        if(node.left!=null) inOrder(node.left,arr);
-        arr[0]--;
-        if(arr[0]==0 && prev==null) prev = node;
-        
-        if(node.right!=null) inOrder(node.right,arr);
+    public void insertLeftMost(LinkedList<TreeNode> st , TreeNode node) {
+        while(node !=null) {
+            st.addFirst(node);
+            node = node.left;   
+        }
     }
     public int kthSmallest(TreeNode root, int k) {
-        int[] arr = new int[1];
-        arr[0] = k;
-        inOrder(root,arr);
-        return prev.val;
+        LinkedList<TreeNode> st = new LinkedList<>();
+        insertLeftMost(st,root);
+        while(k-->1) {
+            TreeNode node = st.removeFirst();
+            insertLeftMost(st,node.right);
+        }
+        return st.removeFirst().val;
     }
 }
