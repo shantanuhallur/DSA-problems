@@ -12,30 +12,32 @@
 class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
-        int maxSum=-1e6;
-        int maxLevel=1;
+        // define initial variables
+        int AnsLevel = 1;
+        int maxSum = -1e6;
         int level = 1;
         queue<TreeNode*> que;
         que.push(root);
-        
+        //Level order traversal
         while(que.size()!=0) {
+            int levelSum = 0;
             int size = que.size();
-            int sum = 0;
             while(size-->0) {
                 TreeNode* removeN = que.front(); que.pop();
                 
-                sum += removeN->val;
-                
+                levelSum += removeN->val;
+                //setup next level of que
                 if(removeN->left) que.push(removeN->left);
                 if(removeN->right) que.push(removeN->right);
             }
-            if(sum>maxSum) {
-                maxSum = sum;
-                maxLevel = level;
+            //update maxSUm if required
+            if(maxSum<levelSum) {
+                maxSum = levelSum;
+                AnsLevel = level;
             }
-            
+            //go to next level;
             level++;
         }
-        return maxLevel;
+        return AnsLevel;
     }
 };
