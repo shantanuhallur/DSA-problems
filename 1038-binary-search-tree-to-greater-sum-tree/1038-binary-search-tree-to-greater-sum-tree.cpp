@@ -11,18 +11,22 @@
  */
 class Solution {
 public:
+    int greaterSum = 0;
     TreeNode* prev = nullptr;
-    int sum = 0;
     void convert(TreeNode* node) {
+        //base case
         if(!node) return;
         
+        //RIGHT DFS CALL then left call
         convert(node->right);
-        node->val += sum; 
-        sum = node->val;
+        //INORDER AREA----->>>>>
+        node->val += greaterSum;
+        greaterSum = node->val;
+        //update prev to node in recursive stack.
         prev = node;
+        //INORDER AREA----->>>>>
         convert(node->left);
     }
-    
     TreeNode* bstToGst(TreeNode* root) {
         convert(root);
         return root;
