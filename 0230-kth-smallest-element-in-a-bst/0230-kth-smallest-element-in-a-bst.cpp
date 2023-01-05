@@ -11,18 +11,20 @@
  */
 class Solution {
 public:
-    void insertAllLeft(TreeNode* node, stack<TreeNode*>& st) {
+    void insertAllLeft(TreeNode* node , stack<TreeNode*>& st) {
         while(node) {
             st.push(node);
+            //shift node to its left
             node = node->left;
         }
     }
     int kthSmallest(TreeNode* root, int k) {
         stack<TreeNode*> st;
         insertAllLeft(root,st);
-        
+        //run our while loop to get nodes in sorted order.
         while(k-->1) {
             TreeNode* removeN = st.top(); st.pop();
+            //insert all left nodes of right node of this removeN
             insertAllLeft(removeN->right,st);
         }
         
