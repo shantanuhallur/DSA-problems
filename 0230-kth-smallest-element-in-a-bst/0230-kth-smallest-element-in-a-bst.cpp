@@ -11,19 +11,21 @@
  */
 class Solution {
 public:
-    TreeNode* prev = nullptr;
-    void inOrder(TreeNode* node,vector<int>& arr) {
-        if(node == nullptr) return;
-        
-        if(node->left!=nullptr) inOrder(node->left,arr);
-        arr[0]--;
-        if(arr[0]==0 && prev==nullptr) prev = node;
-        
-        if(node->right!=nullptr) inOrder(node->right,arr);
+    void insertAllLeft(TreeNode* node, stack<TreeNode*>& st) {
+        while(node) {
+            st.push(node);
+            node = node->left;
+        }
     }
     int kthSmallest(TreeNode* root, int k) {
-        vector<int> arr(1,k);
-        inOrder(root,arr);
-        return prev->val;
+        stack<TreeNode*> st;
+        insertAllLeft(root,st);
+        
+        while(k-->1) {
+            TreeNode* removeN = st.top(); st.pop();
+            insertAllLeft(removeN->right,st);
+        }
+        
+        return st.top()->val;
     }
 };
