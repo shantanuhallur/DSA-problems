@@ -23,7 +23,6 @@ public:
         node->val += greaterSum;
         greaterSum = node->val;
         //update prev to node in recursive stack.
-        prev = node;
         //INORDER AREA----->>>>>
         convert(node->left);
     }
