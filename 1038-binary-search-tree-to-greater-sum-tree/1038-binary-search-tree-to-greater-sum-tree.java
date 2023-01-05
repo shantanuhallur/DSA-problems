@@ -14,22 +14,21 @@
  * }
  */
 class Solution {
+    int sum =0;
     TreeNode prev = null;
-    int currSum = 0;
-    void bstToGst_01(TreeNode node) {
+    void convert(TreeNode node) {
         if(node == null) return;
         
-        bstToGst_01(node.right);
+        convert(node.right);
         
-        currSum+= node.val;
-        node.val = currSum;
+        node.val += sum;
+        sum = node.val;
         
         prev = node;
-        bstToGst_01(node.left);
+        convert(node.left);
     }
-    
     public TreeNode bstToGst(TreeNode root) {
-        bstToGst_01(root);
+        convert(root);
         return root;
     }
 }
