@@ -14,17 +14,20 @@
  * }
  */
 class Solution {
-    int sum =0;
+    int greaterSum = 0;
     TreeNode prev = null;
-    void convert(TreeNode node) {
+    public void convert(TreeNode node) {
+        //Base case
         if(node == null) return;
         
+        //right call first then left call.
         convert(node.right);
-        
-        node.val += sum;
-        sum = node.val;
-        
+        // INORDER AREA ------>>>>
+        node.val += greaterSum;
+        greaterSum = node.val;
+        //update prev node to curr node
         prev = node;
+        // INORDER AREA ------>>>>
         convert(node.left);
     }
     public TreeNode bstToGst(TreeNode root) {
