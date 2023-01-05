@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    public void insertAllLeft(TreeNode node,LinkedList<TreeNode> st) {
+    public void insertAllLeftNodes(TreeNode node,LinkedList<TreeNode> st) {
         while(node!=null) {
             st.addLast(node);
             node = node.left;
@@ -22,12 +22,14 @@ class Solution {
     }
     public int kthSmallest(TreeNode root, int k) {
         LinkedList<TreeNode> st = new LinkedList<>();
-        
-        insertAllLeft(root,st);
+        //first insert all left nodes of root in stack
+        insertAllLeftNodes(root,st);
+        //run while loop to get nodes in sorted order
         while(k-->1) {
+            //get removeN from stack
             TreeNode removeN = st.removeLast();
-            insertAllLeft(removeN.right,st);
+            insertAllLeftNodes(removeN.right,st);
         }
-        return st.removeLast().val;
+       return st.removeLast().val; 
     }
 }
