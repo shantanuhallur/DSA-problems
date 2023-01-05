@@ -14,19 +14,20 @@
  * }
  */
 class Solution {
-    public void insertLeftMost(LinkedList<TreeNode> st , TreeNode node) {
-        while(node !=null) {
-            st.addFirst(node);
-            node = node.left;   
+    public void insertAllLeft(TreeNode node,LinkedList<TreeNode> st) {
+        while(node!=null) {
+            st.addLast(node);
+            node = node.left;
         }
     }
     public int kthSmallest(TreeNode root, int k) {
         LinkedList<TreeNode> st = new LinkedList<>();
-        insertLeftMost(st,root);
+        
+        insertAllLeft(root,st);
         while(k-->1) {
-            TreeNode node = st.removeFirst();
-            insertLeftMost(st,node.right);
+            TreeNode removeN = st.removeLast();
+            insertAllLeft(removeN.right,st);
         }
-        return st.removeFirst().val;
+        return st.removeLast().val;
     }
 }
