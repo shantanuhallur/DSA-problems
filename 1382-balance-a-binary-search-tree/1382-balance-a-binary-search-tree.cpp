@@ -11,31 +11,29 @@
  */
 class Solution {
 public:
-    vector<int> sortedList;
-    void inorder(TreeNode* node) {
-        if(!node)return;
+    void inorder(TreeNode* node,vector<int>& sortedList) {
+        if(!node) return;
         
-        inorder(node->left);
+        inorder(node->left,sortedList);
         sortedList.push_back(node->val);
-        inorder(node->right);
+        inorder(node->right,sortedList);
     }
-    
-    TreeNode* balance(int st,int end) {
+    TreeNode* balance(vector<int>& sortedList,int st,int end) {
         if(st>end) return nullptr;
         
         int mid = (st+end)/2;
-        TreeNode* root = new TreeNode(sortedList[mid]);
         
-        root->left = balance(st,mid-1);
-        root->right = balance(mid+1,end);
+        TreeNode* root = new TreeNode(sortedList[mid]);
+        root->left = balance(sortedList,st,mid-1);
+        root->right = balance(sortedList,mid+1,end);
         
         return root;
     }
-    
     TreeNode* balanceBST(TreeNode* root) {
-       if(!root) return nullptr;
-        inorder(root); 
-        root = balance(0,sortedList.size()-1);
+        vector<int> sortedList;
+        inorder(root,sortedList);
+        
+        root = balance(sortedList,0,sortedList.size()-1);
         return root;
     }
 };
