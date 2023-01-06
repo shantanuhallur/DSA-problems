@@ -22,13 +22,13 @@ class Solution {
 public:
     Node* findRoot(vector<Node*> tree) {
         unordered_set<Node*> set;
-        for(Node* node : tree) {
-            for(Node* node : node->children) {
+        for(auto* node : tree) {
+            for(auto* node : node->children) {
                 set.insert(node);
             }
         }
         Node* root = nullptr;
-        for(Node* node:tree) {
+        for(auto* node:tree) {
             if(set.find(node)==set.end()) root = node;
         }
         return root;
