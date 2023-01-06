@@ -14,27 +14,36 @@
  * }
  */
 class Solution {
-    public void inorder(ArrayList<Integer> sortedList,TreeNode node) {
+    public void inorder(TreeNode node, ArrayList<Integer> sortedList) {
+        //Bcase Case
         if(node == null) return;
         
-        inorder(sortedList,node.left);
-        sortedList.add(node.val);
-        inorder(sortedList,node.right);
-    }
-    public TreeNode balance(ArrayList<Integer> sortedList,int st,int end) {
-        if(st>end) return null;
+        //left and right recursive call
+        inorder(node.left,sortedList);
+        // INORDER AREA ------>>>
         
+        sortedList.add(node.val);
+        
+        // INORDER AREA ------>>>
+        inorder(node.right,sortedList);
+    }
+    
+    public TreeNode buildBST(ArrayList<Integer> sortedList, int st,int end) {
+        //Base Case
+        if(st > end) return null;
+        //calculate mid
         int mid = (st+end)/2;
         TreeNode root = new TreeNode(sortedList.get(mid));
-        root.left = balance(sortedList,st,mid-1);
-        root.right = balance(sortedList,mid+1,end);
+        //attach left and right recursively created subtrees to left and right of our root;
+        root.left = buildBST(sortedList,st,mid-1);
+        root.right = buildBST(sortedList,mid+1,end);
         
         return root;
     }
     public TreeNode balanceBST(TreeNode root) {
-        ArrayList<Integer> sortedList = new ArrayList<>();
-        inorder(sortedList,root);
-        root = balance(sortedList,0,sortedList.size()-1);
-        return root;
+         ArrayList<Integer> sortedList = new ArrayList<>();
+        inorder(root,sortedList);
+        
+        return buildBST(sortedList,0,sortedList.size()-1);
     }
 }
