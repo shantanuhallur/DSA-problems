@@ -11,26 +11,38 @@
  */
 class Solution {
 public:
-    void getList(TreeNode* node,vector<int>& list) {
-        if(node==nullptr) return;
+    void inorder(TreeNode* node, vector<int>& list) {
+        //Base Case
+        if(!node) return;
         
-        getList(node->left,list);
+        //left and right recursive call
+        inorder(node->left,list);
+        //AREA OF INORDER ---->>>
         list.push_back(node->val);
-        getList(node->right,list);
+        //AREA OF INORDER ---->>>
+        inorder(node->right,list);
     }
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        vector<int> list1,list2; 
-        getList(root1,list1);
-        getList(root2,list2);
-        int i=0;int j=0;
+        vector<int> list1;
+        vector<int> list2;
+        inorder(root1,list1);
+        inorder(root2,list2);
         vector<int> ans;
-        while(i<list1.size() && j< list2.size()){
-            if(list1[i]<list2[j]) ans.push_back(list1[i++]);
-            else ans.push_back(list2[j++]);
+        //merge the two sorted lists
+        int i=0; int j=0;
+        while(i<list1.size() && j<list2.size()) {
+            if(list1[i]< list2[j]) {
+                ans.push_back(list1[i++]);
+            }
+            else { //our list2 element is smaller add it in our ans
+                ans.push_back(list2[j++]);
+            }
         }
+        //either one of the while list is already filled so now fill the remaining list
         while(i<list1.size()) ans.push_back(list1[i++]);
         while(j<list2.size()) ans.push_back(list2[j++]);
         
+        //our merging is completed return ans list
         return ans;
     }
 };
