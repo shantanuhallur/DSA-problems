@@ -14,7 +14,7 @@ class Node {
         children = new ArrayList<Node>();
     }
     
-    public Node(int _val,ArrayList<Node> _children) {
+    public Node(int _val,ArrayList<Node> _child0ren) {
         val = _val;
         children = _children;
     }
@@ -23,17 +23,19 @@ class Node {
 
 class Solution {
     public Node findRoot(List<Node> tree) {
-        HashSet<Node> set = new HashSet<>();
-        
-        for(Node node :  tree) {
+        HashSet<Integer> childrenSet = new HashSet<>();
+        //add every nodes all the children in our set.
+        for(Node node : tree) {
             for(Node child : node.children) {
-                set.add(child);
+                childrenSet.add(child.val);
             }
         }
         Node root = null;
-        for(Node node:tree) {
-            if(!set.contains(node)) root=node;
+        //check which node is not present in children set, that node is our root node.
+        for(Node node : tree) {
+            if(!childrenSet.contains(node.val)) root = node;
         }
+        
         return root;
     }
 }
