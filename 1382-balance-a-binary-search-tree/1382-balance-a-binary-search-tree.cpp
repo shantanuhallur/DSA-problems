@@ -12,20 +12,25 @@
 class Solution {
 public:
     void inorder(TreeNode* node,vector<int>& sortedList) {
+        //Base Case
         if(!node) return;
-        
+        //left and right recursive calls
         inorder(node->left,sortedList);
+        //INORDER AREA ----->>>
         sortedList.push_back(node->val);
+        //INORDER AREA ----->>>
         inorder(node->right,sortedList);
     }
-    TreeNode* balance(vector<int>& sortedList,int st,int end) {
+    TreeNode* buildBST(vector<int>& sortedList,int st,int end) {
+        //Base Case
         if(st>end) return nullptr;
         
+        //calculate mid
         int mid = (st+end)/2;
-        
         TreeNode* root = new TreeNode(sortedList[mid]);
-        root->left = balance(sortedList,st,mid-1);
-        root->right = balance(sortedList,mid+1,end);
+        //attach recursively roots left and right subtree
+        root->left = buildBST(sortedList,st,mid-1);
+        root->right = buildBST(sortedList,mid+1,end);
         
         return root;
     }
@@ -33,7 +38,6 @@ public:
         vector<int> sortedList;
         inorder(root,sortedList);
         
-        root = balance(sortedList,0,sortedList.size()-1);
-        return root;
+        return buildBST(sortedList,0,sortedList.size()-1);
     }
 };
