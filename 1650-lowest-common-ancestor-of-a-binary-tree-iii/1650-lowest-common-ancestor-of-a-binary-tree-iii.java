@@ -10,17 +10,18 @@ class Node {
 
 class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
-        HashSet<Integer> set = new  HashSet<>();
+        HashSet<Integer> set = new HashSet<>();
         Node temp1 = p;
         while(temp1!=null) {
-            if(temp1==q) return temp1;
             set.add(temp1.val);
-            temp1=temp1.parent;
+            if(temp1 == q) return temp1;
+            temp1 = temp1.parent;
         }
-        Node temp2 = q;
-        while(temp2!=null) {
-            if(temp2==p || set.contains(temp2.val)) return temp2;
-            temp2 = temp2.parent;
+        //check if p is in the parent path of q or if qs path has one common node of ps path
+        temp1 = q;
+        while(temp1!=null) {
+            if(temp1 == p || set.contains(temp1.val)) return temp1;
+            temp1 = temp1.parent;
         }
         return null;
     }
