@@ -34,8 +34,8 @@ class Solution {
         for(int value:map.values()) {
             if(maxFreq == value) count++;
             if(maxFreq < value) {
-                maxFreq = value;
                 count=1;
+                maxFreq = value;
             }
         }
         System.out.print(count);
