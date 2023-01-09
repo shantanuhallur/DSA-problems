@@ -14,30 +14,25 @@
  * }
  */
 class Solution {
-    int camera = 0;
-    // -1 i need a camera
-    //1 i am covered.
-    // 0 i dont need a camera
-    
-    public int capture(TreeNode node) {
+    int cameras=0;
+    int getInfo(TreeNode node) {
         if(node == null) return 0;
         
-        int left = capture(node.left);
-        int right = capture(node.right);
+        int left = getInfo(node.left);
+        int right = getInfo(node.right);
         
         if(left == -1 || right == -1) {
-            camera++;
+            cameras++;
             return 1;
         }
         
-        if(left == 1 || right == 1) return 0;
-            
+        if(left ==1  || right == 1) return 0;
+        
         return -1;
     }
-    
-    public int minCameraCover(TreeNode root) {
-        int check = capture(root);
-        if(check == -1) camera++;
-        return camera;
+    int minCameraCover(TreeNode root) {
+        int rootInfo = getInfo(root);
+        if(rootInfo == -1) cameras++;
+        return cameras;
     }
 }
