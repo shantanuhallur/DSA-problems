@@ -1,17 +1,20 @@
 /*
 // Definition for a Node.
 class Node {
-    public int val;
-    public Node left;
-    public Node right;
+public:
+    int val;
+    Node* left;
+    Node* right;
 
-    public Node() {}
+    Node() {}
 
-    public Node(int _val) {
+    Node(int _val) {
         val = _val;
+        left = NULL;
+        right = NULL;
     }
 
-    public Node(int _val,Node _left,Node _right) {
+    Node(int _val, Node* _left, Node* _right) {
         val = _val;
         left = _left;
         right = _right;
@@ -20,27 +23,29 @@ class Node {
 */
 
 class Solution {
-    Node first = null;
-    Node last = null;
-    Node prev = null;
-    public void traverse(Node node) {
-        if(node == null) return;
+public:
+    Node* first = nullptr;
+    Node* prev = nullptr;
+    Node* last = nullptr;
+    void traverse(Node* node) {
+        if(!node) return;
         
-        traverse(node.left);
-        if(prev == null) first = node;
-        if(prev!=null) {
-            prev.right = node;
-            node.left = prev;
+        traverse(node->left);
+        if(!prev) first = node;
+        if(prev!= nullptr) {
+            prev->right = node;
+            node->left = prev;
         }
-        if(node.right ==null) last = node;
         prev = node;
-        traverse(node.right);
+        if(!node->right) last = node;
+        traverse(node->right);
     }
-    public Node treeToDoublyList(Node root) {
-        if(root == null) return null;
+    Node* treeToDoublyList(Node* root) {
+        if (!root) return nullptr;
         traverse(root);
-        first.left = last;
-        last.right = first;
+        first->left = last;
+        last->right = first;
+        cout<<first->val<<last->val;
         return first;
     }
-}
+};
