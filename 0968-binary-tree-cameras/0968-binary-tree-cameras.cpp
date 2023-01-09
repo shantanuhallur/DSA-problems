@@ -11,25 +11,25 @@
  */
 class Solution {
 public:
-    int camera = 0;
-    int capture(TreeNode* node) {
+    int cameras = 0;
+    int getInfo(TreeNode* node) {
         if(!node) return 0;
         
-        int left = capture(node->left);
-        int right = capture(node->right);
+        int leftInfo = getInfo(node->left);
+        int rightInfo = getInfo(node->right);
         
-        if( left == -1 || right == -1) {
-            camera ++;
+        if(leftInfo == -1 || rightInfo == -1) {
+            cameras++;
             return 1;
         }
         
-        if(left == 1 || right == 1)return 0;
+        if(leftInfo == 1 || rightInfo == 1) return 0;
         
         return -1;
     }
     int minCameraCover(TreeNode* root) {
-        int check = capture(root);
-        if(check == -1) camera++;
-        return camera;
+        int rootInfo = getInfo(root);
+        if(rootInfo == -1) cameras++;
+        return cameras;
     }
 };
