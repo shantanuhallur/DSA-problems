@@ -27,10 +27,10 @@ class Solution {
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
-        System.out.print(list1 + " " + list2);
+        
         inorder(root1,list1);
         inorder(root2,list2);
-        
+        System.out.print(list1 + " " + list2);
         //merge these 2 sorted lists
         List<Integer> ans = new ArrayList<>();
         int i=0; int j=0;
