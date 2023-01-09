@@ -1,33 +1,35 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    void insertAllLeft(TreeNode* node , stack<TreeNode*>& st) {
-        while(node) {
-            st.push(node);
-            //shift node to its left
-            node = node->left;
+    public void insertAllLeftNodes(TreeNode node,LinkedList<TreeNode> st) {
+        while(node!=null) {
+            st.addLast(node);
+            node = node.left;
         }
     }
-    int kthSmallest(TreeNode* root, int k) {
-        stack<TreeNode*> st;
-        insertAllLeft(root,st);
-        //run our while loop to get nodes in sorted order.
+    public int kthSmallest(TreeNode root, int k) {
+        LinkedList<TreeNode> st = new LinkedList<>();
+        //first insert all left nodes of root in stack
+        insertAllLeftNodes(root,st);
+        //run while loop to get nodes in sorted order
         while(k-->1) {
-            TreeNode* removeN = st.top(); st.pop();
-            //insert all left nodes of right node of this removeN
-            insertAllLeft(removeN->right,st);
+            //get removeN from stack
+            TreeNode removeN = st.removeLast();
+            insertAllLeftNodes(removeN.right,st);
         }
-        
-        return st.top()->val;
+       return st.removeLast().val; 
     }
-};
+}
