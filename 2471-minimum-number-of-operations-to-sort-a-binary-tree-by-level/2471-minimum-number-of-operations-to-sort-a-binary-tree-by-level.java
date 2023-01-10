@@ -14,20 +14,29 @@
  * }
  */
 class Solution {
-    public class Pair implements Comparable<Pair> {
+//     public class Pair implements Comparable<Pair> {
+//         int val;
+//         int idx;
+        
+//         Pair(int val, int idx) {
+//             this.val = val;
+//             this.idx = idx;
+//         }
+        
+//         @Override
+//         public int compareTo(Pair o) {
+//             //ascending
+//             return this.val - o.val;
+//         }
+//     }
+    
+    public class Pair {
         int val;
         int idx;
         
         Pair(int val, int idx) {
             this.val = val;
             this.idx = idx;
-        }
-        
-        @Override
-        
-        public int compareTo(Pair o) {
-            //ascending
-            return this.val - o.val;
         }
     }
     public int getCount(int[] arr1) {
@@ -38,7 +47,9 @@ class Solution {
             arr[i] = new Pair(arr1[i],i);
         }
         
-        Arrays.sort(arr);
+        Arrays.sort(arr,(a,b)->{
+            return a.val-b.val;
+        });
         int ans = 0;
         boolean[] vis = new boolean[n];
         for(int i=0;i<n;i++) {
