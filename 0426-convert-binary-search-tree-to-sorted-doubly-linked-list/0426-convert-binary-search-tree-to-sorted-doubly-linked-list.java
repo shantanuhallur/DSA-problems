@@ -20,28 +20,38 @@ class Node {
 */
 
 class Solution {
+    Node prev = null;
     Node first = null;
     Node last = null;
-    Node prev = null;
-    public void traverse(Node node) {
+    public void inorderTraversal(Node node) {
+        //Base Case
         if(node == null) return;
         
-        traverse(node.left);
+        //left and right recursive call for DFS
+        inorderTraversal(node.left);
+        //INORDER AREA ->>>>>>>>>
+        //save first node
         if(prev == null) first = node;
-        
-        if(prev!=null) {
+        //add links in between nodes
+        if(prev != null) {
             prev.right = node;
             node.left = prev;
         }
+        //save last node
         if(node.right == null) last = node;
+        //update our prev node
         prev = node;
-        traverse(node.right);
+        //INORDER AREA ->>>>>>>>>
+        inorderTraversal(node.right);
     }
     public Node treeToDoublyList(Node root) {
-        if(root == null) return null;
-        traverse(root);
+        //edge case
+        if(root==null) return null;
+        inorderTraversal(root);
+        // complete 2 links of first and last nodes
         first.left = last;
         last.right = first;
+        
         return first;
     }
 }
