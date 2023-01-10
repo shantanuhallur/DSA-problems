@@ -14,12 +14,16 @@
  * }
  */
 class Solution {
-    public class Pair {
+    public class Pair implements Comparable<Pair> {
         int val;
         int idx;
         Pair(int val, int idx) {
             this.val = val;
             this.idx = idx;
+        }
+        @Override
+        public int compareTo(Pair o) {
+            return this.val - o.val;
         }
     }
     
@@ -30,9 +34,10 @@ class Solution {
         for(int i=0;i<n;i++) {
             arr[i] = new Pair(arr1[i],i);
         }
-        Arrays.sort(arr,(a,b)->{
-            return a.val - b.val;
-        });
+        // Arrays.sort(arr,(a,b)->{
+        //     return a.val - b.val;
+        // });
+        Arrays.sort(arr);
         boolean[] vis = new boolean[n];
         for(int i=0;i<n;i++) {
             if(arr[i].idx == i || vis[i] == true) continue;
