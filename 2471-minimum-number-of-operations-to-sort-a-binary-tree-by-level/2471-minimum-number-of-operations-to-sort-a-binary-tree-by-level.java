@@ -14,56 +14,39 @@
  * }
  */
 class Solution {
-//     public class Pair implements Comparable<Pair> {
-//         int val;
-//         int idx;
-        
-//         Pair(int val, int idx) {
-//             this.val = val;
-//             this.idx = idx;
-//         }
-        
-//         @Override
-//         public int compareTo(Pair o) {
-//             //ascending
-//             return this.val - o.val;
-//         }
-//     }
-    
     public class Pair {
         int val;
         int idx;
-        
         Pair(int val, int idx) {
             this.val = val;
             this.idx = idx;
         }
     }
+    
     public int getCount(int[] arr1) {
+        int totalCount = 0;
         int n = arr1.length;
         Pair[] arr = new Pair[n];
-        // pair arr =-> [element on idx of arr1 , idx]
         for(int i=0;i<n;i++) {
             arr[i] = new Pair(arr1[i],i);
         }
-        
         Arrays.sort(arr,(a,b)->{
-            return a.val-b.val;
+            return a.val - b.val;
         });
-        int ans = 0;
         boolean[] vis = new boolean[n];
         for(int i=0;i<n;i++) {
             if(arr[i].idx == i || vis[i] == true) continue;
-            int j = i;
             int countC = 0;
-            while(vis[j]==false) {
+            int j = i;
+            while(vis[j] == false) {
                 vis[j] = true;
                 countC++;
                 j = arr[j].idx;
             }
-            ans += countC-1;
+            totalCount += countC-1;
         }
-        return ans;
+        
+        return totalCount;
     }
     public int minimumOperations(TreeNode root) {
         int totalC = 0;
