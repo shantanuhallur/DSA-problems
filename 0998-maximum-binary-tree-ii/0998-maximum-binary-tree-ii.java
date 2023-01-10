@@ -15,10 +15,11 @@
  */
 class Solution {
     public TreeNode insertIntoMaxTree(TreeNode root, int val) {
+        //Base case if only val exists in b list.
         if(root == null) return new TreeNode(val);
-        
-        if(root.val < val) return new TreeNode(val,root,null);
-        
+        //when val is greater than the current subtree or whole trees root;
+        if(root.val<val) return new TreeNode(val,root,null);        
+        //recursive call to search the righjt position of val.
         root.right = insertIntoMaxTree(root.right,val);
         
         return root;
