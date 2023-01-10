@@ -24,28 +24,28 @@ public:
 
 class Solution {
 public:
-    Node* first = nullptr;
     Node* prev = nullptr;
+    Node* first = nullptr;
     Node* last = nullptr;
+    
     void traverse(Node* node) {
         if(!node) return;
-        
         traverse(node->left);
         if(!prev) first = node;
-        if(prev!= nullptr) {
+        
+        if(prev) {
             prev->right = node;
             node->left = prev;
         }
-        prev = node;
         if(!node->right) last = node;
+        prev = node;
         traverse(node->right);
     }
     Node* treeToDoublyList(Node* root) {
-        if (!root) return nullptr;
+        if(!root) return nullptr;
         traverse(root);
         first->left = last;
         last->right = first;
-        cout<<first->val<<last->val;
         return first;
     }
 };
