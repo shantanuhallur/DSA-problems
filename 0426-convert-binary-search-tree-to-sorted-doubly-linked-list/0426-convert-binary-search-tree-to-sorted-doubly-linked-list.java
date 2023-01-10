@@ -28,11 +28,12 @@ class Solution {
         
         traverse(node.left);
         if(prev == null) first = node;
+        
         if(prev!=null) {
             prev.right = node;
             node.left = prev;
         }
-        if(node.right ==null) last = node;
+        if(node.right == null) last = node;
         prev = node;
         traverse(node.right);
     }
