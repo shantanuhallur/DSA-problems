@@ -27,25 +27,35 @@ public:
     Node* prev = nullptr;
     Node* first = nullptr;
     Node* last = nullptr;
-    
-    void traverse(Node* node) {
+    void inOrderTraversal(Node* node) {
+        //base case 
         if(!node) return;
-        traverse(node->left);
+        //left and right recursive call for DFS
+        inOrderTraversal(node->left);
+        //INORDER AREA ->>>>>>>>>
+        //save first node
         if(!prev) first = node;
-        
+        //add links in between nodes
         if(prev) {
             prev->right = node;
             node->left = prev;
         }
+        //save last node
         if(!node->right) last = node;
+        //INORDER AREA ->>>>>>>>>
+        //update prev
         prev = node;
-        traverse(node->right);
+        inOrderTraversal(node->right);
+        
     }
     Node* treeToDoublyList(Node* root) {
+        //edge case
         if(!root) return nullptr;
-        traverse(root);
+        inOrderTraversal(root);
+        // complete 2 links of first and last nodes
         first->left = last;
         last->right = first;
+        
         return first;
     }
 };
