@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    //first carries left max diameter not passing through root
-    //second carries length till nodes left;
-    pair<int,int> dia(TreeNode* node) {
+    // first = max diameter second =max height
+    pair<int,int> getAns(TreeNode* node) {
         if(!node) return {-1,-1};
-            
-        pair leftAns = dia(node->left);
-        pair rightAns = dia(node->right);
+        
+        pair leftAns = getAns(node->left);
+        pair rightAns = getAns(node->right);
         
         pair myAns = {-1,-1};
-        myAns.first = max(max(leftAns.first,rightAns.first),leftAns.second+rightAns.second+2); 
-        //for passing through my node ma of left and right dia , max of passing through my node
-        myAns.second = max(leftAns.second,rightAns.second) + 1; //max height from node
+        int diaThorughMe = (leftAns.second + rightAns.second) + 2;
+        
+        myAns.second =  max(leftAns.second,rightAns.second)+1;
+      
+        myAns.first =   max(max(leftAns.first,rightAns.first),diaThorughMe);
         
         return myAns;
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        if(!root) return 0;
-        return dia(root).first;
+        return getAns(root).first;
     }
 };
