@@ -14,32 +14,35 @@
  * }
  */
 class Solution {
-    public class pair{
-        int withRob;
-        int withoutRob;
+    class pair{
+        int isRob;
+        int notRob;
         
-        pair(int withRob,int withoutRob) {
-            this.withRob = withRob;
-            this.withoutRob = withoutRob;
+        pair(int isRob,int notRob) {
+            this.isRob = isRob;
+            this.notRob = notRob;
         }
     }
     
-    public pair getMaxRob (TreeNode node) {
+    pair getMaxMoney(TreeNode node) {
+        //Base Case
         if(node == null) return new pair(0,0);
         
-        pair leftAns = getMaxRob(node.left);
-        pair rightAns = getMaxRob(node.right);
         pair myAns = new pair(0,0);
-        //withRob
-        myAns.withRob = leftAns.withoutRob + rightAns.withoutRob + node.val;
-        //without rob
-        myAns.withoutRob = Math.max(leftAns.withRob,leftAns.withoutRob) +
-                           Math.max(rightAns.withRob,rightAns.withoutRob);
+        //Recursive left and right call of faith
+        pair leftAns = getMaxMoney(node.left);
+        pair rightAns = getMaxMoney(node.right);
+        //when my current node is roobed
+        myAns.isRob = leftAns.notRob + rightAns.notRob + node.val;
+        //when my current node is not robbed
+        myAns.notRob = Math.max(leftAns.notRob,leftAns.isRob) + 
+                       Math.max(rightAns.notRob,rightAns.isRob);
         
         return myAns;
     }
+    
     public int rob(TreeNode root) {
-        pair rootAns = getMaxRob(root);
-        return Math.max(rootAns.withRob,rootAns.withoutRob);
+        pair rootAns = getMaxMoney(root);
+        return Math.max(rootAns.isRob,rootAns.notRob);
     }
 }
