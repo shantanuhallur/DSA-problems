@@ -14,18 +14,28 @@
  * }
  */
 class Solution {
-    public class Pair implements Comparable<Pair> {
+//     public class Pair implements Comparable<Pair> {
+//         int val;
+//         int idx;
+        
+//         Pair(int val, int idx) {
+//             this.val = val;
+//             this.idx = idx;
+//         }
+        
+//         @Override
+//         public int compareTo(Pair o) {
+//             return this.val - o.val;
+//         }
+//     }
+    
+    public class Pair {
         int val;
         int idx;
         
         Pair(int val, int idx) {
             this.val = val;
             this.idx = idx;
-        }
-        
-        @Override
-        public int compareTo(Pair o) {
-            return this.val - o.val;
         }
     }
     
@@ -35,7 +45,9 @@ class Solution {
         int totalCyclesLen = 0;
         for(int i=0;i<n;i++) arr[i] = new Pair(list[i],i);
         
-        Arrays.sort(arr);
+        Arrays.sort(arr,(a,b)->{
+            return a.val-b.val;
+        });
         
         boolean[] vis = new boolean[n];
         
