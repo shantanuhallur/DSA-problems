@@ -11,22 +11,30 @@
  */
 class Solution {
 public:
-    //isRobbed,notRobbed
-    pair<int,int> getMaxRob(TreeNode* node) {
+    //Base Case
+    //Recursive left and right call of faith
+    //when my current node is roobed
+    //when my current node is not robbed
+    //PAIR {isRobbed , notRobbed}
+    pair<int,int> getMaxMoney(TreeNode* node) {
+        //Base Case
         if(!node) return {0,0};
         
-        pair leftAns = getMaxRob(node->left);
-        pair rightAns = getMaxRob(node->right);
-        pair myAns = {0,0};
-        //isRob
-        myAns.first = leftAns.second+rightAns.second+node->val;
-        //notRob
-        myAns.second = max(leftAns.first,leftAns.second) + max(rightAns.first,rightAns.second);
+        pair myAns =  {0,0};
+        //Recursive left and right call of faith
+        pair leftAns = getMaxMoney(node->left);
+        pair rightAns = getMaxMoney(node->right);
+        //when my current node is robbed
+        myAns.first = node->val + leftAns.second + rightAns.second;
+        //when my current node is not robbed
+        myAns.second = max(leftAns.first,leftAns.second) +
+                       max(rightAns.first,rightAns.second);
         
         return myAns;
     }
+    
     int rob(TreeNode* root) {
-        pair rootAns = getMaxRob(root);
-        return max(rootAns.first,rootAns.second);
+        pair rootP = getMaxMoney(root);
+        return max(rootP.first,rootP.second);
     }
 };
