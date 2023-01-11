@@ -14,25 +14,27 @@
  * }
  */
 class Solution {
-    public TreeNode makeBST(int[] nums,int st,int end) {
+    TreeNode buildBST(int[] nums, int st, int end) {
         if(st>end) return null;
-        int maxNo = -1;
-        int midIdx = -1;
         
-        for(int i=st;i<=end;i++) {
-            if(nums[i]>maxNo) {
+        int idx = -1;
+        int maxNo = -1;
+        for(int i=st ; i<=end; i++) {
+            if(nums[i] > maxNo) {
+                idx = i;
                 maxNo = nums[i];
-                midIdx = i;
             }
         }
         
-        TreeNode root = new TreeNode(nums[midIdx]);
-        root.left = makeBST(nums,st,midIdx-1);
-        root.right = makeBST(nums,midIdx+1,end);
+        TreeNode root = new TreeNode(nums[idx]);
+        
+        root.left = buildBST(nums,st,idx-1);
+        root.right = buildBST(nums,idx+1,end);
         
         return root;
     }
+    
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return makeBST(nums,0,nums.length-1);
+        return buildBST(nums,0,nums.length-1);
     }
 }
