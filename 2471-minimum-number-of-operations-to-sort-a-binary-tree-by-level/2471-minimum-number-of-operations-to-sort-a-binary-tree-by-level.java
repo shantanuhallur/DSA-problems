@@ -17,59 +17,60 @@ class Solution {
     public class Pair implements Comparable<Pair> {
         int val;
         int idx;
+        
         Pair(int val, int idx) {
             this.val = val;
             this.idx = idx;
         }
+        
         @Override
         public int compareTo(Pair o) {
             return this.val - o.val;
         }
     }
     
-    public int getCount(int[] arr1) {
-        int totalCount = 0;
-        int n = arr1.length;
+    public int getMoves(int[] list) {
+        int n = list.length;
         Pair[] arr = new Pair[n];
-        for(int i=0;i<n;i++) {
-            arr[i] = new Pair(arr1[i],i);
-        }
-        // Arrays.sort(arr,(a,b)->{
-        //     return a.val - b.val;
-        // });
+        int totalCyclesLen = 0;
+        for(int i=0;i<n;i++) arr[i] = new Pair(list[i],i);
+        
         Arrays.sort(arr);
+        
         boolean[] vis = new boolean[n];
+        
         for(int i=0;i<n;i++) {
-            if(arr[i].idx == i || vis[i] == true) continue;
-            int countC = 0;
+           if(arr[i].idx == i || vis[i] == true) continue;
             int j = i;
+            int cycleC = 0;
             while(vis[j] == false) {
                 vis[j] = true;
-                countC++;
+                cycleC++;
                 j = arr[j].idx;
             }
-            totalCount += countC-1;
+            totalCyclesLen += cycleC - 1;
         }
-        
-        return totalCount;
+        return totalCyclesLen;
     }
+    
     public int minimumOperations(TreeNode root) {
-        int totalC = 0;
+        int ansMoves = 0;
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
         while(que.size()!=0) {
             int size = que.size();
-            int[] arr1 = new int[size];
             int i = 0;
+            int[] list = new int[size];
             while(size-->0) {
-                TreeNode rn = que.removeFirst();
-                arr1[i++] = rn.val;
-                if(rn.left!=null) que.addLast(rn.left);
-                if(rn.right!=null) que.addLast(rn.right);
+                TreeNode removeN = que.removeFirst();
+                list[i++] = removeN.val;
+                if(removeN.left != null) que.addLast(removeN.left);
+                
+                if(removeN.right != null) que.addLast(removeN.right);
             }
-            int count = getCount(arr1);
-            totalC += count;
+            
+            ansMoves += getMoves(list);
         }
-        return totalC;
+        return ansMoves;
     }
 }
