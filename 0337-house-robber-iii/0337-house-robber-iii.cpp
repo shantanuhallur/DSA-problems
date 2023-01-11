@@ -35,6 +35,7 @@ public:
     
     int rob(TreeNode* root) {
         pair rootP = getMaxMoney(root);
+            cout<<rootP.second;
         return max(rootP.first,rootP.second);
     }
 };
