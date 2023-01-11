@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    class pair {
+    public class pair{
         int dia;
         int ht;
         
@@ -24,20 +24,25 @@ class Solution {
         }
     }
     
-    public pair getAns(TreeNode node) {
+    public pair getMaxDia(TreeNode node) {
+        //Base Case 
         if(node==null) return new pair(-1,-1);
         
-        pair leftAns = getAns(node.left);
-        pair rightAns = getAns(node.right);
-        
         pair myAns = new pair(-1,-1);
-        int diaThroughMe = leftAns.ht + rightAns.ht + 2;
-        myAns.dia = Math.max(Math.max(leftAns.dia,rightAns.dia),diaThroughMe); 
-        myAns.ht = Math.max(leftAns.ht,rightAns.ht) + 1;
+        //recursive left and right calls
+        pair leftAns = getMaxDia(node.left);
+        pair rightAns = getMaxDia(node.right);
+        //Calculate diameter through my node
+        int diaMyNode = leftAns.ht + rightAns.ht + 2;
+        //my answers max diameter
+        myAns.dia = Math.max(Math.max(leftAns.dia,rightAns.dia),diaMyNode);
+        //my answers max height
+        myAns.ht = Math.max(leftAns.ht,rightAns.ht)+1;
         
         return myAns;
     }
+    
     public int diameterOfBinaryTree(TreeNode root) {
-        return getAns(root).dia;
+        return getMaxDia(root).dia;
     }
 }
