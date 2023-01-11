@@ -11,24 +11,26 @@
  */
 class Solution {
 public:
-    TreeNode* makeBST(vector<int>& nums,int st,int end) {
-        if(st>end) return nullptr;
+    TreeNode* buildBST(vector<int>& nums,int st,int end) {
+        if(st>end) return NULL;
         
-        int maxNo=-1;
-        int midIdx = -1;
+        int idx = -1;
+        int maxNo = -1;
         for(int i=st;i<=end;i++) {
-            if(maxNo<nums[i]) {
+            if(nums[i]>maxNo) {
+                idx = i;
                 maxNo = nums[i];
-                midIdx=i;
             }
         }
-        TreeNode* root = new TreeNode(nums[midIdx]);
-        root->left = makeBST(nums,st,midIdx-1);
-        root->right = makeBST(nums,midIdx+1,end);
+        
+        TreeNode* root = new TreeNode(nums[idx]);
+        
+        root->left = buildBST(nums,st,idx-1);
+        root->right = buildBST(nums,idx+1,end);
         
         return root;
     }
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
-        return makeBST(nums,0,nums.size()-1);
+        return buildBST(nums,0,nums.size()-1);
     }
 };
