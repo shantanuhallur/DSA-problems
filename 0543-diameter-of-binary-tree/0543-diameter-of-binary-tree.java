@@ -14,20 +14,30 @@
  * }
  */
 class Solution {
-    //543 Diameter of a Binary Tree 02
-    public int[] diameterOfBinaryTree_02(TreeNode root) {
-        if(root==null)
-            return new int[]{-1,-1};
-        int[] leftAns = diameterOfBinaryTree_02(root.left);
-        int[] rightAns = diameterOfBinaryTree_02(root.right);
+    class pair {
+        int dia;
+        int ht;
         
-        int[] ans = new int[2]; //max(max(leftNodeD,rightNodeD),diameter passing through root).
-        ans[0] = Math.max(Math.max(leftAns[0],rightAns[0]),leftAns[1]+rightAns[1]+2); 
-        ans[1] = Math.max(leftAns[1],rightAns[1])+1; //max hight from node
-        return ans;
+        pair(int dia,int ht) {
+            this.dia = dia;
+            this.ht = ht;
+        }
+    }
+    
+    public pair getAns(TreeNode node) {
+        if(node==null) return new pair(-1,-1);
+        
+        pair leftAns = getAns(node.left);
+        pair rightAns = getAns(node.right);
+        
+        pair myAns = new pair(-1,-1);
+        int diaThroughMe = leftAns.ht + rightAns.ht + 2;
+        myAns.dia = Math.max(Math.max(leftAns.dia,rightAns.dia),diaThroughMe); 
+        myAns.ht = Math.max(leftAns.ht,rightAns.ht) + 1;
+        
+        return myAns;
     }
     public int diameterOfBinaryTree(TreeNode root) {
-        if (root==null) return 0;  
-        return diameterOfBinaryTree_02(root)[0]; //Return 0th index of Answer.
+        return getAns(root).dia;
     }
 }
