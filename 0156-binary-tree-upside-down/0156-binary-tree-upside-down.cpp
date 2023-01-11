@@ -16,8 +16,8 @@ public:
         //save new root reference to return as new root for that subtree
         TreeNode* newRoot = upsideDownBinaryTree(root->left);
         
-        root->left->left = root->right;
         root->left->right = root;
+        root->left->left = root->right;
         root->left = nullptr;
         root->right = nullptr;
         
