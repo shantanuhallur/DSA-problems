@@ -14,32 +14,32 @@
  * }
  */
 class Solution {
-    public class myPair {
-        int isRobbed=0;
-        int notRobbed=0;
-        myPair() { }
-        myPair(int isRobbed,int notRobbed) {
-            this.isRobbed = isRobbed;
-            this.notRobbed = notRobbed;
+    public class pair{
+        int withRob;
+        int withoutRob;
+        
+        pair(int withRob,int withoutRob) {
+            this.withRob = withRob;
+            this.withoutRob = withoutRob;
         }
     }
     
-    public myPair rob_(TreeNode node) {
-        if(node==null)return new myPair(0,0);
+    public pair getMaxRob (TreeNode node) {
+        if(node == null) return new pair(0,0);
         
-        myPair lans = rob_(node.left);
-        myPair rans = rob_(node.right);
-        
-        myPair myAns = new myPair(0,0);
-        myAns.isRobbed = node.val + lans.notRobbed + rans.notRobbed;
-        //CRUX OF PROBLEM ... if i dont rob my current house,
-        myAns.notRobbed = Math.max(lans.isRobbed,lans.notRobbed) + Math.max(rans.isRobbed,rans.notRobbed);
+        pair leftAns = getMaxRob(node.left);
+        pair rightAns = getMaxRob(node.right);
+        pair myAns = new pair(0,0);
+        //withRob
+        myAns.withRob = leftAns.withoutRob + rightAns.withoutRob + node.val;
+        //without rob
+        myAns.withoutRob = Math.max(leftAns.withRob,leftAns.withoutRob) +
+                           Math.max(rightAns.withRob,rightAns.withoutRob);
         
         return myAns;
     }
-    
     public int rob(TreeNode root) {
-        myPair ans = rob_(root);
-        return Math.max(ans.isRobbed,ans.notRobbed);
+        pair rootAns = getMaxRob(root);
+        return Math.max(rootAns.withRob,rootAns.withoutRob);
     }
 }
