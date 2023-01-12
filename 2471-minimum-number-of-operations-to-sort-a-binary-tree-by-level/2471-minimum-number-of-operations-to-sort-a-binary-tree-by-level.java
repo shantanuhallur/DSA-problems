@@ -14,75 +14,57 @@
  * }
  */
 class Solution {
-//     public class Pair implements Comparable<Pair> {
-//         int val;
-//         int idx;
-        
-//         Pair(int val, int idx) {
-//             this.val = val;
-//             this.idx = idx;
-//         }
-        
-//         @Override
-//         public int compareTo(Pair o) {
-//             return this.val - o.val;
-//         }
-//     }
-    
-    public class Pair {
+    public class pair {
         int val;
         int idx;
-        
-        Pair(int val, int idx) {
+        pair(int val,int idx) {
             this.val = val;
             this.idx = idx;
         }
     }
     
-    public int getMoves(int[] list) {
-        int n = list.length;
-        Pair[] arr = new Pair[n];
-        int totalCyclesLen = 0;
-        for(int i=0;i<n;i++) arr[i] = new Pair(list[i],i);
+    public int getSwaps(int[] arr1) {
+        int totalSwaps = 0;
+        int n = arr1.length;
+        pair[] arr = new pair[n];
+        for(int i=0;i<n;i++) arr[i] = new pair(arr1[i],i);
         
         Arrays.sort(arr,(a,b)->{
-            return a.val-b.val;
+            return a.val-b.val; // ascending
         });
         
         boolean[] vis = new boolean[n];
-        
         for(int i=0;i<n;i++) {
-           if(arr[i].idx == i || vis[i] == true) continue;
-            int j = i;
+            if(arr[i].idx == i || vis[i] == true) continue;
             int cycleC = 0;
-            while(vis[j] == false) {
-                vis[j] = true;
+            int j = i;
+            while(vis[i]==false) {
+                vis[i] = true;
                 cycleC++;
-                j = arr[j].idx;
+                i = arr[i].idx;
             }
-            totalCyclesLen += cycleC - 1;
+            totalSwaps += cycleC -1;
         }
-        return totalCyclesLen;
+        return totalSwaps;
     }
-    
     public int minimumOperations(TreeNode root) {
-        int ansMoves = 0;
+        int ans = 0;
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
         while(que.size()!=0) {
+            int countSwaps=0;
             int size = que.size();
-            int i = 0;
-            int[] list = new int[size];
+            int i=0;
+            int[] arr1 = new int[size];
             while(size-->0) {
                 TreeNode removeN = que.removeFirst();
-                list[i++] = removeN.val;
-                if(removeN.left != null) que.addLast(removeN.left);
-                
-                if(removeN.right != null) que.addLast(removeN.right);
+                arr1[i++] = removeN.val;
+                if(removeN.left!=null)que.addLast(removeN.left);
+                if(removeN.right!=null)que.addLast(removeN.right);
             }
-            
-            ansMoves += getMoves(list);
+            countSwaps = getSwaps(arr1);
+            ans += countSwaps;
         }
-        return ansMoves;
+        return ans;
     }
 }
