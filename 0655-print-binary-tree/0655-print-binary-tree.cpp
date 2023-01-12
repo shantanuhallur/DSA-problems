@@ -23,7 +23,7 @@ public:
     void fillVector(TreeNode* node, vector<vector<string>>& ans,int first,int last, int level) {
         if(!node) return;
         
-        int mid = first+(last-first)/2;
+        int mid = (first+last)/2;
         ans[level][mid] = to_string(node->val);
         
         fillVector(node->left,ans,first,mid-1,level+1);
@@ -31,7 +31,6 @@ public:
     }
     vector<vector<string>> printTree(TreeNode* root) {
         int height = getHeight(root);
-        cout<<height;
         int row = height+1;
         int col = pow(2,height+1)-1;
         //fill with balnks
