@@ -9,24 +9,25 @@
  */
 class Solution {
 public:
-    int totalFound = 0;
-    TreeNode* LCA(TreeNode* node, int p,int q) {
-        if(!node) return nullptr;
+    
+    int found=0;
+    TreeNode* LCA(TreeNode* node, int p, int q) {
+        if(node == NULL) return node;
         
         TreeNode* leftFound = LCA(node->left,p,q);
         TreeNode* rightFound = LCA(node->right,p,q);
         
         if(node->val == p || node->val == q) {
-            totalFound++;
+            found++;
             return node;
         }
         
         if(leftFound && rightFound) return node;
         
-        return leftFound ? leftFound : rightFound;
+        return leftFound != NULL ? leftFound : rightFound;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         TreeNode* ans = LCA(root,p->val,q->val);
-        return totalFound==2? ans : nullptr;
+        return found == 2 ? ans : NULL;
     }
 };
