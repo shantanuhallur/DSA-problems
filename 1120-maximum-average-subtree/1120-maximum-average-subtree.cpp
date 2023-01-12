@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    double maxAvg =-1;
-    pair<double,double> avge(TreeNode* node) {
+    // Parir -> sum ,totalNodes;
+    double maxAvg =0;
+    pair<double,int> getMax(TreeNode* node) {
         if(!node) return {0,0};
         
-        pair leftP = avge(node->left);
-        pair rightP = avge(node->right);
+        pair leftAns = getMax(node->left);
+        pair rightAns = getMax(node->right);
+        pair myAns = {0,0};
         
-        pair myP = {0,0};
-        myP.first = leftP.first + rightP.first + node->val;
-        myP.second = leftP.second + rightP.second + 1;
+        myAns.first = node->val + leftAns.first + rightAns.first;
+        myAns.second = leftAns.second + rightAns.second +1;
+        if((double)myAns.first/myAns.second > maxAvg) maxAvg =(double) myAns.first/myAns.second;
         
-        if((double)myP.first/myP.second > maxAvg) maxAvg = (double)myP.first/(double)myP.second;
-        
-        return myP;
+        return myAns;
     }
     double maximumAverageSubtree(TreeNode* root) {
-        avge(root);
+        getMax(root);
         return maxAvg;
     }
 };
