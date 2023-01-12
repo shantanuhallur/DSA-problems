@@ -14,29 +14,32 @@
  * }
  */
 class Solution {
-    double maxAvg = -1;
-    public class pair {
-        int numN =0;
-        double sum = 0;
-        pair(int numN,double sum){
-            this.numN = numN;
+    double maxAvg = 0;
+    public class pair{
+        double sum;
+        int totalNodes;
+        
+        pair(double sum,int totalNodes) {
             this.sum = sum;
+            this.totalNodes = totalNodes;
         }
     }
-    public pair avge(TreeNode node) {
+    public pair getMax(TreeNode node) {
         if(node==null) return new pair(0,0);
         
-        pair leftavg = avge(node.left);
-        pair rightavg = avge(node.right);
-        pair myavg = new pair(0,0);
+        pair leftAns = getMax(node.left);
+        pair rightAns = getMax(node.right);
         
-        myavg.sum =  leftavg.sum+rightavg.sum + node.val;
-        myavg.numN = leftavg.numN + rightavg.numN + 1;
-        if(myavg.sum/myavg.numN > maxAvg) maxAvg = myavg.sum/myavg.numN;
-        return myavg;
+        pair myAns = new pair(0,0);
+        myAns.sum = leftAns.sum + rightAns.sum + node.val;
+        myAns.totalNodes = leftAns.totalNodes + rightAns.totalNodes + 1;
+        if(myAns.sum/myAns.totalNodes > maxAvg) maxAvg = myAns.sum/myAns.totalNodes;
+        
+        return myAns;
+        
     }
     public double maximumAverageSubtree(TreeNode root) {
-        pair ans = avge(root);
+        getMax(root);
         return maxAvg;
     }
 }
