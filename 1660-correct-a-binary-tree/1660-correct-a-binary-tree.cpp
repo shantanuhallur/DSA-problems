@@ -23,18 +23,18 @@ public:
                 TreeNode* removeN = que.front(); que.pop();
                 
                 if(removeN->right) {
-                    if(removeN->right->right && set.find(removeN->right->right->val)!=set.end()) {
-                        removeN->right = nullptr;
+                    if(removeN->right->right && set.find(removeN->right->right->val) != set.end()) {
+                        removeN->right  = NULL;
                     }
-                    else {
+                    else{
                         set.insert(removeN->right->val);
                         que.push(removeN->right);
                     }
                 }
                 
                 if(removeN->left) {
-                    if(removeN->left->right && set.find(removeN->left->right->val)!=set.end()) {
-                        removeN->left = nullptr;
+                    if(removeN->left->right && set.find(removeN->left->right->val) != set.end()) {
+                        removeN->left = NULL;
                     }
                     else {
                         set.insert(removeN->left->val);
