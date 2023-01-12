@@ -11,23 +11,27 @@
  */
 class Solution {
 public:
-    // Parir -> sum ,totalNodes;
-    double maxAvg =0;
-    pair<double,int> getMax(TreeNode* node) {
+    //PAIR --> {SUM , totalNodes}
+    double maxAvg = 0;
+    pair<double,int> getAvg(TreeNode* node) {
+        //base case
         if(!node) return {0,0};
-        
-        pair leftAns = getMax(node->left);
-        pair rightAns = getMax(node->right);
-        pair myAns = {0,0};
-        
-        myAns.first = node->val + leftAns.first + rightAns.first;
-        myAns.second = leftAns.second + rightAns.second +1;
-        if((double)myAns.first/myAns.second > maxAvg) maxAvg =(double) myAns.first/myAns.second;
+        //left and right right recursive call
+        pair leftAns = getAvg(node->left);
+        pair rightAns = getAvg(node->right);
+        //postOrderArea ---->>
+        pair myAns = {0,0};        
+    //total sum of my subtree
+        myAns.first = leftAns.first + rightAns.first + node->val;
+    //total nodes in my whole subtree
+        myAns.second = leftAns.second + rightAns.second + 1;
+    //maximuze Avg
+        if(maxAvg< (double) myAns.first/myAns.second) maxAvg = (double) myAns.first/myAns.second;
         
         return myAns;
     }
     double maximumAverageSubtree(TreeNode* root) {
-        getMax(root);
+        getAvg(root);
         return maxAvg;
     }
 };
