@@ -25,7 +25,7 @@ class Solution {
     
     public void fillAns(List<List<String>> ans,int left,int right,int level,TreeNode node) {
         if(node == null) return;
-        int mid = left + (right-left)/2;
+        int mid = (left+right)/2;
         ans.get(level).set(mid,String.valueOf(node.val));
         
         fillAns(ans,left,mid-1,level+1,node.left);
