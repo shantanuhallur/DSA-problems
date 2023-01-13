@@ -1,76 +1,58 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
 class Solution {
-    public class pair implements Comparable<pair> {
-        int val;
-        int idx;
-        pair(int val,int idx) {
-            this.val = val;
-            this.idx = idx;
-        }
-        @Override
-        public int compareTo(pair o) {
-            return this.val - o.val;
-        }
-    }
-    
-    public int getSwaps(int[] arr1) {
+public:
+    // {VAL,IDX}
+    int getSwaps(vector<int>& arr1) {
         int totalSwaps = 0;
-        int n = arr1.length;
-        pair[] arr = new pair[n];
-        for(int i=0;i<n;i++) arr[i] = new pair(arr1[i],i);
-        
-        // Arrays.sort(arr,(a,b)->{
-        //     return a.val-b.val; // ascending
-        // });
-        
-        Arrays.sort(arr);
-        
-        boolean[] vis = new boolean[n];
+        int n = arr1.size();
+        vector<pair<int,int>> arr(n,{0,0});
+        for(int i=0;i<n;i++) arr[i] = {arr1[i],i};
+        sort(arr.begin(),arr.end());
+        vector<bool> vis(n,false);
         for(int i=0;i<n;i++) {
-            if(arr[i].idx == i || vis[i] == true) continue;
+            if(vis[i]==true ||arr[i].second == i) continue;
             int cycleC = 0;
             int j = i;
-            while(vis[i]==false) {
-                vis[i] = true;
+            while(vis[j]==false) {
+                vis[j] = true;
                 cycleC++;
-                i = arr[i].idx;
+                j = arr[j].second;
             }
-            totalSwaps += cycleC -1;
+            totalSwaps += cycleC-1;
         }
         return totalSwaps;
     }
-    public int minimumOperations(TreeNode root) {
+    
+    int minimumOperations(TreeNode* root) {
         int ans = 0;
-        LinkedList<TreeNode> que = new LinkedList<>();
-        que.addLast(root);
+        queue<TreeNode*> que;
+        que.push(root);
         while(que.size()!=0) {
-            int countSwaps=0;
             int size = que.size();
+            vector<int> arr(size,0);
             int i=0;
-            int[] arr1 = new int[size];
+            int countSwaps = 0;
             while(size-->0) {
-                TreeNode removeN = que.removeFirst();
-                arr1[i++] = removeN.val;
-                if(removeN.left!=null)que.addLast(removeN.left);
-                if(removeN.right!=null)que.addLast(removeN.right);
+                TreeNode* removeN = que.front(); que.pop();
+                
+                arr[i++] = removeN->val;
+                if(removeN->left!= NULL) que.push(removeN->left);
+                if(removeN->right!= NULL) que.push(removeN->right);
             }
-            countSwaps = getSwaps(arr1);
+            for(int i=0;i<size;i++) cout<<arr[i];
+            countSwaps = getSwaps(arr);
             ans += countSwaps;
         }
         return ans;
     }
-}
+};
