@@ -11,23 +11,25 @@
  */
 class Solution {
 public:
-    TreeNode* LCA = nullptr;
+    TreeNode* LCA = NULL;
     int getLCA(TreeNode* node,unordered_set<int>& set) {
+        //Base Case
         if(!node) return 0;
-        
-        int leftCount = getLCA(node->left,set);
-        int rightCount = getLCA(node->right,set);
-        int totalCount = leftCount+rightCount;
-        if(set.find(node->val)!= set.end()) totalCount++;
-        if(!LCA && totalCount ==set.size()) LCA = node;
-        
-        return totalCount;
+        //left and right recursive call
+        int leftFound = getLCA(node->left,set);
+        int rightFound = getLCA(node->right,set);
+        //calculate totalFOund
+        int totalFound = leftFound+rightFound;
+        //check if current node is to be searched for
+        if(set.find(node->val) != set.end()) totalFound++;
+        //check of current node is LCA
+        if(LCA == NULL && totalFound == set.size()) LCA = node;
+        //return totalfound to parent
+        return totalFound;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, vector<TreeNode*> &nodes) {
-     unordered_set<int> set;
-        for(TreeNode* node : nodes) {
-            set.insert(node->val);
-        }
+        unordered_set<int> set;
+        for(TreeNode* node : nodes) set.insert(node->val);
         getLCA(root,set);
         return LCA;
     }
