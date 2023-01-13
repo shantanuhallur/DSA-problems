@@ -17,11 +17,13 @@ class Solution {
     int sum = 0;
     void getSum(TreeNode node,int currSum) {
         if(node == null) return;
-        if(node.left == null && node.right == null) {
-            currSum = currSum*10 + node.val;
-            sum += currSum;
-        }
         currSum = currSum*10 + node.val;
+            
+        if(node.left == null && node.right == null) {
+            sum += currSum;
+            return;
+        }
+        
         
         getSum(node.left,currSum);
         getSum(node.right,currSum);
