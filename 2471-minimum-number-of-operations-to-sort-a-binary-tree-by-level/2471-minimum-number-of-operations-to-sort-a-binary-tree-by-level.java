@@ -1,58 +1,76 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    // {VAL,IDX}
-    int getSwaps(vector<int>& arr1) {
+    public class pair implements Comparable<pair> {
+        int val;
+        int idx;
+        pair(int val,int idx) {
+            this.val = val;
+            this.idx = idx;
+        }
+        @Override
+        public int compareTo(pair o) {
+            return this.val - o.val;
+        }
+    }
+    
+    public int getSwaps(int[] arr1) {
         int totalSwaps = 0;
-        int n = arr1.size();
-        vector<pair<int,int>> arr(n,{0,0});
-        for(int i=0;i<n;i++) arr[i] = {arr1[i],i};
-        sort(arr.begin(),arr.end());
-        vector<bool> vis(n,false);
+        int n = arr1.length;
+        pair[] arr = new pair[n];
+        for(int i=0;i<n;i++) arr[i] = new pair(arr1[i],i);
+        
+        // Arrays.sort(arr,(a,b)->{
+        //     return a.val-b.val; // ascending
+        // });
+        
+        Arrays.sort(arr);
+        
+        boolean[] vis = new boolean[n];
         for(int i=0;i<n;i++) {
-            if(vis[i]==true ||arr[i].second == i) continue;
+            if(arr[i].idx == i || vis[i] == true) continue;
             int cycleC = 0;
             int j = i;
             while(vis[j]==false) {
                 vis[j] = true;
                 cycleC++;
-                j = arr[j].second;
+                j = arr[j].idx;
             }
-            totalSwaps += cycleC-1;
+            totalSwaps += cycleC -1;
         }
         return totalSwaps;
     }
-    
-    int minimumOperations(TreeNode* root) {
+    public int minimumOperations(TreeNode root) {
         int ans = 0;
-        queue<TreeNode*> que;
-        que.push(root);
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
         while(que.size()!=0) {
+            int countSwaps=0;
             int size = que.size();
-            vector<int> arr(size,0);
             int i=0;
-            int countSwaps = 0;
+            int[] arr1 = new int[size];
             while(size-->0) {
-                TreeNode* removeN = que.front(); que.pop();
-                
-                arr[i++] = removeN->val;
-                if(removeN->left!= NULL) que.push(removeN->left);
-                if(removeN->right!= NULL) que.push(removeN->right);
+                TreeNode removeN = que.removeFirst();
+                arr1[i++] = removeN.val;
+                if(removeN.left!=null)que.addLast(removeN.left);
+                if(removeN.right!=null)que.addLast(removeN.right);
             }
-            for(int i=0;i<size;i++) cout<<arr[i];
-            countSwaps = getSwaps(arr);
+            countSwaps = getSwaps(arr1);
             ans += countSwaps;
         }
         return ans;
     }
-};
+}
