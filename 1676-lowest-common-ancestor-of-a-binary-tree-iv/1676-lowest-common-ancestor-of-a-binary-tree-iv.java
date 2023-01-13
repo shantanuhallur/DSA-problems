@@ -9,22 +9,21 @@
  */
 class Solution {
     TreeNode LCA = null;
-    public int getLCA(TreeNode node,HashSet<Integer> set) {
-        if(node==null) return 0;
+    
+    public int getLCA (TreeNode node,HashSet<Integer> set) {
+        if(node == null) return 0;
         
-        int leftCount = getLCA(node.left,set);
-        int rightCount = getLCA(node.right,set);
-        int totalCount = leftCount+rightCount;
-        if(set.contains(node.val)) totalCount++;
-        if(LCA==null && totalCount==set.size()) LCA = node;
+        int leftFound = getLCA(node.left,set);
+        int rightFound = getLCA(node.right,set);
+        int totalFound = leftFound + rightFound;
+        if(set.contains(node.val)) totalFound++;
+        if(LCA == null && totalFound == set.size()) LCA = node;
         
-        return totalCount;
+        return totalFound;
     }
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode[] nodes) {
         HashSet<Integer> set = new HashSet<>();
-        for(TreeNode node : nodes) {
-            set.add(node.val);
-        }
+        for(TreeNode node : nodes) set.add(node.val);
         getLCA(root,set);
         return LCA;
     }
