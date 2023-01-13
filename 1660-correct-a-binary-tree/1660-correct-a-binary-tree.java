@@ -15,16 +15,19 @@
  */
 class Solution {
     public TreeNode correctBinaryTree(TreeNode root) {
+        //create a set and que for seen node and BFS
         HashSet<Integer> set = new HashSet<>();
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
+        //LEVEL ORDER TRAVERSAL
         while(que.size()!=0) {
             int size = que.size();
             while(size-->0) {
                 TreeNode removeN = que.removeFirst();
-                
-                if(removeN.right!=null) {
-                    if(removeN.right.right!=null && set.contains(removeN.right.right.val)){
+                //start preocessing childs from right to left
+                //if my child exists then search for its right pointing node
+                if(removeN.right != null) {
+                    if(removeN.right.right!= null && set.contains(removeN.right.right.val)) {
                         removeN.right = null;
                     }
                     else {
@@ -33,13 +36,13 @@ class Solution {
                     }
                 }
                 
-                if(removeN.left!=null) {
-                    if(removeN.left.right!=null && set.contains(removeN.left.right.val)){
+                if(removeN.left != null) {
+                    if(removeN.left.right != null && set.contains(removeN.left.right.val)) {
                         removeN.left = null;
                     }
                     else {
                         set.add(removeN.left.val);
-                        que.add(removeN.left);
+                        que.addLast(removeN.left);
                     }
                 }
             }
