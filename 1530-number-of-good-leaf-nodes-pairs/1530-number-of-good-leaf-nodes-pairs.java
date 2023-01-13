@@ -14,31 +14,39 @@
  * }
  */
 class Solution {
-    int count = 0;
-    //faith each node will return all the leaves nodes distances under that node
-    public int[] getPairs(TreeNode node,int d) {
-        if(node==null) return new int[]{};
-        if(node.left == null && node.right == null) return new int[]{1};
-        
-        int[] lAns = getPairs(node.left,d);
-        int[] rAns = getPairs(node.right,d);
-        
-        for(int val1 : lAns) {
-            for(int val2 : rAns) {
-                if(val1+val2 <= d) count++;
-            }
+    //count pairs
+    int countPairs = 0;
+    int[] getLeafDist(TreeNode node,int d) {
+        //Base Case
+        if(node == null) return new int[]{};
+        //leaf case
+        if(node.left == null && node.right == null) {
+            int[] leaf = new int[1];
+            leaf[0] = 1;
+            return leaf;
         }
-        int n = lAns.length , m = rAns.length;
+        
+        //left and right recursive call for information
+        int [] lAns = getLeafDist(node.left,d);
+        int [] rAns = getLeafDist(node.right,d);
+        //try to make pairs with all leaves if left and right
+        for(int val1 : lAns) {
+            for(int val2: rAns) {
+                //check if our pair is valid
+                if(val1+val2 <= d) countPairs++;
+            }
+        } 
+    //distance upate for leaves to return to parent node;
+    int n = lAns.length , m = rAns.length;
         int[] myAns = new int[n+m];
         int i = 0;
-        for(int val1:lAns) myAns[i++] = val1+1;
-        for(int val2:rAns) myAns[i++] = val2+1;
-        
+        for(int val : lAns) myAns[i++] = val+1;
+        for(int val : rAns) myAns[i++] = val+1;
+        //return this updated myAns to parent
         return myAns;
     }
     public int countPairs(TreeNode root, int distance) {
-        if(root == null || distance <= 1) return 0;
-        getPairs(root,distance);
-        return count;
+        getLeafDist(root,distance);
+        return countPairs;
     }
 }
