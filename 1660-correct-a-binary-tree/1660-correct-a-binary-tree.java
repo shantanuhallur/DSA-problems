@@ -16,8 +16,7 @@
 class Solution {
     public TreeNode correctBinaryTree(TreeNode root) {
         HashSet<Integer> set = new HashSet<>();
-        LinkedList<TreeNode>que = new LinkedList<>();
-        set.add(root.val);
+        LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
         while(que.size()!=0) {
             int size = que.size();
@@ -25,21 +24,22 @@ class Solution {
                 TreeNode removeN = que.removeFirst();
                 
                 if(removeN.right!=null) {
-                    if(removeN.right.right!=null && set.contains(removeN.right.right.val)) {
+                    if(removeN.right.right!=null && set.contains(removeN.right.right.val)){
                         removeN.right = null;
                     }
-                    else{
+                    else {
                         set.add(removeN.right.val);
                         que.addLast(removeN.right);
                     }
                 }
+                
                 if(removeN.left!=null) {
-                    if(removeN.left.right != null && set.contains(removeN.left.right.val)) {
+                    if(removeN.left.right!=null && set.contains(removeN.left.right.val)){
                         removeN.left = null;
                     }
-                    else{
+                    else {
                         set.add(removeN.left.val);
-                        que.addLast(removeN.left);
+                        que.add(removeN.left);
                     }
                 }
             }
