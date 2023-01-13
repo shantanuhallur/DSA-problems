@@ -15,8 +15,6 @@ public:
         unordered_set<int> set;
         queue<TreeNode*> que;
         que.push(root);
-        set.insert(root->val);
-        
         while(que.size()!=0) {
             int size = que.size();
             while(size-->0) {
@@ -24,16 +22,16 @@ public:
                 
                 if(removeN->right) {
                     if(removeN->right->right && set.find(removeN->right->right->val) != set.end()) {
-                        removeN->right  = NULL;
+                        removeN->right = NULL;
                     }
-                    else{
+                    else {
                         set.insert(removeN->right->val);
                         que.push(removeN->right);
                     }
                 }
                 
                 if(removeN->left) {
-                    if(removeN->left->right && set.find(removeN->left->right->val) != set.end()) {
+                    if(removeN->left->right!= NULL && set.find(removeN->left->right->val) != set.end()) {
                         removeN->left = NULL;
                     }
                     else {
