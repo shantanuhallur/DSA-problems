@@ -13,32 +13,29 @@ class Solution {
 public:
     int count = 0;
     
-    vector<int> getPair(TreeNode* node,int d) {
+    vector<int> getPairs(TreeNode* node, int d) {
         if(!node) return {};
-        if(!node->left && !node->right) {
-            return {1};
-        }
+        if(!node->left && !node->right) return {1};
         
-        vector<int> lAns = getPair(node->left,d);
-        vector<int> rAns = getPair(node->right,d);
+        vector<int> lAns = getPairs(node->left,d);
+        vector<int> rAns = getPairs(node->right,d);
         
-        int n = lAns.size(); int m = rAns.size();
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<m;j++) {
-                if(lAns[i]+rAns[j] <=d) count++;
+        for(int val1 : lAns) {
+            for(int val2 : rAns) {
+                if(val1 + val2 <= d) count++;
             }
         }
+        int n = lAns.size() , m = rAns.size();
         
-        vector<int> res(m+n,0);
-        int i=0;
-        for(int val : lAns) res[i++] = val+1;
-        for(int val : rAns) res[i++] = val+1;
+        vector<int> myAns(n+m,0);
+        int i = 0;
+        for(int val : lAns) myAns[i++] = val+1;
+        for(int val : rAns) myAns[i++] = val+1;
         
-        return res;
+        return myAns;
     }
-    
     int countPairs(TreeNode* root, int distance) {
-        getPair(root,distance);
+        getPairs(root,distance);
         return count;
     }
 };
