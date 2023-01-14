@@ -11,22 +11,23 @@
  */
 class Solution {
 public:
-    int count=0;
-    bool getCount(TreeNode* node,int checkVal) {
-        if(node == NULL) return true;
-        
-        int checkValForMySubtree = node->val;
-        bool leftAns= getCount(node->left,checkValForMySubtree);
-        bool rightAns = getCount(node->right,checkValForMySubtree);
-        
-        if(leftAns && rightAns) count++;
-        
-        if(leftAns && rightAns && node->val == checkVal) return true;
+    int ans=0;
+    bool findUnivalSUbtrees(TreeNode* node , int checkVal) {
+        //Base Case
+        if(!node) return true;
+        int checkValForMyNodesSubtree = node->val;
+        //left and right recursive call
+        bool allLeftEqual = findUnivalSUbtrees(node->left,checkValForMyNodesSubtree);
+        bool allRightEqual = findUnivalSUbtrees(node->right,checkValForMyNodesSubtree);
+        //Univalue subtree if ->
+        if(allLeftEqual && allRightEqual)ans++;
+        //return condition
+        if(allLeftEqual && allRightEqual && node->val == checkVal)return true;
         return false;
     }
     int countUnivalSubtrees(TreeNode* root) {
         if(!root) return 0;
-        getCount(root,root->val);
-        return count;
+        findUnivalSUbtrees(root,root->val);
+        return ans;
     }
 };
