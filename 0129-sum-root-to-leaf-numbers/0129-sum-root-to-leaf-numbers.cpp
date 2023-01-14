@@ -12,16 +12,19 @@
 class Solution {
 public:
     int sum = 0;
-    void getSum(TreeNode* node, int currSum) {
+    void getSum(TreeNode* node,int currNum) {
+        //Base Case
         if(!node) return;
-        currSum = currSum*10+node->val;
-        
+        //calculate maintained No
+        int maintaintedNo = currNum * 10 + node->val;
+        //if my node is a leaf it means that my path has ended we need to add Maintained No in sum
         if(!node->left && !node->right) {
-            sum+= currSum;
+            sum += maintaintedNo;
             return;
-        }  
-        getSum(node->left,currSum);
-        getSum(node->right,currSum);
+        }
+        //left and right recursive call for traversing the whole tree
+        getSum(node->left,maintaintedNo);
+        getSum(node->right,maintaintedNo);
     }
     int sumNumbers(TreeNode* root) {
         getSum(root,0);
