@@ -14,21 +14,23 @@
  * }
  */
 class Solution {
-    int ans = 0;
-    public boolean getCount(TreeNode node,int checkVal) {
-        if(node == null) return true;
-        int checkFormySubtreeVal = node.val;
-        boolean leftAns = getCount(node.left,checkFormySubtreeVal);
-        boolean rightAns = getCount(node.right,checkFormySubtreeVal);
-        
-        if(leftAns == true && rightAns == true) ans++;
-        
-        if(leftAns == true && rightAns == true && node.val == checkVal) return true;
+    int ans =0;
+    public boolean findSubtree(TreeNode node,int checkVal) {
+        //Base Case
+        if(node==null) return true;
+        int checkValForMyNodesSubtree = node.val;
+        //left and right recursive call
+        boolean allLeftEqual = findSubtree(node.left,checkValForMyNodesSubtree);
+        boolean allRightEqual = findSubtree(node.right,checkValForMyNodesSubtree);
+        //Univalue subtree if ->
+        if(allLeftEqual == true && allRightEqual == true) ans++;
+        //return condition
+        if(allLeftEqual == true && allRightEqual == true && node.val == checkVal) return true;
         return false;
     }
     public int countUnivalSubtrees(TreeNode root) {
         if(root==null) return 0;
-        getCount(root,root.val);
+        findSubtree(root,root.val);
         return ans;
     }
 }
