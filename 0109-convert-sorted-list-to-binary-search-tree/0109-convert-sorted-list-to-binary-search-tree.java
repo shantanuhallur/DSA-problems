@@ -24,26 +24,23 @@
  * }
  */
 class Solution {
-    
-    public TreeNode buildBST(ArrayList<Integer> arr,int st,int end) {
-        if(st>end) return null;
+    public TreeNode buildBST(ListNode head,ListNode tail) {
+        ListNode mid = head;
+        ListNode fast = head;
+        if(head == tail) return null;
         
-        int mid = st +(end-st)/2;
-        TreeNode root = new TreeNode(arr.get(mid));
-        root.left = buildBST(arr,st,mid-1);
-        root.right = buildBST(arr,mid+1,end);
+        while(fast!= tail && fast.next != tail) {
+            fast = fast.next.next;
+            mid = mid.next;
+        }
+        
+        TreeNode root = new TreeNode(mid.val);
+        root.left = buildBST(head,mid);
+        root.right = buildBST(mid.next,tail);
         
         return root;
     }
     public TreeNode sortedListToBST(ListNode head) {
-        if(head == null) return null;
-        ArrayList<Integer> arr = new ArrayList<>();
-        ListNode curr = head;
-        while(curr!= null) {
-            arr.add(curr.val);
-            curr = curr.next;
-        }
-        
-        return buildBST(arr,0,arr.size()-1);
+        return buildBST(head,null);
     }
 }
