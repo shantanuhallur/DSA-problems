@@ -32,6 +32,7 @@ public:
         return root;
     }
     TreeNode* sortedListToBST(ListNode* head) {
+        if(!head) return NULL;
         ListNode* curr = head;
         vector<int> arr;
         while(curr != NULL) {
