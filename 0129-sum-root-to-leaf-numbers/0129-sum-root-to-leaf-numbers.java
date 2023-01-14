@@ -15,19 +15,20 @@
  */
 class Solution {
     int sum = 0;
-    void getSum(TreeNode node,int currSum) {
-        if(node == null) return;
-        currSum = currSum*10 + node.val;
-            
+    public void getSum(TreeNode node,int currNum) {
+        //Base Case
+        if(node==null) return;
+        //calculate maintained No
+        int maintainedNo = currNum * 10 + node.val;
+        //if my node is a leaf it means that my path has ended we need to add Maintained No in sum;
         if(node.left == null && node.right == null) {
-            sum += currSum;
+            sum+= maintainedNo;
             return;
         }
-        
-        
-        getSum(node.left,currSum);
-        getSum(node.right,currSum);
-    } 
+            //left and right recursive call for traversing the whole tree
+        getSum(node.left,maintainedNo);
+        getSum(node.right,maintainedNo);
+    }
     public int sumNumbers(TreeNode root) {
         getSum(root,0);
         return sum;
