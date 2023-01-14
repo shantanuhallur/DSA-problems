@@ -14,13 +14,12 @@ public:
     int sum = 0;
     void getSum(TreeNode* node, int currSum) {
         if(!node) return;
-        if(!node->left && !node->right) {
-            currSum = currSum * 10 + node->val;
-                sum+= currSum;
-            return;
-        }
+        currSum = currSum*10+node->val;
         
-        currSum = (int)currSum*10+node->val;
+        if(!node->left && !node->right) {
+            sum+= currSum;
+            return;
+        }  
         getSum(node->left,currSum);
         getSum(node->right,currSum);
     }
