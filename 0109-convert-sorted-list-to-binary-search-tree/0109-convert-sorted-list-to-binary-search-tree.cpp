@@ -21,7 +21,7 @@
  */
 class Solution {
 public:
-    TreeNode* buildBST(vector<int> arr,int st,int end) {
+    TreeNode* buildBST(vector<int>& arr,int st,int end) {
         if(st>end) return NULL;
         
         int mid = st + (end-st)/2;
