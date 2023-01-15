@@ -9,20 +9,23 @@ class Node {
 */
 
 class Solution {
-    public Node getParentSuccessor(Node node) {
-        if(node == null || node.parent == null) return null;
-        if(node.parent.right == node) return getParentSuccessor(node.parent);
-        return node.parent;
-    }
-    
-    public Node getLeftMost(Node node) {
-        while(node.left!=null) node = node.left;
+    public Node findLeftMostNode(Node node) {
+        while(node.left != null) node = node.left;
         return node;
+    }
+    public Node findNodeinParent(Node node) {
+        //no parent means no node is greater or i am the root node hence return null
+        if(node.parent == null) return null;
+        //check if current node is a right child of a parent if yes we need to recurse on our parent
+        if(node.parent.right == node) return findNodeinParent(node.parent);
+        //if not then our node is a left child of a parent node means our parent is the successor
+        return node.parent;
     }
     public Node inorderSuccessor(Node node) {
         if(node == null) return null;
-        
-        if(node.right != null) return getLeftMost(node.right);
-        return getParentSuccessor(node);
+        //if potential answer to my nodes right exist
+        if(node.right!=null) return findLeftMostNode(node.right);
+        //else it means that no node exists in my nodes right child hence answer is in my parents
+        return findNodeinParent(node);
     }
 }
