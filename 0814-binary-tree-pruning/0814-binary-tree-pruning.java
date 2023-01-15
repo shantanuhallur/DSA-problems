@@ -14,20 +14,23 @@
  * }
  */
 class Solution {
-    boolean containsOnes(TreeNode node) {
+    public boolean modifiedTree(TreeNode node) {
+        //Base Case if node is null no node exists with value as 1
         if(node == null) return false;
+        //left and right recursive call of faith
+        boolean leftContains1 = modifiedTree(node.left);
+        boolean rightContains1 = modifiedTree(node.right);
+        //if there exists no node with value 1 in my left and right subtree ill prune it.
+        if(!leftContains1) node.left = null;
+        if(!rightContains1) node.right = null;
         
-        boolean leftC  = containsOnes(node.left);
-        boolean rightC = containsOnes(node.right);
-        
-        if(!leftC) node.left = null;
-        if(!rightC) node.right = null;
-        
-        return leftC || rightC || node.val == 1;
+        return leftContains1 || rightContains1 || node.val == 1;
     }
     public TreeNode pruneTree(TreeNode root) {
-        if(root==null) return null;
-        containsOnes(root);
-        return (root.left == null && root.right == null && root.val !=1) ? null : root;
+        if(root == null) return null;
+        modifiedTree(root);
+        //check if root itself has been pruned to a leaf and its val is 0 if yes prune it.
+        if(root.left == null && root.right == null && root.val==0) return null;
+        return root;
     }
 }
