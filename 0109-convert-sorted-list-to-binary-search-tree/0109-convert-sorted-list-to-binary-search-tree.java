@@ -24,24 +24,27 @@
  * }
  */
 class Solution {
-    public TreeNode sortList(ListNode head,ListNode tail) {
+    public TreeNode buildTree(ListNode head,ListNode tail) {
+        //Base Case
         if(head == tail) return null;
-        ListNode slow = head , fast = head;
-        
+        //find root node to be created by finding mid of LL
+        ListNode slow = head;
+        ListNode fast = head;
         while(fast!=tail && fast.next!=tail) {
-            slow = slow.next;
-            fast = fast.next.next;
+            slow = slow.next; //move slow with 1 step
+            fast = fast.next.next; //move fast with 2 steps
         }
         
         TreeNode root = new TreeNode(slow.val);
-        root.left = sortList(head,slow);
-        root.right = sortList(slow.next,tail);
-        
+        //left and right recursive calls
+        root.left = buildTree(head,slow);
+        root.right = buildTree(slow.next,tail);
+        //return root of this build tree
         return root;
     }
+    
     public TreeNode sortedListToBST(ListNode head) {
         if(head==null) return null;
-        
-        return sortList(head,null);
+        return buildTree(head,null);
     }
 }
