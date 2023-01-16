@@ -21,20 +21,18 @@ public:
         
         return lAns&&rAns;
     }
-    bool hasSubtree(TreeNode* node,int data,TreeNode* subRoot) {
-        if(!node) return false;
+
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(!root) return false;
         
-        if(node->val == data) {
-            bool ans = areEqualSubtrees(node,subRoot);
+        if(root->val == subRoot->val) {
+            bool ans = areEqualSubtrees(root,subRoot);
             if(ans) return true;
         }
         
-        bool leftAns = hasSubtree(node->left,data,subRoot);
-        bool rightAns = hasSubtree(node->right,data,subRoot);
+        bool leftAns = isSubtree(root->left,subRoot);
+        bool rightAns = isSubtree(root->right,subRoot);
         
         return leftAns || rightAns;
-    }
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        return hasSubtree(root,subRoot->val,subRoot);
     }
 };
