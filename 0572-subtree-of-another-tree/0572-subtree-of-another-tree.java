@@ -24,20 +24,18 @@ class Solution {
         
         return (left && right );
     }
-    public boolean dfs(TreeNode node,int data,TreeNode subRoot) {
-        if(node == null) return false;
+
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if(root == null) return false;
         
-        if(node.val == data) {
-            boolean ans = areEqual(node,subRoot);
+        if(root.val == subRoot.val) {
+            boolean ans = areEqual(root,subRoot);
             if(ans) return true;
         }
         
-        boolean leftAns = dfs(node.left,data,subRoot);
-        boolean rightAns = dfs(node.right,data,subRoot);
+        boolean leftAns = isSubtree(root.left,subRoot);
+        boolean rightAns = isSubtree(root.right,subRoot);
         
         return leftAns||rightAns;
-    }
-    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        return dfs(root,subRoot.val,subRoot);
     }
 }
