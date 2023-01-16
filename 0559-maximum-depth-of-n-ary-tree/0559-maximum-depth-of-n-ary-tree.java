@@ -18,22 +18,22 @@ class Node {
 */
 
 class Solution {
-    int max = 1;
-    public int maxDepth(Node root) {
-        if(root==null)return 0;
-            maxDepthN(root,1);
+    int maxH = 1;
+    public void findMaxH(Node node,int ht) {
+        if(node==null) return;
         
-        return max;
+        for(Node child:node.children) {
+            findMaxH(child,ht+1);
+        }
+         if(node.children.size() == 0) {
+            if(ht>maxH) {
+                maxH = ht;
+            }
+         }
     }
-    public void maxDepthN(Node node,int h){
-        
-        if(node.children.size()==0){
-            max = h>max?h:max;
-            return; //as it can be set again in to lower depth levels again eg:- 2 , 4                                                                                  Nodes.
-        }
-        for(Node child : node.children){
-             maxDepthN(child,h+1);
-        }
-        return;
+    public int maxDepth(Node root) {
+        if(root==null) return 0;
+        findMaxH(root,maxH);
+        return maxH;
     }
 }
