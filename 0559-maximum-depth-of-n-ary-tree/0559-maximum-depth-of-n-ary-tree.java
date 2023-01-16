@@ -18,20 +18,21 @@ class Node {
 */
 
 class Solution {
-    int maxH = 1;
-    public void findMaxH(Node node,int ht) {
-        for(Node child:node.children) {
-            findMaxH(child,ht+1);
+    int maxD = 1;
+    public void findMaxDep(Node node,int currDepth) {
+        // recursively traverse to every child of my current node 
+        for(Node child : node.children) {
+            findMaxDep(child,currDepth+1);
         }
-         if(node.children.size() == 0) {
-            if(ht>maxH) {
-                maxH = ht;
-            }
-         }
+        //update my maxDep if needed
+        if(maxD<currDepth) {
+            maxD = currDepth;
+        }
     }
     public int maxDepth(Node root) {
+        //Base case
         if(root==null) return 0;
-        findMaxH(root,maxH);
-        return maxH;
+        findMaxDep(root,1);
+        return maxD;
     }
 }
