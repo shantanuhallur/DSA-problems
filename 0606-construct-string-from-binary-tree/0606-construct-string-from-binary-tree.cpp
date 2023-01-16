@@ -10,14 +10,14 @@
  * };
  */
 class Solution {
-public: 
+public:
     string tree2str(TreeNode* root) {
-        string res = "";
+        string str = "";
         
-        if(root->left) res+= "(" + tree2str(root->left) + ")";
-        if(!root->left && root->right) res+= "()";
-        if(root->right) res+= "(" + tree2str(root->right) + ")";
+        if(root->left) str+= "(" + tree2str(root->left) + ")";
+        if(!root->left && root->right) str += "()";
+        if(root->right) str+= "(" + tree2str(root->right) + ")";
         
-        return to_string(root->val) + res;
+        return to_string(root->val) + str;
     }
 };
