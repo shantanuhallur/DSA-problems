@@ -15,12 +15,14 @@
  */
 class Solution {
     public String tree2str(TreeNode root) {
-        String res = "";
-        
-        if(root.left != null) res += "(" + tree2str(root.left) + ")";
-        if(root.left == null && root.right!= null) res+= res += "()";
-        if(root.right != null) res += "(" + tree2str(root.right) + ")";
-        
-        return root.val + res;
+        String ans = "";
+        //left recursive call
+        if(root.left!=null) ans+= "(" + tree2str(root.left) + ")";
+        //if left doesnt exist but right child does exist
+        if(root.left==null && root.right != null) ans+= "()";
+        //right recursive call
+        if(root.right!=null) ans += "(" + tree2str(root.right) + ")";
+        //append ans to my rootnode's val 
+        return root.val + ans;
     }
 }
