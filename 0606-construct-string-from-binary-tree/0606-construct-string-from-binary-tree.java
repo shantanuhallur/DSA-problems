@@ -17,10 +17,10 @@ class Solution {
     public String tree2str(TreeNode root) {
         String res = "";
         
-        if(root.left!=null) res+= "(" + tree2str(root.left) + ")"; //if left get left ans in ()
-        if(root.left == null && root.right != null) res+= "()";
-        if(root.right!=null) res+= "(" + tree2str(root.right) + ")";
+        if(root.left != null) res += "(" + tree2str(root.left) + ")";
+        if(root.left == null && root.right!= null) res+= res += "()";
+        if(root.right != null) res += "(" + tree2str(root.right) + ")";
         
-        return root.val+res;
+        return root.val + res;
     }
 }
