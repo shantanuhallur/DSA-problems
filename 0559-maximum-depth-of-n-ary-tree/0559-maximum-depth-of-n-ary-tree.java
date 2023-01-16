@@ -20,8 +20,6 @@ class Node {
 class Solution {
     int maxH = 1;
     public void findMaxH(Node node,int ht) {
-        if(node==null) return;
-        
         for(Node child:node.children) {
             findMaxH(child,ht+1);
         }
