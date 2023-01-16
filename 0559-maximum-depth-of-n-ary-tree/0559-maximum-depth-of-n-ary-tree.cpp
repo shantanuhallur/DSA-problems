@@ -20,18 +20,22 @@ public:
 
 class Solution {
 public:
-    int maxH = -1;
-    void findMaxH(Node* node,int ht) {
-        for(Node* child:node->children) {
-            findMaxH(child,ht+1);
+    int maxD = 1;
+    void findMaxDepth(Node* node,int currDepth) {
+        //recursively travel each child node and maximize maxD
+        for(Node* child : node->children) {
+            findMaxDepth(child,currDepth+1);
         }
-        if(node->children.size()==0) {
-            if(maxH<ht) maxH = ht;
+        //maximize Depth
+        if(maxD < currDepth) {
+            maxD = currDepth;
         }
     }
+    
     int maxDepth(Node* root) {
+        //Base Case
         if(!root) return 0;
-        findMaxH(root,1);
-        return maxH;
+        findMaxDepth(root,1);
+        return maxD;
     }
 };
