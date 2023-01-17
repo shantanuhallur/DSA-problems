@@ -14,18 +14,22 @@
  * }
  */
 class Solution {
-    public boolean symmetric(TreeNode lnode,TreeNode rnode) {
-        if(lnode==null && rnode==null) return true;
-        if(lnode == null || rnode == null) return false;
-        if(lnode.val != rnode.val) return false;
-        
-        if(!symmetric(lnode.left,rnode.right)) return false;
-        if(!symmetric(lnode.right,rnode.left)) return false;
-        
+    public boolean getSymmetric(TreeNode fNode,TreeNode sNode) {
+        //if both nodes dont exist in this pos we return true;
+        if(fNode == null && sNode == null) return true;
+        //if even one of them is null return false
+        if(fNode == null || sNode ==null) return false;
+        //if both nodes exist but with different values we return false
+        if(fNode.val != sNode.val) return false;
+        //check bottom nodes if symmetric or not with right position
+        if(!getSymmetric(fNode.left,sNode.right)) return false;
+        if(!getSymmetric(fNode.right,sNode.left)) return false;
+        //else the treee is symmetric
         return true;
     }
     public boolean isSymmetric(TreeNode root) {
-        if(root==null) return false;
-        return symmetric(root.left,root.right);
+        //Base Case 
+        if(root == null) return true;
+        return getSymmetric(root.left,root.right);
     }
 }
