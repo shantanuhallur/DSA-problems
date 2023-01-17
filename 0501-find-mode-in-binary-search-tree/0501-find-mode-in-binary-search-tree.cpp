@@ -11,38 +11,50 @@
  */
 class Solution {
 public:
+    
+    
+    
+    
+    
+    
+     //convert the answer in int[]
     TreeNode* prev = NULL;
-    int count = 1;
-    int max = -1;
-    void getNodes(TreeNode* node, vector<int>& ans) {
+    int maxFreq = -1;
+    int nodeFreq = 1;
+    
+    void inOrder(TreeNode* node,vector<int>& ans) {
+        //BaseCase
         if(!node) return;
-        
-        getNodes(node->left,ans);
+        //left and right recursive calls
+        inOrder(node->left,ans);
         if(prev) {
+            // increase node freq because we have got a node with same value
             if(node->val == prev->val) {
-                count++;
+                nodeFreq++;
             }
-            else {
-                count = 1;
+            else {// we have got a new value node set its freq to 1
+                nodeFreq = 1;
             }
         }
-        
-        if(count>max) {
-            max = count;
+        //there can be already element added with a previous maxFreq
+        if(maxFreq<nodeFreq) {
             ans.clear();
             ans.push_back(node->val);
+            maxFreq = nodeFreq;
         }
-        else if(count == max) {
+        else if(maxFreq == nodeFreq) {
+            //there will be multiple answers
             ans.push_back(node->val);
         }
         
         prev = node;
-        getNodes(node->right,ans);
+        inOrder(node->right,ans);
+        
     }
+    
     vector<int> findMode(TreeNode* root) {
-        if(!root) return {};
         vector<int> ans;
-        getNodes(root,ans);
+        inOrder(root,ans);
         return ans;
     }
 };
