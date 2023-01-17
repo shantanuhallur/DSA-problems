@@ -11,18 +11,22 @@
  */
 class Solution {
 public:
-    bool symmetric(TreeNode* lnode,TreeNode* rnode) {
-        if(!lnode && !rnode) return true;
-        if(!lnode || !rnode) return false;
-        if(lnode->val != rnode->val) return false;
-        
-        if(!symmetric(lnode->left,rnode->right)) return false;
-        if(!symmetric(lnode->right,rnode->left)) return false;
-        
+    bool getSymmetric(TreeNode* fNode,TreeNode* sNode) {
+        //if both nodes dont exist in this pos we return true;
+        if(!fNode && !sNode) return true;
+        //if even one of them is null return false
+        if(!fNode || !sNode) return false;
+        //if both nodes exist but with different values we return false
+        if(fNode->val != sNode->val) return false;
+        //check bottom nodes if symmetric or not with right position
+        if(!getSymmetric(fNode->left,sNode->right)) return false;
+        if(!getSymmetric(fNode->right,sNode->left)) return false;
+        //else the treee is symmetric
         return true;
     }
     bool isSymmetric(TreeNode* root) {
+        //Base Case
         if(!root) return true;
-        return symmetric(root->left,root->right);
+        return getSymmetric(root->left,root->right);
     }
 };
