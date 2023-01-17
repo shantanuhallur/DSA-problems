@@ -5,7 +5,7 @@ public:
         
         ans.push_back(currNo);
         for(int j=0;j<=9;j++) {
-            dfs(currNo*10+j,n,ans);
+            if(currNo*10+j<=n)dfs(currNo*10+j,n,ans);
         }
     }
     vector<int> lexicalOrder(int n) {
