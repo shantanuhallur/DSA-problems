@@ -12,19 +12,25 @@
 class Solution {
 public:
     TreeNode* prev = NULL;
-    int minN = 1e8;
-    void getAns(TreeNode* node) {
+    int minDiff = 1e8;
+    void inOrder(TreeNode* node) {
+        //Base Case
         if(!node) return;
-        
-        getAns(node->left);
-        if(prev!= NULL) {
-            if(node->val - prev->val < minN) minN = node->val - prev->val; 
+        //Left and right recursive calls
+        inOrder(node->left);
+        //INORDER AREA ---->>>
+        //minimize abs diff if needed
+        if(prev) {
+            if(node->val - prev->val < minDiff) minDiff = node->val - prev->val;
         }
         prev = node;
-        getAns(node->right);
+        //INORDER AREA ---->>>
+        inOrder(node->right);
+        
     }
+    
     int getMinimumDifference(TreeNode* root) {
-        getAns(root);
-        return minN;
+        inOrder(root);
+        return minDiff;
     }
 };
