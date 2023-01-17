@@ -1,7 +1,7 @@
 class Solution {
 public:
     void dfs(int currNo,int n,vector<int>& ans) {
-        if(currNo>n) return;
+         if(currNo>n) return;
         
         ans.push_back(currNo);
         for(int j=0;j<=9;j++) {
