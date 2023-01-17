@@ -14,39 +14,26 @@
  * }
  */
 class Solution {
-    
-        public int getMin(int... arr) {
-        int min = arr[0];
-        for(int ele : arr) {
-            min = Math.min(ele,min);
+    int minAbsDiff = (int)1e8;
+    TreeNode prev = null;
+    public void inOrder(TreeNode node) {
+        //Base Case
+        if(node == null) return;
+        
+        //Left and right recursive calls
+        inOrder(node.left);
+        //INORDER AREA ---->>>
+        //minimize abs diff if needed
+        if(prev!=null) {
+            if(node.val - prev.val < minAbsDiff) minAbsDiff = node.val - prev.val;
         }
-        return min;
-    }
-    
-    int ans = (int)1e8;
-    public int[] getMinMax(TreeNode node) {
-        if(node == null) return new int[]{(int)1e8,-(int)1e8};
-            
-        int[] leftMinMax =  getMinMax(node.left);
-           
-        int[] rightMinMax = getMinMax(node.right);
-        
-        //ans
-        ans = getMin(ans,Math.abs(leftMinMax[0]-node.val),Math.abs(leftMinMax[1]-node.val),Math.abs(rightMinMax[0]-node.val),
-            Math.abs(rightMinMax[1]-node.val));
-        
-        int[] myNodeMinMax = new int[2];
-        
-        //min
-        myNodeMinMax[0] = Math.min(leftMinMax[0],Math.min(node.val,rightMinMax[0]));
-        //max
-        myNodeMinMax[1] = Math.max(leftMinMax[1],Math.max(node.val,rightMinMax[1]));
-        
-        return myNodeMinMax; 
+        prev = node;
+        //INORDER AREA ---->>>
+        inOrder(node.right);
     }
     
     public int getMinimumDifference(TreeNode root) {
-        int[] dummy = getMinMax(root);
-        return ans;
+        inOrder(root);
+        return minAbsDiff;
     }
 }
