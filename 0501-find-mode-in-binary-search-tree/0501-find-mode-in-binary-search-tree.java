@@ -14,37 +14,43 @@
  * }
  */
 class Solution {
+    int maxFreq = -1;
     TreeNode prev = null;
-    int count = 1;
-    int max = -1;
-    public void getNodes(TreeNode node,ArrayList<Integer> ans) {
+    int nodeFreq = 1;
+    void inOrder(TreeNode node,ArrayList<Integer> ans) {
+        //BaseCase
         if(node==null) return;
-        getNodes(node.left,ans);
+        
+        //left and right recursive calls
+        inOrder(node.left,ans);
         if(prev != null) {
-            if(node.val == prev.val) {
-                count++;
+            if(prev.val == node.val) {
+                nodeFreq++; // increase node freq because we have got a node with same value
             }
-            else {
-                count = 1;
+            else { // we have got a new value node set its freq to 1
+                nodeFreq = 1;
             }
+        }
+        //if our nodeFreq > maaxFreq
+        if(maxFreq<nodeFreq) {
+            ans.clear(); //there can be already element added with a previous maxFreq
+            ans.add(node.val);
+            maxFreq=nodeFreq;
+        }
+        else if(maxFreq == nodeFreq) { //there will be multiple answers
+            ans.add(node.val);
         }
         
-        if(count>max) {
-            ans.clear();
-            ans.add(node.val);
-            max = count;
-        }
-        else if(count == max) {
-            ans.add(node.val);
-        }
         prev = node;
-        getNodes(node.right,ans);
+        inOrder(node.right,ans);
+        
     }
     public int[] findMode(TreeNode root) {
         ArrayList<Integer> ans = new ArrayList<>();
-        getNodes(root,ans);
+        inOrder(root,ans);
+        //convert the answer in int[]
         int[] retAns = new int[ans.size()];
-        for(int i=0;i<retAns.length;i++){
+        for(int i=0;i<retAns.length;i++) {
             retAns[i] = ans.get(i);
         }
         return retAns;
