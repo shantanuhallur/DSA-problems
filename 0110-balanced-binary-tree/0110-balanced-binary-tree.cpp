@@ -10,24 +10,23 @@
  * };
  */
 class Solution {
-public:
+public:    
     int getHeight(TreeNode* node) {
+        //Base case Null node
         if(!node) return 0;
-        
+        //left & right recursive call
         int leftH = getHeight(node->left);
         if(leftH==-1) return -1;
-        
         int rightH = getHeight(node->right);
-        if(rightH==-1) return -1;
-        
-        if(abs(leftH-rightH) > 1) return -1;
-        
-        return max(leftH,rightH) + 1;
+        if(rightH == -1) return -1;
+        //check if left and right height is balanced for my node
+        if(abs(leftH-rightH)>1) return -1;
+        //return the height for this node to parent node;
+        return max(leftH,rightH) +1;
     }
-    
     bool isBalanced(TreeNode* root) {
         if(!root) return true;
-        if(getHeight(root)==-1) return false;
+        if(getHeight(root) == -1) return false;
         return true;
     }
 };
