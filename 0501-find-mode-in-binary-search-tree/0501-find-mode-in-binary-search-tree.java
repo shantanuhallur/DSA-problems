@@ -31,9 +31,10 @@ class Solution {
         
         if(count>max) {
             ans.clear();
+            ans.add(node.val);
             max = count;
         }
-        if(count == max) {
+        else if(count == max) {
             ans.add(node.val);
         }
         prev = node;
