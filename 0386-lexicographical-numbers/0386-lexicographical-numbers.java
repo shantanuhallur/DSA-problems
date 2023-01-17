@@ -4,7 +4,7 @@ class Solution {
         
         ans.add(currNo);
         for(int j=0;j<10;j++) {
-            dfs(currNo*10 +j,n,ans);
+            if(currNo*10+j<=n) dfs(currNo*10 +j,n,ans);
         }
     }
     
