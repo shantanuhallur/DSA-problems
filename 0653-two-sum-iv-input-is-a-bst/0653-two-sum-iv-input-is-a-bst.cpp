@@ -31,18 +31,16 @@ public:
         insertAllRight(root,st2);
         
         while(st1.top()->val < st2.top()->val) {
-            int lo = st1.top()->val;
-            int hi = st2.top()->val;
-            // int sum =
-            if(k> lo+hi) {
+            int sum = st1.top()->val + st2.top()->val;
+            if(k> sum) {
                 TreeNode* node = st1.top(); st1.pop();
                 insertAllLeft(node->right,st1);
             }
-            else if(k<lo+hi) {
+            else if(k<sum) {
                 TreeNode* node = st2.top();  st2.pop();
                 insertAllRight(node->left,st2);
             }
-            else if(k == lo+hi) return true;
+            else if(k == sum) return true;
         }
         return false;
     }
