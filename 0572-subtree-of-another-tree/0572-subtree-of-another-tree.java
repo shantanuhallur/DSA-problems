@@ -14,28 +14,23 @@
  * }
  */
 class Solution {
-    public boolean areEqual(TreeNode root1,TreeNode root2) {
-        if(root1==null && root2 == null) return true; //both have null node in same pos
-        if(root1 ==null || root2 == null) return false; //only 1 has node other has null in structure
-        if(root1.val != root2.val) return false; //same structure but different value of nodes
+    public boolean areEqual(TreeNode node1,TreeNode node2) {
+        if(node1==null && node2 == null) return true;
+        if(node1 == null || node2 == null) return false;
+        if(node1.val != node2.val) return false;
         
-        boolean left = areEqual(root1.left,root2.left);
-        boolean right = areEqual(root1.right,root2.right);
-        
-        return (left && right );
+        return areEqual(node1.left,node2.left) && areEqual(node1.right,node2.right);
     }
-
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if(root == null) return false;
         
         if(root.val == subRoot.val) {
-            boolean ans = areEqual(root,subRoot);
-            if(ans) return true;
+            if(areEqual(root,subRoot)) return true;
         }
         
-        boolean leftAns = isSubtree(root.left,subRoot);
-        boolean rightAns = isSubtree(root.right,subRoot);
+        boolean lAns = isSubtree(root.left,subRoot);
+        boolean rAns = isSubtree(root.right,subRoot);
         
-        return leftAns||rightAns;
+        return lAns || rAns;
     }
 }
