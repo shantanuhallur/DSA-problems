@@ -14,30 +14,37 @@
  * }
  */
 class Solution {
-    int par = -1;
-    public int getDepth(TreeNode node,int depth,int num) {
-                
-        if(node.val == num) return depth;
-        
-        if(node.left != null) {
-            if(node.left.val == num) par = node.val;
-            int leftAns = getDepth(node.left,depth+1,num);
-            if(leftAns >0) return leftAns;
+    int parent = -1;
+    public int getDepth(TreeNode node,int depth,int target) {
+        //Base Case
+        if(node.val == target) return depth;
+        //left and right DFS/Recursive calls
+        if(node.left!=null) {
+            //check if curr node is a parent to my target node
+            if(node.left.val == target) parent = node.val;
+            //get height form child
+            int lAns = getDepth(node.left,depth+1,target);
+            if(lAns != 0) return lAns;
         }
-        
-        if(node.right != null) {
-            if(node.right.val == num) par = node.val;
-            int rightAns = getDepth(node.right,depth+1,num);
-            if(rightAns >0) return rightAns;
+        if(node.right!=null) {
+            //check if curr node is a parent to my target node
+            if(node.right.val == target) parent = node.val;
+            //get height form child
+            int rAns = getDepth(node.right,depth+1,target);
+            if(rAns != 0) return rAns;
         }
         return 0;
     }
+    
     public boolean isCousins(TreeNode root, int x, int y) {
+        //get dep & par for X
         int depth1 = getDepth(root,0,x);
-        int par1 = par;
-        par = -1;
+        int par1 = parent;
+        parent = - 1;
+        //get dep & par for Y
         int depth2 = getDepth(root,0,y);
-        int par2 = par;
-        return (depth1 == depth2 && par1 != par2 ? true : false);
+        int par2 = parent;
+        //Check if both are Cousin or not.
+        return depth1 == depth2 && par1 != par2 ? true : false;
     }
 }
