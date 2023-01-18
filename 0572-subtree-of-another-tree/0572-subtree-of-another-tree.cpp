@@ -32,7 +32,9 @@ public:
         }
         //left and right recursive calls
         bool lAns = isSubtree(root->left,subRoot);
+        if(lAns) return true;
         bool rAns = isSubtree(root->right,subRoot);
+        if(rAns) return true;
         
         return (lAns || rAns);
     }
