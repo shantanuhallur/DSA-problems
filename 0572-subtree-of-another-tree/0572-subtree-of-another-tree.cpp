@@ -10,29 +10,30 @@
  * };
  */
 class Solution {
-public:
-    bool areEqualSubtrees(TreeNode* r1,TreeNode* r2) {
-        if(!r1 && !r2) return true;
-        if(!r1 || !r2) return false;
-        if(r1->val != r2->val) return false;
+public: 
+    bool areEqual(TreeNode*  node1,TreeNode* node2) {
+        if(node1==NULL && node2==NULL) return true; // both are null hence equal.
+        if(node1 ==NULL || node2 ==NULL) return false; // only 1 node exists out of the 2.
+        if(node1->val != node2->val) return false;// both nodes are present but dont have equal values
         
-        bool lAns = areEqualSubtrees(r1->left,r2->left);
-        bool rAns = areEqualSubtrees(r1->right,r2->right);
+        //left and right recursive call
+        bool lEqual = areEqual(node1->left,node2->left);
+        bool rEqual = areEqual(node1->right,node2->right);
         
-        return lAns&&rAns;
+        return (lEqual && rEqual);
     }
-
+    
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        //Base Case
         if(!root) return false;
         
         if(root->val == subRoot->val) {
-            bool ans = areEqualSubtrees(root,subRoot);
-            if(ans) return true;
+            if(areEqual(root,subRoot)) return true;
         }
+        //left and right recursive calls
+        bool lAns = isSubtree(root->left,subRoot);
+        bool rAns = isSubtree(root->right,subRoot);
         
-        bool leftAns = isSubtree(root->left,subRoot);
-        bool rightAns = isSubtree(root->right,subRoot);
-        
-        return leftAns || rightAns;
+        return (lAns || rAns);
     }
 };
