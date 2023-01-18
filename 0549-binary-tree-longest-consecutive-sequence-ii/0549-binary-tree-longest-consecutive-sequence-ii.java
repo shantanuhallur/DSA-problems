@@ -24,7 +24,7 @@ class Solution {
     }
     int maxLen = -1;
     public pair getLCS(TreeNode node) {
-        if(node == null) return new pair(0,0);
+        // if(node == null) return new pair(0,0);
         
         int  leftInc = 1 , leftDec = 1;
         int rightInc = 1, rightDec = 1;
