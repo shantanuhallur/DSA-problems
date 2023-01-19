@@ -14,24 +14,28 @@
  * }
  */
 class Solution {
+    //gloabal  ans which hold LUP in whole tree
     int ans = 0;
-    public int dfs(TreeNode node,int parVal) {
+    
+    int getLUP(TreeNode node) {
+        //Base Case
         if(node == null) return 0;
+        //left and right recursive call of faith -> get me LUP throught MY L&R CHILD
+        int l = getLUP(node.left);
+        int r = getLUP(node.right);
         
-        int l = dfs(node.left,node.val);
-        int r = dfs(node.right,node.val);
+        if(node.left != null && node.left.val == node.val) l += 1;
+        else l = 0;
         
-        if(node.left != null && node.val == node.left.val);
-        
-        if(node.right != null && node.val == node.right.val);
-       
-        
+        if(node.right != null && node.right.val == node.val) r += 1;
+        else r = 0;
+        //Maximize ans's LUP
         ans = Math.max(ans,l+r);
-        
-        return node.val == parVal ? Math.max(l,r) +1 : 0; 
+        //return value will be as per our faith the max UVP THROUGH MY ROOT NODE
+        return Math.max(l,r);
     }
     public int longestUnivaluePath(TreeNode root) {
-        dfs(root,-1001);
+        getLUP(root);
         return ans;
     }
 }
