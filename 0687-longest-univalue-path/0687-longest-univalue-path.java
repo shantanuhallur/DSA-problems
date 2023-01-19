@@ -16,10 +16,10 @@
 class Solution {
     public class pair {
         int data;
-        int height;
-         pair(int data,int height) {
+        int length;
+         pair(int data,int length) {
              this.data = data;
-             this.height = height;
+             this.length = length;
          }
     }
     int ans = 0;
@@ -32,27 +32,27 @@ class Solution {
         //Cases for ans and myPair
         if(leftAns.data == node.val && node.val == rightAns.data) {
             //for myPair
-            myPair.height = Math.max(leftAns.height,rightAns.height) +1;
+            myPair.length = Math.max(leftAns.length,rightAns.length) +1;
             //for ans
-            ans = Math.max(ans,leftAns.height + rightAns.height + 1);
+            ans = Math.max(ans,leftAns.length + rightAns.length + 1);
         }
         else if(leftAns.data == node.val) {
             //for myPair
-            myPair.height = leftAns.height+1;
+            myPair.length = leftAns.length+1;
             //for ans
-            ans = Math.max(ans,myPair.height);
+            ans = Math.max(ans,myPair.length);
         }
         else if(rightAns.data == node.val) {
             //for myPair
-            myPair.height = rightAns.height+1;
+            myPair.length = rightAns.length+1;
             //for ans
-            ans = Math.max(ans,myPair.height);
+            ans = Math.max(ans,myPair.length);
         }
         else {
             //for ans
             ans = Math.max(ans,1);
             //for myPair
-            myPair.height = 1;
+            myPair.length = 1;
         }
         return myPair;
     }
