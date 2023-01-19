@@ -33,6 +33,7 @@ class Solution {
         insertAllRight(root,st2);
         while(st1.peek().val < st2.peek().val) {
             int sum = st1.peek().val + st2.peek().val;
+            if(sum == k) return true;
             if(sum> k) {
                 TreeNode rn = st2.peek(); st2.pop();
                 insertAllRight(rn.left,st2);
@@ -42,7 +43,6 @@ class Solution {
                 TreeNode rn = st1.peek(); st1.pop();
                 insertAllLeft(rn.right,st1);
             }
-            else if(sum == k) return true;
         }
         return false;
     }
