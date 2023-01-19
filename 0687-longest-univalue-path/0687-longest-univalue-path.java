@@ -14,42 +14,24 @@
  * }
  */
 class Solution {
-    public class pair {
-        int data;
-        int extendingLen;
-        pair(int data,int extendingLen) {
-            this. data = data;
-            this.extendingLen = extendingLen;
-        }
-    }
-    int ans = -1;
-    public pair dfs(TreeNode node) {
-        if(node == null) return new pair(-1001,0);
-        pair lAns = dfs(node.left);
-        pair rAns = dfs(node.right);
-        pair myPair = new pair(node.val,1);
+    int ans = 0;
+    public int dfs(TreeNode node) {
+        if(node == null) return 0;
         
-        if(node.val == lAns.data && node.val == rAns.data) {
-            myPair.extendingLen = Math.max(lAns.extendingLen,rAns.extendingLen) + 1;
-            ans = Math.max(ans,lAns.extendingLen + rAns.extendingLen + 1);
-        }
-        else if(node.val == lAns.data) {
-            myPair.extendingLen = lAns.extendingLen + 1;
-            ans = Math.max(ans,myPair.extendingLen);
-        }
-        else if(node.val == rAns.data) {
-            myPair.extendingLen = rAns.extendingLen + 1;
-            ans = Math.max(ans,myPair.extendingLen);
-        }
-        else {
-            ans = Math.max(ans,myPair.extendingLen);
-        }
-        return myPair;
+        int l = dfs(node.left);
+        int r = dfs(node.right);
+        
+        if(node.left != null && node.val == node.left.val) l+=1;
+        else l=0;
+        
+        if(node.right != null && node.val == node.right.val) r+=1;
+        else r = 0;
+        
+        ans = Math.max(ans,l+r);
+        return Math.max(l,r); 
     }
-    
     public int longestUnivaluePath(TreeNode root) {
-        if(root==null) return 0;
         dfs(root);
-        return ans-1;
+        return ans;
     }
 }
