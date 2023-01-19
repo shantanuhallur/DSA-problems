@@ -11,36 +11,36 @@
  */
 class Solution {
 public:
-    void insertAllLeft(TreeNode* node,stack<TreeNode*>& st) {
-        while(node){
+    void addAllLeft(TreeNode* node,stack<TreeNode*>& st) {
+        while(node != NULL) {
             st.push(node);
             node = node->left;
         }
     }
-    
-    void insertAllRight(TreeNode* node,stack<TreeNode*>& st) {
-        while(node){
+    void addAllRight(TreeNode* node,stack<TreeNode*>& st) {
+        while(node != NULL) {
             st.push(node);
             node = node->right;
         }
     }
-    
     bool findTarget(TreeNode* root, int k) {
-        stack<TreeNode*> st1,st2;
-        insertAllLeft(root,st1);
-        insertAllRight(root,st2);
-        
+        stack<TreeNode*> st1;
+        stack<TreeNode*> st2;
+        //setup both stacks
+        addAllLeft(root,st1);
+        addAllRight(root,st2);
+        //check our conditions
         while(st1.top()->val < st2.top()->val) {
             int sum = st1.top()->val + st2.top()->val;
-            if(k> sum) {
-                TreeNode* node = st1.top(); st1.pop();
-                insertAllLeft(node->right,st1);
+            if(sum == k) return true; // we found the pair
+            else if(sum > k) {
+                TreeNode* rn = st2.top(); st2.pop();
+                addAllRight(rn->left,st2);
             }
-            else if(k<sum) {
-                TreeNode* node = st2.top();  st2.pop();
-                insertAllRight(node->left,st2);
+            else if(sum < k) {
+                TreeNode* rn = st1.top(); st1.pop();
+                addAllLeft(rn->right,st1);
             }
-            else if(k == sum) return true;
         }
         return false;
     }
