@@ -15,23 +15,23 @@
  */
 class Solution {
     int ans = 0;
-    public int dfs(TreeNode node) {
+    public int dfs(TreeNode node,int parVal) {
         if(node == null) return 0;
         
-        int l = dfs(node.left);
-        int r = dfs(node.right);
+        int l = dfs(node.left,node.val);
+        int r = dfs(node.right,node.val);
         
-        if(node.left != null && node.val == node.left.val) l+=1;
-        else l=0;
+        if(node.left != null && node.val == node.left.val);
         
-        if(node.right != null && node.val == node.right.val) r+=1;
-        else r = 0;
+        if(node.right != null && node.val == node.right.val);
+       
         
         ans = Math.max(ans,l+r);
-        return Math.max(l,r); 
+        
+        return node.val == parVal ? Math.max(l,r) +1 : 0; 
     }
     public int longestUnivaluePath(TreeNode root) {
-        dfs(root);
+        dfs(root,-1001);
         return ans;
     }
 }
