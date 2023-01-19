@@ -16,48 +16,39 @@
 class Solution {
     public class pair {
         int data;
-        int length;
-         pair(int data,int length) {
-             this.data = data;
-             this.length = length;
-         }
+        int extendingLen;
+        pair(int data,int extendingLen) {
+            this. data = data;
+            this.extendingLen = extendingLen;
+        }
     }
-    int ans = 0;
+    int ans = -1;
     public pair dfs(TreeNode node) {
-        if(node == null) return new pair(0,0);
-        
-        pair leftAns = dfs(node.left);
-        pair rightAns = dfs(node.right);
+        if(node == null) return new pair(-1001,0);
+        pair lAns = dfs(node.left);
+        pair rAns = dfs(node.right);
         pair myPair = new pair(node.val,1);
-        //Cases for ans and myPair
-        if(leftAns.data == node.val && node.val == rightAns.data) {
-            //for myPair
-            myPair.length = Math.max(leftAns.length,rightAns.length) +1;
-            //for ans
-            ans = Math.max(ans,leftAns.length + rightAns.length + 1);
+        
+        if(node.val == lAns.data && node.val == rAns.data) {
+            myPair.extendingLen = Math.max(lAns.extendingLen,rAns.extendingLen) + 1;
+            ans = Math.max(ans,lAns.extendingLen + rAns.extendingLen + 1);
         }
-        else if(leftAns.data == node.val) {
-            //for myPair
-            myPair.length = leftAns.length+1;
-            //for ans
-            ans = Math.max(ans,myPair.length);
+        else if(node.val == lAns.data) {
+            myPair.extendingLen = lAns.extendingLen + 1;
+            ans = Math.max(ans,myPair.extendingLen);
         }
-        else if(rightAns.data == node.val) {
-            //for myPair
-            myPair.length = rightAns.length+1;
-            //for ans
-            ans = Math.max(ans,myPair.length);
+        else if(node.val == rAns.data) {
+            myPair.extendingLen = rAns.extendingLen + 1;
+            ans = Math.max(ans,myPair.extendingLen);
         }
         else {
-            //for ans
-            ans = Math.max(ans,1);
-            //for myPair
-            myPair.length = 1;
+            ans = Math.max(ans,myPair.extendingLen);
         }
         return myPair;
     }
+    
     public int longestUnivaluePath(TreeNode root) {
-        if (root == null) return 0;
+        if(root==null) return 0;
         dfs(root);
         return ans-1;
     }
