@@ -14,13 +14,13 @@
  * }
  */
 class Solution {
-    public void insertAllLeft(TreeNode node,Stack<TreeNode> st) {
-        while(node!=null) {
+    public void addAllLeft(TreeNode node,Stack<TreeNode> st) {
+        while(node!= null){
             st.push(node);
-            node = node.left;
+            node= node.left;
         }
     }
-    public void insertAllRight(TreeNode node, Stack<TreeNode> st) {
+    public void addAllRight(TreeNode node, Stack<TreeNode> st) {
         while(node!=null) {
             st.push(node);
             node = node.right;
@@ -29,19 +29,20 @@ class Solution {
     public boolean findTarget(TreeNode root, int k) {
         Stack<TreeNode> st1 = new Stack<>();
         Stack<TreeNode> st2 = new Stack<>();
-        insertAllLeft(root,st1);
-        insertAllRight(root,st2);
-        while(st1.peek().val < st2.peek().val) {
+        //setup of stack 1 and stack 2
+        addAllLeft(root,st1);
+        addAllRight(root,st2);
+        // start 2 pointer approach
+        while(st1.peek().val<st2.peek().val) {
             int sum = st1.peek().val + st2.peek().val;
-            if(sum == k) return true;
-            if(sum> k) {
-                TreeNode rn = st2.peek(); st2.pop();
-                insertAllRight(rn.left,st2);
-               
+            if(sum==k) return true;
+            else if(sum > k) {
+                TreeNode rn = st2.pop();
+                addAllRight(rn.left,st2);
             }
             else if(sum < k) {
-                TreeNode rn = st1.peek(); st1.pop();
-                insertAllLeft(rn.right,st1);
+                TreeNode rn =st1.pop();
+                addAllLeft(rn.right,st1);
             }
         }
         return false;
