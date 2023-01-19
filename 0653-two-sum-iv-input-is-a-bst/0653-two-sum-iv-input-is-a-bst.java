@@ -14,42 +14,35 @@
  * }
  */
 class Solution {
-    public static void insertAllLeft(Stack<TreeNode> st, TreeNode node) {
-        while (node != null) {
+    public void insertAllLeft(TreeNode node,Stack<TreeNode> st) {
+        while(node!=null) {
             st.push(node);
             node = node.left;
         }
     }
-
-    public static void insertAllRight(Stack<TreeNode> st, TreeNode node) {
-        while (node != null) {
+    public void insertAllRight(TreeNode node, Stack<TreeNode> st) {
+        while(node!=null) {
             st.push(node);
             node = node.right;
         }
     }
-
-    // 653
-    public static boolean findTarget(TreeNode root, int k) {
-        if (root == null)
-            return false;
-        Stack<TreeNode> lst = new Stack<>();
-        Stack<TreeNode> rst = new Stack<>();
-
-        insertAllLeft(lst, root);
-        insertAllRight(rst, root);
-
-        while (lst.peek().val < rst.peek().val) {
-
-            int sum = lst.peek().val + rst.peek().val;
-            if (sum == k)
-                return true;
-            else if (sum < k) {
-                TreeNode node = lst.pop();
-                insertAllLeft(lst, node.right);
-            } else {
-                TreeNode node = rst.pop();
-                insertAllRight(rst, node.left);
+    public boolean findTarget(TreeNode root, int k) {
+        Stack<TreeNode> st1 = new Stack<>();
+        Stack<TreeNode> st2 = new Stack<>();
+        insertAllLeft(root,st1);
+        insertAllRight(root,st2);
+        while(st1.peek().val < st2.peek().val) {
+            int sum = st1.peek().val + st2.peek().val;
+            if(sum> k) {
+                TreeNode rn = st2.peek(); st2.pop();
+                insertAllRight(rn.left,st2);
+               
             }
+            else if(sum < k) {
+                TreeNode rn = st1.peek(); st1.pop();
+                insertAllLeft(rn.right,st1);
+            }
+            else if(sum == k) return true;
         }
         return false;
     }
