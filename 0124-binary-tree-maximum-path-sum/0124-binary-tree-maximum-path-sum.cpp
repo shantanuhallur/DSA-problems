@@ -12,18 +12,21 @@
 class Solution {
 public:
     int ans = -1001;
-    
-    int getTillChildSum(TreeNode* node) {
-        if(!node) return 0;
-        int l = getTillChildSum(node->left);
-        int r = getTillChildSum(node->right);
-        int maxTillmyNode = max(max(l,r) +node->val , node->val);
-        int maxThroughtMyNode = max(maxTillmyNode,l+r+node->val);    
-        ans= max(ans,maxThroughtMyNode);
-        return maxTillmyNode;
+    int getPathSum(TreeNode* node) {
+        if(node ==NULL) return 0;
+        
+        int l = getPathSum(node->left);
+        int r = getPathSum(node->right);
+        
+        int maxTillMyNode = max(max(l,r) + node->val,node->val);
+        int maxThroughMyNode = max(maxTillMyNode,l+r+node->val);
+        ans = max(ans,maxThroughMyNode);
+        
+        return maxTillMyNode;
     }
     int maxPathSum(TreeNode* root) {
-        getTillChildSum(root);
+        if(root==NULL) return 0;
+        getPathSum(root);
         return ans;
     }
 };
