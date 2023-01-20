@@ -11,20 +11,21 @@
  */
 class Solution {
 public:
-    int maxLen = 1;
+    int ans = 1;
     
-    void getMaxLen(TreeNode* node,int parVal,int pathLen) {
+    void getLongestStreak(TreeNode* node,int parVal,int parStreak) {
         if(!node) return;
-        
-        int currPathLen = 1;
-        if(node->val - 1 == parVal) currPathLen += pathLen;
-        if(maxLen<currPathLen) maxLen = currPathLen;
-        getMaxLen(node->left,node->val,currPathLen);
-        getMaxLen(node->right,node->val,currPathLen);
+        //start my Streak
+        int currStreak = 1;
+        if(node->val == parVal+1) currStreak += parStreak;
+        //maximize current ans
+        ans = max(ans,currStreak);
+        //left and right recursive call
+        getLongestStreak(node->left,node->val,currStreak);
+        getLongestStreak(node->right,node->val,currStreak);
     }
     int longestConsecutive(TreeNode* root) {
-        if(!root) return 0;
-        getMaxLen(root,root->val-1,0);
-        return maxLen;
+        getLongestStreak(root,root->val,0);
+        return ans;
     }
 };
