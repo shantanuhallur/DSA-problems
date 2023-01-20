@@ -14,35 +14,20 @@
  * }
  */
 class Solution {
-    public class pair{
-        int dia;
-        int ht;
+    int ans =0;
+    public int getDia(TreeNode node) {
+        if(node == null) return -1;
         
-        pair(int dia,int ht) {
-            this.dia = dia;
-            this.ht = ht;
-        }
+        int l = getDia(node.left);
+        int r = getDia(node.right);
+        int diaTillMe = Math.max(l,r)+1;
+        int maxPotentialdia = Math.max(l+r+2,diaTillMe);
+        ans = Math.max(ans,maxPotentialdia);
+        return diaTillMe;
     }
-    
-    public pair getMaxDia(TreeNode node) {
-        //Base Case 
-        if(node==null) return new pair(-1,-1);
-        
-        pair myAns = new pair(-1,-1);
-        //recursive left and right calls
-        pair leftAns = getMaxDia(node.left);
-        pair rightAns = getMaxDia(node.right);
-        //Calculate diameter through my node
-        int diaMyNode = leftAns.ht + rightAns.ht + 2;
-        //my answers max diameter
-        myAns.dia = Math.max(Math.max(leftAns.dia,rightAns.dia),diaMyNode);
-        //my answers max height
-        myAns.ht = Math.max(leftAns.ht,rightAns.ht)+1;
-        
-        return myAns;
-    }
-    
     public int diameterOfBinaryTree(TreeNode root) {
-        return getMaxDia(root).dia;
+        if(root==null) return 0;
+        getDia(root);
+        return ans;
     }
 }
