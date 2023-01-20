@@ -14,43 +14,21 @@
  * }
  */
 class Solution {
-    public static class maxNodeToNodePair {
-        int NTN_sum = -(int)1e9; // Node To Node Sum.
-        int NTR_sum = 0;   // Root To Node Sum.
-
-        maxNodeToNodePair(int NTN_sum , int NTR_sum) {
-            this.NTN_sum = NTN_sum;
-            this.NTR_sum = NTR_sum;
-        }
-
-        maxNodeToNodePair() {}
+    int ans = -1001;
+    public int getPathSum(TreeNode node) {
+        if(node ==  null) return -1001;
+        //PS passing through my left and right child
+        int l = getPathSum(node.left); 
+        int r = getPathSum(node.right);
+        int myMaxStopsum = Math.max(node.val , Math.max(l,r)+node.val);
+        int myMaxSum = Math.max(myMaxStopsum,l+r+node.val);
+        ans = Math.max(ans,myMaxSum);
+        //MaxSum Path passing through my node;
+        return myMaxStopsum;
     }
-
-    public static int maxCompare(int... arr) {
-        int max = arr[0];
-        for(int ele : arr) {
-            max = Math.max(ele,max);
-        }
-        return max;
-    }
-    
-    public maxNodeToNodePair maxPathSumHard_02(TreeNode root) {
-        if(root==null) return new maxNodeToNodePair();
-        
-        maxNodeToNodePair lans =  maxPathSumHard_02(root.left);
-        maxNodeToNodePair rans =  maxPathSumHard_02(root.right);
-
-        maxNodeToNodePair myAns = new maxNodeToNodePair();
-        myAns.NTN_sum = maxCompare(lans.NTN_sum,rans.NTN_sum,root.val,lans.NTR_sum + root.val,
-                                   rans.NTR_sum + root.val,lans.NTR_sum + rans.NTR_sum + root.val);
-        myAns.NTR_sum = maxCompare(root.val, lans.NTR_sum + root.val, rans.NTR_sum + root.val);
-        
-       return myAns;
-    }
-    
     public int maxPathSum(TreeNode root) {
-        if(root==null)return 0;
-        
-        return maxPathSumHard_02(root).NTN_sum;
+        if(root == null) return 0;
+        getPathSum(root);
+        return ans;
     }
 }
