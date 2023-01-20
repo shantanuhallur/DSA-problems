@@ -12,24 +12,16 @@
 class Solution {
 public:
     int ans = 0;
-    int getUVP(TreeNode* node) {
+    int getUVP(TreeNode* node,int val) {
         if(!node) return 0;
         
-        int l = getUVP(node->left);
-        int r = getUVP(node->right);
-        
-        if(node->left && node->left->val == node->val) l+=1;
-        else l=0;
-        
-        if(node->right && node->right->val == node->val) r+=1;
-        else r=0;
-        
+        int l = getUVP(node->left,node->val);
+        int r = getUVP(node->right,node->val);
         ans = max(ans,l+r);
-        
-        return max(l,r);
+        return (node->val == val) ? max(l,r)+1 : 0;
     }
     int longestUnivaluePath(TreeNode* root) {
-        getUVP(root);
+        getUVP(root,-1001);
         return ans;
     }
 };
