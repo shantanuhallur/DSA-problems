@@ -14,48 +14,39 @@
  * }
  */
 class Solution {
-	StringBuilder startPath = new StringBuilder();
-	StringBuilder destPath = new StringBuilder();
-	public String getDirections(TreeNode root, int startValue, int destValue) {
-
-		dfs(root, startValue,true);
-		dfs(root, destValue,false);
-		startPath.reverse();
-		destPath.reverse();
-		int i=0,j=0;
-		while(i < startPath.length() && j < destPath.length()){
-			if(startPath.charAt(i) == destPath.charAt(j)){
-				i++;j++;
-			}else{
-				break;
-			}
-		}
-
-		StringBuilder sb = new StringBuilder();
-		while(i< startPath.length()){
-			sb.append("U");
-			i++;
-		}
-		sb.append(destPath.substring(j));
-		return sb.toString();
-
-	}
-	private boolean dfs(TreeNode root, int startValue, boolean start){
-		if(root == null) return false;
-
-		if(root.val == startValue)return true;
-		boolean left = dfs(root.left,startValue,start);
-		if(left){
-			if(start) this.startPath.append("L");
-			else this.destPath.append("L");
-			return true;
-		}
-		boolean right = dfs(root.right,startValue,start);
-		if(right){
-			if(start) this.startPath.append("R");
-			else this.destPath.append("R");
-			return true;
-		}
-		return false;
-	}
+   StringBuilder temp;
+    public void getPath(TreeNode node,int target,StringBuilder psf) {
+        if(node == null) return;
+        if(node.val == target){
+            temp = new StringBuilder(psf);
+            return;
+        }
+            getPath(node.left,target,psf.append("L"));
+            psf.delete(psf.length()-1,psf.length());
+            getPath(node.right,target,psf.append("R"));
+            psf.delete(psf.length()-1,psf.length());
+    }
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        StringBuilder pass = new StringBuilder(); 
+        getPath(root,startValue,pass);
+        StringBuilder s= new StringBuilder(temp);
+        temp = new StringBuilder();
+        getPath(root,destValue,pass);
+        StringBuilder d = new StringBuilder(temp);
+        int i=0;int j=0;        
+        System.out.print("s: " + s + " d: " +d);
+        while(i<s.length() && j<d.length()) {
+                if(s.charAt(i)  == d.charAt(j)) {
+                    i++; j++;
+                }
+                else break;
+        }
+        StringBuilder ans = new StringBuilder();
+        while(i<s.length()) {
+            ans.append("U");
+            i++;
+        } 
+        ans.append(d.substring(j));
+        return ans.toString();
+    }
 }
