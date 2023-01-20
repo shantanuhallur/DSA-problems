@@ -12,13 +12,15 @@
 class Solution {
 public:
     vector<TreeNode*> generateTree(int st,int end) {
+        //Base Case
         if(st>end) {
             vector<TreeNode*> base;
-            base.push_back(nullptr);
+            base.push_back(NULL);
             return base;
         }
         vector<TreeNode*> ans;
-        for(int i=st;i<=end;i++) {
+        for(int i =st ; i<=end;i++) {
+            //left and right recursive call
             vector<TreeNode*> left = generateTree(st,i-1);
             vector<TreeNode*> right = generateTree(i+1,end);
             for(TreeNode* l : left) {
