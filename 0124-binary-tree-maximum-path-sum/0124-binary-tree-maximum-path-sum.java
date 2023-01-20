@@ -20,11 +20,10 @@ class Solution {
         //PS passing through my left and right child
         int l = getPathSum(node.left); 
         int r = getPathSum(node.right);
-        int myMaxStopsum = Math.max(node.val , Math.max(l,r)+node.val);
-        int myMaxSum = Math.max(myMaxStopsum,l+r+node.val);
-        ans = Math.max(ans,myMaxSum);
+        int myMaxsum = Math.max(Math.max(l+node.val,r+node.val),Math.max(node.val,l+r+node.val));
+        ans = Math.max(ans,myMaxsum);
         //MaxSum Path passing through my node;
-        return myMaxStopsum;
+        return Math.max(node.val,Math.max(l,r) + node.val);
     }
     public int maxPathSum(TreeNode root) {
         if(root == null) return 0;
