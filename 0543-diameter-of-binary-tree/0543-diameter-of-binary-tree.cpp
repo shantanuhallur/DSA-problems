@@ -11,31 +11,20 @@
  */
 class Solution {
 public:
-    // PAIR.FIRST = max DIAMETER , PAIR.SECOND = MAX HEIGHT;
-    //Base Case 
-    //recursive left and right calls
-    //Calculate diameter through my node
-    //my answers max diameter
-    //my answers max height
-    pair<int,int> getDia(TreeNode* node) {
-        //Base Case
-        if(!node) return {-1,-1};
+    int ans = 0;
+    int getDia(TreeNode* node) {
+        if(!node) return -1;
         
-        pair myAns = {-1,-1};
-        //recursive left and right calls
-        pair leftAns = getDia(node->left);
-        pair rightAns = getDia(node->right);
-        //Calculate diameter through my node
-        int diaMyNode = leftAns.second + rightAns.second + 2;
-        //my answers max diameter
-        myAns.first = max(max(leftAns.first,rightAns.first),diaMyNode);
-        //my answers max height
-        myAns.second = max(leftAns.second,rightAns.second) + 1;
-        
-        return myAns;
+        int l = getDia(node->left);
+        int r = getDia(node->right);
+        int diaTillmyNode = max(l,r)+1;
+        int potentialMaxDia = max(diaTillmyNode,l+r+2);
+        ans = max(ans,potentialMaxDia);
+        return diaTillmyNode;
     }
-    
     int diameterOfBinaryTree(TreeNode* root) {
-        return getDia(root).first;
+        if(!root) return 0;
+        getDia(root);
+        return ans;
     }
 };
