@@ -15,21 +15,21 @@
  */
 class Solution {
     int ans = -1001;
-    int getPathSum(TreeNode node) {
+    
+    public int getMaxPathSum(TreeNode node) {
+        //Base Case
         if(node == null) return 0;
-        
-        int l = getPathSum(node.left);
-        int r = getPathSum(node.right);
-        
-        int maxTillFromChildsToMe = Math.max(Math.max(l,r) + node.val,node.val);
-        int potentialMaxThroughMe = Math.max(maxTillFromChildsToMe,l+r+node.val);
-        ans = Math.max(ans,potentialMaxThroughMe);
-        
-        return maxTillFromChildsToMe;
+        //left and right Recursive calls which will return maxPathSum through respective child nodes
+        int l = getMaxPathSum(node.left);
+        int r = getMaxPathSum(node.right);
+        int maxPathTillMyNode = Math.max(Math.max(l,r) + node.val,node.val);
+        int maxPathForMyNode = Math.max(maxPathTillMyNode,l+r+node.val);
+        //maximize if this is the global maximum path sum;
+        ans = Math.max(ans,maxPathForMyNode);
+        return maxPathTillMyNode;
     }
     public int maxPathSum(TreeNode root) {
-        if(root==null) return 0;
-        getPathSum(root);
+        getMaxPathSum(root);
         return ans;
     }
 }
