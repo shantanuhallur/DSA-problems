@@ -14,27 +14,34 @@
  * }
  */
 class Solution {
-   StringBuilder temp;
-    public void getPath(TreeNode node,int target,StringBuilder psf) {
-        if(node == null) return;
-        if(node.val == target){
-            temp = new StringBuilder(psf);
-            return;
+    StringBuilder s = new StringBuilder();
+	StringBuilder d = new StringBuilder();
+    public boolean dfs (TreeNode node, int target,boolean start) {
+        if(node == null) return false;
+        if(node.val == target) return true;
+        
+        boolean l = dfs(node.left,target,start);
+        if(l) {
+            if(start)s.append("L");
+            else d.append("L");
+            return true;
         }
-            getPath(node.left,target,psf.append("L"));
-            psf.delete(psf.length()-1,psf.length());
-            getPath(node.right,target,psf.append("R"));
-            psf.delete(psf.length()-1,psf.length());
+        
+        boolean r = dfs(node.right,target,start);
+        if(r){
+            if(start)s.append("R");
+            else d.append("R");
+            return true;
+        }
+        return false;
     }
+    
     public String getDirections(TreeNode root, int startValue, int destValue) {
-        StringBuilder pass = new StringBuilder(); 
-        getPath(root,startValue,pass);
-        StringBuilder s= new StringBuilder(temp);
-        temp = new StringBuilder();
-        getPath(root,destValue,pass);
-        StringBuilder d = new StringBuilder(temp);
-        int i=0;int j=0;        
-        System.out.print("s: " + s + " d: " +d);
+        dfs(root,startValue,true);
+        dfs(root,destValue,false);
+        s.reverse();
+        d.reverse();
+        int i=0;int j=0;
         while(i<s.length() && j<d.length()) {
                 if(s.charAt(i)  == d.charAt(j)) {
                     i++; j++;
