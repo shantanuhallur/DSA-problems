@@ -14,18 +14,22 @@
  * }
  */
 class Solution {
-    int maxPath = 1;
-    public void getPath(TreeNode node,int parVal,int pathLen) {
+    int ans = 1;
+    
+    public void getLongestSequence(TreeNode node,int parVal,int parStreak) {
+        //Base Case
         if(node == null) return;
-        int currPathLen = 1;
-        if(node.val - 1 == parVal) currPathLen += pathLen;
-        if(maxPath<currPathLen) maxPath=currPathLen;
-        getPath(node.left,node.val,currPathLen);
-        getPath(node.right,node.val,currPathLen);
+        //current nodes fresh streak
+        int currStreak = 1;
+        if(node.val == parVal + 1) currStreak += parStreak;
+        //Recursive left and right call
+        ans = Math.max(ans,currStreak);
+        getLongestSequence(node.left,node.val,currStreak);
+        getLongestSequence(node.right,node.val,currStreak);
     }
     public int longestConsecutive(TreeNode root) {
-        if(root==null) return 0;
-        getPath(root,root.val-1,0);
-        return maxPath;
+        if(root == null) return 0;
+        getLongestSequence(root,root.val,0);
+        return ans;
     }
 }
