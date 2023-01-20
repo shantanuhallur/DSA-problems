@@ -11,22 +11,24 @@
  */
 class Solution {
 public:
-    int ans = -1001;
-    int getPathSum(TreeNode* node) {
-        if(node ==NULL) return 0;
-        
-        int l = getPathSum(node->left);
-        int r = getPathSum(node->right);
-        
-        int maxTillMyNode = max(max(l,r) + node->val,node->val);
-        int maxThroughMyNode = max(maxTillMyNode,l+r+node->val);
-        ans = max(ans,maxThroughMyNode);
-        
-        return maxTillMyNode;
+    int ans =-1001;
+    int getMaxPath(TreeNode* node) {
+        //Base Case
+        if(!node) return 0;
+        //left and right Recursive calls which will return maxPathSum through respective child nodes
+        int l = getMaxPath(node->left);
+        int r = getMaxPath(node->right);
+        //prepare return val (MPS for my parent which passes from any left or right chilf to me)
+        int maxPathSumTillMe = max(max(l,r)+node->val,node->val);
+        int maxPathValueForMyNode = max(maxPathSumTillMe,l+r+node->val);
+        //maximize if this is the global maximum path sum;
+        ans = max(ans,maxPathValueForMyNode);
+        return maxPathSumTillMe;
     }
+        
     int maxPathSum(TreeNode* root) {
         if(root==NULL) return 0;
-        getPathSum(root);
+        getMaxPath(root);
         return ans;
     }
 };
