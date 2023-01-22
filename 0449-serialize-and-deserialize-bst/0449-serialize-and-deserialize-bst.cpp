@@ -38,7 +38,7 @@ public:
         return root;
     }
     vector<string> arr1;
-    void adv_tokenizer(string s, char del)
+    void getarr(string s, char del)
 {
     stringstream ss(s);
     string word;
@@ -50,8 +50,7 @@ public:
 }
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
-        
-        adv_tokenizer(data,',');
+        getarr(data,',');
         TreeNode* root = buildTree(arr1,data.size()-1);
         return root;
     }
