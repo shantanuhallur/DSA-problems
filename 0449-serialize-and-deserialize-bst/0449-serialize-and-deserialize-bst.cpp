@@ -20,7 +20,7 @@ public:
     }
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        string sb="" ;
+        string sb;
         serialize(root,sb);
         cout<<sb;
         return sb;
