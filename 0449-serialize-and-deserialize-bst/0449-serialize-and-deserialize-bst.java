@@ -10,42 +10,39 @@
 public class Codec {
     
     public void serialize(TreeNode node,StringBuilder sb) {
-        if(node==null) return;
-        sb.append(node.val).append(",");
+        if(node==null){
+            sb.append("#"+",");
+            return;  
+        } 
+        sb.append(node.val+",");
         serialize(node.left,sb);
         serialize(node.right,sb);
     }
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        if(root==null) return null;
         StringBuilder sb = new StringBuilder();
         serialize(root,sb);
         return sb.toString();
     }
     int idx = 0;
-    public TreeNode buildBST(int[] preorder,int lRange,int rRange) {
-        //Base Case
-        if(idx == preorder.length || preorder[idx] < lRange || preorder[idx]>rRange) return null;
+    TreeNode getTree(String[] arr,int e) {
+        if(idx>e) return null;
+        if(arr[idx].equals("#"))  {
+            idx++;
+            return null;
+        }
         
-        TreeNode root = new TreeNode(preorder[idx++]);
-        //Recursive faith calls for left and right nodes of root.
-        root.left = buildBST(preorder,lRange,root.val);
-        root.right = buildBST(preorder,root.val,rRange);
+        TreeNode root = new TreeNode(Integer.parseInt(arr[idx++]));
+        root.left = getTree(arr,e);
+        root.right = getTree(arr,e);
         
         return root;
     }
-    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if(data == null) return null;
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(data.split(",")));
-        System.out.print(list);
-        int[] preorder =new int[list.size()];
-        int i =0; 
-        while(i<preorder.length){
-            preorder[i] = Integer.parseInt(list.get(i)); 
-            i++;
-        }
-        return buildBST(preorder,-1,(int)1e5);
+        String[] arr = data.split(",");
+        if(arr.length==0) return null;
+        TreeNode root = getTree(arr,arr.length-1);
+        return root;
     }
 }
 
