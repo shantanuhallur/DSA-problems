@@ -27,6 +27,6 @@ public:
     int maxProduct(TreeNode* root) {
         this->total = convertTree(root);   
         traverse(root);
-        return maxi%mod;
+        return (int)(maxi%mod);
     }
 };
