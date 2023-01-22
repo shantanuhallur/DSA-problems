@@ -10,7 +10,7 @@
 public class Codec {
     
     public void serialize(TreeNode node,StringBuilder sb) {
-        if(node == null) return ;
+        if(node==null) return;
         sb.append(node.val).append(",");
         serialize(node.left,sb);
         serialize(node.right,sb);
