@@ -32,12 +32,31 @@ class Solution {
         return null;
     }
     
+        public TreeNode dfs2(TreeNode node,int k,HashMap<TreeNode,TreeNode> backMap) {
+        if(node==null) return null;
+        if(node.val == k) return node;
+        
+        TreeNode left = dfs2(node.left,k,backMap);
+        if(left!=null) {
+            backMap.put(node.left,node);
+            return left;
+        }
+        
+        TreeNode right = dfs2(node.right,k,backMap);
+        if(right!=null) {
+            backMap.put(node.right,node);
+            return right;
+        }
+        
+        return null;
+    }
+    
     public int findClosestLeaf(TreeNode root, int k) {
         HashMap<TreeNode,TreeNode> backMap = new HashMap<>();
         LinkedList<TreeNode> que = new LinkedList<>();
         HashSet<TreeNode> vis = new HashSet<>();
         
-        TreeNode kN = dfs(root,k,backMap);
+        TreeNode kN = dfs2(root,k,backMap);
         que.addLast(kN);
         vis.add(kN);
         while(que.size()!=0) {
