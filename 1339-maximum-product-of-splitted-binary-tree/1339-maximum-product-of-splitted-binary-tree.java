@@ -27,12 +27,10 @@ class Solution {
         if(node==null) return;
         traverse(node.left);
         traverse(node.right);
-        System.out.print(node.val + "->" + (total-node.val));
         max = Math.max(node.val*(total-node.val),max);
     }
     public int maxProduct(TreeNode root) {
         this.total = getTotal(root);
-        System.out.print(total);
         traverse(root);
         return (int)(max%mod);
     }
