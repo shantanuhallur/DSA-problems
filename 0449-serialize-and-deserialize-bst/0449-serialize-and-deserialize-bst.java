@@ -40,13 +40,8 @@ public class Codec {
     }
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        ArrayList<String> ans = new ArrayList<>(Arrays.asList(data.split(",")));
-        String[] arr = new String[ans.size()];
-        int j=0;
-        for(String i:ans) {
-            arr[j++] = i; 
-        }
-        TreeNode root = buildTree(arr,ans.size()-1);
+        String[] arr = data.split(",");
+        TreeNode root = buildTree(arr,arr.length-1);
         return root;
     }
 }
