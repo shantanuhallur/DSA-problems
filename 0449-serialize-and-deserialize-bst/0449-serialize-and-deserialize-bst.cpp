@@ -42,13 +42,14 @@ public:
         root->right = deserialize(arr,end);
         return root;
     }
-        vector<string> arr;
+    vector<string> arr;
     void convert(string& data,char delimiter) {
         stringstream ss(data);
         string word;
         while(!ss.eof()) {
-            getline(ss,word,delimiter);
+            getline(ss,word,','); 
             arr.push_back(word);
+            
         }
     }
     // Decodes your encoded data to tree.
