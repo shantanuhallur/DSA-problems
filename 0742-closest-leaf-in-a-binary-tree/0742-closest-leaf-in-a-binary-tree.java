@@ -32,7 +32,7 @@ class Solution {
         return null;
     }
     
-        public TreeNode dfs2(TreeNode node,int k,HashMap<TreeNode,TreeNode> backMap) {
+    public TreeNode dfs2(TreeNode node,int k,HashMap<TreeNode,TreeNode> backMap) {
         if(node==null) return null;
         if(node.val == k) return node;
         
