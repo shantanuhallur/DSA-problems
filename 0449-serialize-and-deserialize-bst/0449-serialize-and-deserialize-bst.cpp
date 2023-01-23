@@ -9,49 +9,46 @@
  */
 class Codec {
 public:
-    
-    void serialize(TreeNode* node,string& s) {
+
+    void serialize(TreeNode* node,string& sb) {
         if(!node) {
-            s +="#,";
+            sb+="#,";
             return;
         }
-        
-        s+= to_string(node->val)+",";
-        serialize(node->left,s);
-        serialize(node->right,s);
+        sb+= to_string(node->val) +",";
+        serialize(node->left,sb);
+        serialize(node->right,sb);
     }
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        string sb ="";
+        string sb = "";
         serialize(root,sb);
-        return sb ;
+        return sb;
     }
     
-    vector<string> arr;
-    void convert(string& data){
-        stringstream ss(data);
-        string word;
-        while(!ss.eof()){
-            getline(ss,word,',');
-            arr.push_back(word);
-        }
-    }
-    int st = 0;
-    TreeNode* deserialize(int end) {
+    int st=0;
+    TreeNode* deserialize(vector<string>& arr,int end) {
         if(st>end) return NULL;
-        if(arr[st] =="#") {
+        if(arr[st]=="#"){
             st++;
             return NULL;
         }
         TreeNode* root = new TreeNode(stoi(arr[st++]));
-        root->left = deserialize(end);
-        root->right = deserialize(end);
+        root->left =  deserialize(arr,end);
+        root->right = deserialize(arr,end);
         return root;
     }
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
-        convert(data);
-        TreeNode* root = deserialize(arr.size()-1);
+        stringstream ss(data);
+        string word;
+        vector<string> arr;
+        while(!ss.eof()) {
+            getline(ss,word,',');
+            arr.push_back(word);
+        }
+        
+        TreeNode* root = deserialize(arr,arr.size()-1);
         return root;
     }
 };
