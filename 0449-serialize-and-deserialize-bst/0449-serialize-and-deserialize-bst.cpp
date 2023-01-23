@@ -9,46 +9,51 @@
  */
 class Codec {
 public:
-
-    void serialize(TreeNode* node,string& sb) {
+    
+    void serialize(TreeNode* node,string & sb) {
+        //Base Case
         if(!node) {
-            sb+="#,";
+            sb+= "#,";
             return;
         }
+        
         sb+= to_string(node->val) +",";
+        //dfs
         serialize(node->left,sb);
         serialize(node->right,sb);
     }
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        string sb = "";
+        string sb;
         serialize(root,sb);
         return sb;
     }
-    
-    int st=0;
-    TreeNode* deserialize(vector<string>& arr,int end) {
+    int st =0;
+    TreeNode* desrialize(vector<string>& arr,int end) {
+        //Base Case
         if(st>end) return NULL;
         if(arr[st]=="#"){
             st++;
             return NULL;
         }
+        //build root
         TreeNode* root = new TreeNode(stoi(arr[st++]));
-        root->left =  deserialize(arr,end);
-        root->right = deserialize(arr,end);
+        //recursively build tree
+        root->left = desrialize(arr,end);
+        root->right = desrialize(arr,end);
         return root;
     }
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
+        vector<string> arr;
         stringstream ss(data);
         string word;
-        vector<string> arr;
         while(!ss.eof()) {
             getline(ss,word,',');
             arr.push_back(word);
         }
-        
-        TreeNode* root = deserialize(arr,arr.size()-1);
+        //returns a build tree
+        TreeNode* root = desrialize(arr,arr.size()-1);
         return root;
     }
 };
