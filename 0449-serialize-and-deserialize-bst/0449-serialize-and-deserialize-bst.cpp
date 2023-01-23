@@ -10,52 +10,48 @@
 class Codec {
 public:
     
-    void serialize(TreeNode* node, string& sb) {
+    void serialize(TreeNode* node,string& s) {
         if(!node) {
-            sb+="#,";
+            s +="#,";
             return;
         }
         
-        sb+= to_string(node->val) + ",";
-        serialize(node->left,sb);
-        serialize(node->right,sb);
+        s+= to_string(node->val)+",";
+        serialize(node->left,s);
+        serialize(node->right,s);
     }
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        string sb = "";
+        string sb ="";
         serialize(root,sb);
-        return sb;
+        return sb ;
     }
-
-    int st = 0;
-    TreeNode* deserialize(vector<string>& arr,int end) {
-        if(st>end) {
-            return NULL;
+    
+    vector<string> arr;
+    void convert(string& data){
+        stringstream ss(data);
+        string word;
+        while(!ss.eof()){
+            getline(ss,word,',');
+            arr.push_back(word);
         }
-        if(arr[st]=="#") {
+    }
+    int st = 0;
+    TreeNode* deserialize(int end) {
+        if(st>end) return NULL;
+        if(arr[st] =="#") {
             st++;
             return NULL;
         }
-        
         TreeNode* root = new TreeNode(stoi(arr[st++]));
-        root->left = deserialize(arr,end);
-        root->right = deserialize(arr,end);
+        root->left = deserialize(end);
+        root->right = deserialize(end);
         return root;
-    }
-    vector<string> arr;
-    void convert(string& data,char delimiter) {
-        stringstream ss(data);
-        string word;
-        while(!ss.eof()) {
-            getline(ss,word,','); 
-            arr.push_back(word);
-            
-        }
     }
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
-        convert(data,',');
-        TreeNode* root = deserialize(arr,arr.size()-1);
+        convert(data);
+        TreeNode* root = deserialize(arr.size()-1);
         return root;
     }
 };
