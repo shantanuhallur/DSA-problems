@@ -14,69 +14,51 @@
  * }
  */
 class Solution {
-    public TreeNode dfs(TreeNode node,int k,HashMap<TreeNode,TreeNode> backMap) {
-        if(node.val == k) return node;
-        
-        if(node.left!=null) {
-            backMap.put(node.left,node);
-            TreeNode left = dfs(node.left,k,backMap);
-            if(left!=null) return left;
-        }
-        
-        if(node.right!=null) {
-            backMap.put(node.right,node);
-            TreeNode right = dfs(node.right,k,backMap);
-            if(right!=null) return right;
-        }
-        
-        return null;
-    }
-    
-    public TreeNode dfs2(TreeNode node,int k,HashMap<TreeNode,TreeNode> backMap) {
+    public TreeNode dfs(TreeNode node,HashMap<Integer,TreeNode>bm,int target) {
         if(node==null) return null;
-        if(node.val == k) return node;
-        
-        TreeNode left = dfs2(node.left,k,backMap);
-        if(left!=null) {
-            backMap.put(node.left,node);
+        if(target==node.val) {
+            return node;
+        }
+        TreeNode left = dfs(node.left,bm,target);
+        if(left != null) {
+            bm.put(node.left.val,node);
             return left;
         }
-        
-        TreeNode right = dfs2(node.right,k,backMap);
-        if(right!=null) {
-            backMap.put(node.right,node);
+        TreeNode right = dfs(node.right,bm,target);
+        if(right != null) {
+            bm.put(node.right.val,node);
             return right;
         }
-        
         return null;
     }
-    
     public int findClosestLeaf(TreeNode root, int k) {
-        HashMap<TreeNode,TreeNode> backMap = new HashMap<>();
+        if(root.left==null && root.right==null) return root.val;
+        HashMap<Integer,TreeNode> bm = new HashMap<Integer,TreeNode>();
         LinkedList<TreeNode> que = new LinkedList<>();
-        HashSet<TreeNode> vis = new HashSet<>();
-        
-        TreeNode kN = dfs2(root,k,backMap);
-        que.addLast(kN);
-        vis.add(kN);
+        HashSet<Integer> vis = new HashSet<>();
+        TreeNode start = dfs(root,bm,k);
+        que.addLast(start);
+        System.out.print(start.val);
         while(que.size()!=0) {
-            TreeNode removeN = que.removeFirst();
-            if(removeN.left == null & removeN.right == null) {
-                return removeN.val;
-            }
-            
-            if(removeN.left != null &&  vis.add(removeN.left)) {
-                    que.addLast(removeN.left);
-            }
-            
-            if(removeN.right != null && vis.add(removeN.right)) {
-                que.addLast(removeN.right);
-            }
-            
-            if(backMap.containsKey(removeN) && vis.add(backMap.get(removeN))) {
-                que.addLast(backMap.get(removeN));
+            int size = que.size();
+            while(size-->0) {
+                TreeNode rn = que.removeFirst();
+                if(rn.left == null && rn.right == null) {
+                    return rn.val;
+                }
+                if(rn.left!=null && vis.add(rn.left.val)) {
+                    que.addLast(rn.left);
+                    
+                }
+                if(rn.right!=null && vis.add(rn.right.val)) {
+                    que.addLast(rn.right);
+                }
+                
+                if(bm.containsKey(rn.val) && vis.add(bm.get(rn.val).val)) {
+                    que.addLast(bm.get(rn.val));
+                }
             }
         }
-        return -1;
+       return -1; 
     }
 }
