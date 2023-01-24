@@ -11,50 +11,48 @@
  */
 class Solution {
 public:
-    TreeNode* dfs(TreeNode* node,int target,unordered_map<int,TreeNode*>& bm) {
+    TreeNode* getTar(TreeNode* node,unordered_map<TreeNode*,TreeNode*>& map,int target) {
         if(!node) return NULL;
-        if(target==node->val)return node;
+        if(node->val == target) return node;
         
-        TreeNode* left = dfs(node->left,target,bm);
+        TreeNode* left = getTar(node->left,map,target);
         if(left) {
-            bm[node->left->val] = node;
+            map[node->left] = node;
             return left;
         }
-        
-        TreeNode* right = dfs(node->right,target,bm);
+        TreeNode* right = getTar(node->right,map,target);
         if(right) {
-            bm[node->right->val] = node;
+            map[node->right] = node;
             return right;
         }
-        
         return NULL;
     }
     int findClosestLeaf(TreeNode* root, int k) {
-        unordered_map<int,TreeNode*> bm;
+        unordered_map<TreeNode*,TreeNode*> map;
+        TreeNode* tar = getTar(root,map,k);
+        set<int> vis;
         queue<TreeNode*> que;
-        set<int> s;
-        TreeNode* target = dfs(root,k,bm);
-        // cout<<target->val;
-        que.push(target);
+        que.push(tar);
         while(que.size()!=0) {
             int size = que.size();
             while(size-->0) {
                 TreeNode* rn = que.front(); que.pop();
-                if(!rn->left && !rn->right) return rn->val;
-                
-                if(rn->left && s.find(rn->left->val)==s.end()) {
+                if(!rn->left && !rn->right) {
+                    return rn->val;
+                }
+                if(rn->left && vis.find(rn->left->val) == vis.end()) {
                     que.push(rn->left);
-                    s.insert(rn->left->val);
+                    vis.insert(rn->left->val);
                 }
-                if(rn->right && s.find(rn->right->val) == s.end()) {
+                
+                if(rn->right && vis.find(rn->right->val)==vis.end()) {
                     que.push(rn->right);
-                    s.insert(rn->right->val);
+                    vis.insert(rn->right->val);
                 }
-                 
-                if(bm.find(rn->val)!=bm.end() && s.find(bm[rn->val]->val)==s.end()) {
-                    cout<<bm[rn->val]->val;
-                    que.push(bm[rn->val]);
-                    s.insert(rn->val);
+                
+                if(map.find(rn) != map.end() && vis.find(map[rn]->val)==vis.end()) {
+                    que.push(map[rn]);
+                    vis.insert(rn->val);
                 }
             }
         }
