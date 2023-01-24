@@ -47,7 +47,7 @@ public:
                    vis.insert(rn->right->val);
                }
                //check if any unvisited parent exists in our bm
-               if(bm.find(rn->val)!=bm.end() && vis.find(bm[rn->val]->val)==vis.end()) {
+               if(bm.find(rn->val)!=bm.end() && vis.find(rn->val)==vis.end()) {
                    que.push(bm[rn->val]);
                    vis.insert(rn->val);
                }
