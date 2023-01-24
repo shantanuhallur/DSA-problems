@@ -14,31 +14,13 @@
  * }
  */
 class Solution {
-    ArrayList<String> list = new ArrayList<>();
-    public void getSeq(TreeNode node,StringBuilder sb) {
-        if(node == null) {
-            return;
-        }
-        sb.append(node.val);
-        if(node.left==null && node.right==null) {
-            list.add(sb.toString());
-            sb.deleteCharAt(sb.length()-1);
-            return;
-        }
-        getSeq(node.left,sb);
-        getSeq(node.right,sb);
-        sb.deleteCharAt(sb.length()-1);
+    public boolean isValidSequence(TreeNode node,int[] arr,int idx) {
+        if(node==null || idx==arr.length) return false;
+        if(arr[idx] != node.val) return false;
+        if(node.left==null && node.right==null && idx==arr.length-1) return true;
+        return isValidSequence(node.left,arr,idx+1) || isValidSequence(node.right,arr,idx+1);
     }
     public boolean isValidSequence(TreeNode root, int[] arr) {
-         StringBuilder sb = new StringBuilder();
-         getSeq(root,sb);
-        StringBuilder build = new StringBuilder();
-        for(int i=0;i<arr.length;i++) build.append(String.valueOf(arr[i]));
-        String check = build.toString();
-        for(int i=0;i<list.size();i++) {
-            if(list.get(i).equals(check)) return true;
-            
-        }
-        return false;
+        return isValidSequence(root,arr,0);
     }
 }
