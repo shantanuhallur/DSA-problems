@@ -50,7 +50,7 @@ public:
                     vis.insert(rn->right->val);
                 }
                 
-                if(map.find(rn) != map.end() && vis.find(map[rn]->val)==vis.end()) {
+                if(map.find(rn) != map.end() && vis.find(map[rn]->val) == vis.end()) {
                     que.push(map[rn]);
                     vis.insert(rn->val);
                 }
