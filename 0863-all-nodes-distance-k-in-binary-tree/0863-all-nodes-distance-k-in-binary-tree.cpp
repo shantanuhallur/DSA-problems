@@ -30,7 +30,6 @@ public:
         set<int> vis;
         queue<TreeNode*> que;
         que.push(tar);
-        cout<<tar->val;
         while(k-->0) {
             int size = que.size();
             while(size-->0) {
