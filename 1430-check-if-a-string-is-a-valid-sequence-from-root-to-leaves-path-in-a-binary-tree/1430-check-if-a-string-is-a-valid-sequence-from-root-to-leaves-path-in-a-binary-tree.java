@@ -15,26 +15,32 @@
  */
 class Solution {
     ArrayList<String> list = new ArrayList<>();
-    public void getSeq(TreeNode node,String psf) {
+    public void getSeq(TreeNode node,StringBuilder sb) {
         if(node == null) {
             return;
         }
-        psf += node.val;
+        sb.append(node.val);
         if(node.left==null && node.right==null) {
-            list.add(psf);
+            list.add(sb.toString());
+            sb.deleteCharAt(sb.length()-1);
             return;
         }
-        getSeq(node.left,psf);
-        getSeq(node.right,psf);
+        getSeq(node.left,sb);
+        getSeq(node.right,sb);
+        sb.deleteCharAt(sb.length()-1);
     }
     public boolean isValidSequence(TreeNode root, int[] arr) {
-         getSeq(root,"");
+         StringBuilder sb = new StringBuilder();
+         getSeq(root,sb);
         // for(String s : list) System.out.print(s+" ");
-        String check = "";
-        for(int i=0;i<arr.length;i++) check+= String.valueOf(arr[i]);
-            
+        StringBuilder build = new StringBuilder();
+        for(int i=0;i<arr.length;i++) build.append(String.valueOf(arr[i]));
+        String check = build.toString();
+         System.out.print(check+"...");
         for(int i=0;i<list.size();i++) {
             if(list.get(i).equals(check)) return true;
+            System.out.print(list.get(i) + ". ");
+            
         }
         return false;
     }
