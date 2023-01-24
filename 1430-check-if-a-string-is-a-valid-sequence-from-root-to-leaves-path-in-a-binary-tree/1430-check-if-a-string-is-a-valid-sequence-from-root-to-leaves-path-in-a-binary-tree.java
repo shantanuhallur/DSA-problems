@@ -32,7 +32,6 @@ class Solution {
     public boolean isValidSequence(TreeNode root, int[] arr) {
          StringBuilder sb = new StringBuilder();
          getSeq(root,sb);
-        // for(String s : list) System.out.print(s+" ");
         StringBuilder build = new StringBuilder();
         for(int i=0;i<arr.length;i++) build.append(String.valueOf(arr[i]));
         String check = build.toString();
