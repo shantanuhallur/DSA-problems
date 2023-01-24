@@ -36,10 +36,8 @@ class Solution {
         StringBuilder build = new StringBuilder();
         for(int i=0;i<arr.length;i++) build.append(String.valueOf(arr[i]));
         String check = build.toString();
-         System.out.print(check+"...");
         for(int i=0;i<list.size();i++) {
             if(list.get(i).equals(check)) return true;
-            System.out.print(list.get(i) + ". ");
             
         }
         return false;
