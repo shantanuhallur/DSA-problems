@@ -12,21 +12,20 @@
 class Solution {
 public:
     vector<TreeNode*> splitBST(TreeNode* root, int target) {
-        vector<TreeNode*> tree(2,NULL);
-        if(!root) return {NULL,NULL};
-        
+        vector<TreeNode*> res(2,NULL);
+        if(!root) return res;
         if(root->val <= target) {
-            tree[0] = root;
+            res[0] = root;
             vector<TreeNode*> rAns = splitBST(root->right,target);
             root->right = rAns[0];
-            tree[1] = rAns[1];
+            res[1] = rAns[1];
         }
-        else if(root->val > target) {
-            tree[1] = root;
+        else {
+            res[1] = root;
             vector<TreeNode*> lAns = splitBST(root->left,target);
             root->left = lAns[1];
-            tree[0] = lAns[0];
+            res[0] = lAns[0];
         }
-        return tree;
+        return res;
     }
 };
