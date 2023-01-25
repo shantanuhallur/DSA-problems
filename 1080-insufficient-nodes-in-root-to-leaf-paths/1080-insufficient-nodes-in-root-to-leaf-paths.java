@@ -14,10 +14,9 @@
  * }
  */
 class Solution {
-    
-    public TreeNode getTree(TreeNode node, int limit) {
+    public TreeNode getTree(TreeNode node,int limit) {
         if(node == null) return null;
-        if(node.left ==null && node.right == null) return node.val<limit ? null:node;
+        if(node.left == null && node.right == null) return node.val<limit? null : node;
         
         node.left = getTree(node.left,limit-node.val);
         node.right = getTree(node.right,limit-node.val);
