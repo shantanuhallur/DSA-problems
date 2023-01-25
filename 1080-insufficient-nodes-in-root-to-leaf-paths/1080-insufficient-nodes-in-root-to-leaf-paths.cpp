@@ -12,15 +12,17 @@
 class Solution {
 public:
     TreeNode* getTree(TreeNode* node, int limit) {
+        //Base Case
         if(!node) return NULL;
-        if(!node->left && !node->right) return node->val < limit ? NULL : node;
+        //leaf
+        if(!node->left && !node->right)return node->val < limit ? NULL : node;
+        //recursive left and right
+        node->left = getTree(node->left,limit - node->val);
+        node->right = getTree(node->right,limit - node->val);
         
-        node->left = getTree(node->left,limit-node->val);
-        node->right = getTree(node->right,limit-node->val);
-        
-        return node->left == node->right ? NULL : node;
+        return node->left == node->right ? NULL: node;
     }
     TreeNode* sufficientSubset(TreeNode* root, int limit) {
-        return getTree(root,limit);   
+        return getTree(root,limit);
     }
 };
