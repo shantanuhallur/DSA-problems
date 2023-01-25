@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* getTree(TreeNode* node,int limit) {
+    TreeNode* getTree(TreeNode* node, int limit) {
         if(!node) return NULL;
         if(!node->left && !node->right) return node->val < limit ? NULL : node;
         
@@ -21,6 +21,6 @@ public:
         return node->left == node->right ? NULL : node;
     }
     TreeNode* sufficientSubset(TreeNode* root, int limit) {
-        return getTree(root,limit);
+        return getTree(root,limit);   
     }
 };
