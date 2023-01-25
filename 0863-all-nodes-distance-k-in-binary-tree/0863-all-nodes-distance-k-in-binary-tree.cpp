@@ -12,7 +12,6 @@ public:
     TreeNode* dfs(TreeNode* node,TreeNode* target,unordered_map<int,TreeNode*>& bm) {
         if(!node) return NULL;
         if(node->val == target->val) return node;
-        //LEFT AND RIGHT RECURSIVE CALL
         TreeNode* left = dfs(node->left,target,bm);
         if(left) {
             bm[node->left->val] = node;
@@ -25,37 +24,38 @@ public:
         }
         return NULL;
     }
-    
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        unordered_map<int,TreeNode*>bm;
-        TreeNode* start = dfs(root,target,bm);
+        //set , map , que
         set<int> vis;
+        unordered_map<int,TreeNode*> bm;
         queue<TreeNode*> que;
-        que.push(start);
-       //BFS
-       while(k-->0) {
-           int size = que.size();
-           while(size-->0) {
-               TreeNode* rn = que.front(); que.pop();
-               if(rn->left && vis.find(rn->left->val)==vis.end()) {
-                   que.push(rn->left);
-                   vis.insert(rn->left->val);
-               }
-               
-               if(rn->right && vis.find(rn->right->val)==vis.end()) {
-                   que.push(rn->right);
-                   vis.insert(rn->right->val);
-               }
-               //check if any unvisited parent exists in our bm
-               if(bm.find(rn->val)!=bm.end()) {
-                   que.push(bm[rn->val]);
-                   vis.insert(rn->val);
-               }
-               
-           }
-       } 
-       vector<int> ans;
-        
+        //get target
+        TreeNode* tar = dfs(root,target,bm);
+        cout<<tar->val;
+        //BFS
+        que.push(tar);
+        while(k-->0) {
+            int size = que.size();
+            while(size-->0) {
+                TreeNode* rn = que.front(); que.pop();
+                //left and right bfs
+                if(rn->left && vis.find(rn->left->val)==vis.end()) {
+                    que.push(rn->left);
+                    vis.insert(rn->left->val);
+                }
+                
+                if(rn->right && vis.find(rn->right->val)==vis.end()) {
+                    que.push(rn->right);
+                    vis.insert(rn->right->val);
+                }
+                //EXPLORE PARENT
+                if(bm.find(rn->val)!=bm.end()) {
+                    que.push(bm[rn->val]);
+                    vis.insert(rn->val);
+                }
+            }
+        }
+        vector<int> ans;
         while(que.size()>0) {
             ans.push_back(que.front()->val);
             que.pop();
