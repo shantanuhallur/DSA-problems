@@ -22,7 +22,7 @@ public:
         int totalSum = getTotalSum(root);
         if(totalSum%2!=0)return false;
         subtreeSum.pop_back();
-        auto it = std::find (subtreeSum.begin(), subtreeSum.end(), totalSum/2);
+        auto it = find (subtreeSum.begin(), subtreeSum.end(), totalSum/2);
         return it!=subtreeSum.end();
     }
 };
