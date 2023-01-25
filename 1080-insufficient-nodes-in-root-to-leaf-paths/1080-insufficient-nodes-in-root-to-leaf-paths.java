@@ -14,16 +14,15 @@
  * }
  */
 class Solution {
-    public TreeNode getTree(TreeNode node,int limit) {
-        if(node == null) return null;
-        if(node.left == null && node.right == null) return node.val<limit? null : node;
-        
-        node.left = getTree(node.left,limit-node.val);
-        node.right = getTree(node.right,limit-node.val);
-        
-        return node.left == node.right ? null : node;
-    }
     public TreeNode sufficientSubset(TreeNode root, int limit) {
-        return getTree(root,limit);
+        //Base Case
+        if(root==null) return null;
+        //check if leaf node is insufficient or not
+        if(root.left == null && root.right == null) return root.val < limit ? null : root;
+        //left and right recursive call to delete all the insufficient nodes from paths through me
+        root.left = sufficientSubset(root.left,limit-root.val);
+        root.right = sufficientSubset(root.right,limit-root.val);
+        //if all paths through me are insufficient then im also insufficient by deifinition or else im not
+        return root.left == root.right ? null:root;
     }
 }
