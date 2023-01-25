@@ -8,53 +8,53 @@
  * }
  */
 class Solution {
-    public TreeNode dfs(TreeNode node,TreeNode target,HashMap<TreeNode,TreeNode> bm) {
+    public TreeNode getTarget(TreeNode node,TreeNode target,HashMap<Integer,TreeNode> bm) {
+        //base case
         if(node==null) return null;
-        if(node.val == target.val) return node;
-        //left right recur calls
-        TreeNode left = dfs(node.left,target,bm);
-        if(left != null) {
-            //contruct backmap
-            bm.put(node.left,node);
+        if(node.val==target.val) return node;
+        TreeNode left = getTarget(node.left,target,bm);
+        if(left!=null) {
+            bm.put(node.left.val,node);
             return left;
         }
-        TreeNode right = dfs(node.right,target,bm);
+        TreeNode right = getTarget(node.right,target,bm);
         if(right!=null) {
-            bm.put(node.right,node);
+            bm.put(node.right.val,node);
             return right;
         }
+        
         return null;
     }
-    
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        HashMap<TreeNode,TreeNode> bm = new HashMap<>();
-        //dfs will give us the target node
-        TreeNode start = dfs(root,target,bm);
-        System.out.print(start.val);
-        HashSet<TreeNode> vis =new HashSet<>();
+        // backmap,queue,set
+        HashSet<Integer> vis= new HashSet<>();
+        HashMap<Integer,TreeNode> bm = new HashMap<>();
         LinkedList<TreeNode> que = new LinkedList<>();
-        //bfs for k levels
-        que.add(start);
-        while(k-->0){
+        //get targetNode
+        TreeNode tar = getTarget(root,target,bm);
+        que.addLast(tar);
+        //BFS
+        while(k-->0) {
             int size = que.size();
-                while(size-->0) {
-                    TreeNode rn = que.removeFirst();
-                    
-                    if(rn.left != null  && vis.add(rn.left)) {
-                        que.addLast(rn.left);
-                    }
-                    
-                    if(rn.right != null && vis.add(rn.right)) {
-                        que.addLast(rn.right);
-                    }
-                    //check for parent if exists add in que
-                    if(bm.containsKey(rn) && vis.add(rn)) {
-                        que.add(bm.get(rn));
-                    }
-                    
+            while(size-->0) {
+                TreeNode rn = que.removeFirst();
+                
+                //add left and right children
+                if(rn.left != null && vis.add(rn.left.val)) {
+                    que.addLast(rn.left);
                 }
+                if(rn.right!=null && vis.add(rn.right.val)) {
+                    que.addLast(rn.right);
+                }
+                //explore parent paths if exist
+                if(bm.containsKey(rn.val)) {
+                    que.addLast(bm.get(rn.val));
+                    vis.add(rn.val);
+                }
+            }
         }
-        ArrayList<Integer> ans = new ArrayList<>();
+        //add all the set nodes inside our que from bfs
+        List<Integer> ans = new ArrayList<>();
         for(TreeNode node : que) {
             ans.add(node.val);
         }
