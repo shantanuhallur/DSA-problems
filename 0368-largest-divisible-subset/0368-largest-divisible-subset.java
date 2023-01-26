@@ -4,10 +4,10 @@ class Solution {
         int prev[] =  new int[nums.length];
         Arrays.sort(nums);
         int maxlen = 0,end = 0, n =  nums.length;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){ //traverse over elements
             int count  =  1;
             int previdx = -1;
-            for(int j=i-1;j>=0;j--){
+            for(int j=0;j<i;j++){ //inclusion of an element
                 if(nums[i]%nums[j]==0 && dp[j]+1>count ){
                     count =  dp[j]+1;
                     previdx = j;                    
