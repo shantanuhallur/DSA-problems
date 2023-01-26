@@ -2,7 +2,7 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         int[] dp = new int[nums.length];
         for(int i=0;i<nums.length;i++) {
-            dp[i]=2;
+            dp[i]=100;
         }
         for(int i=0;i<nums.length;i++) {
             int max = 0;
