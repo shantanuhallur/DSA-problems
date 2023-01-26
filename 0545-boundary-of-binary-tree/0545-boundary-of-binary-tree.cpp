@@ -45,7 +45,7 @@ public:
         if(!root) return res;
         res.push_back(root->val);
         formLeftBoundary(root->left,res);
-        addLeaves(root->left,res);
+        addLeaves(root->left,res); //BOTH sUBTREES ARE SEPARATE THEREFORE ADD ALL LEAFS OF BOTH SUBTREES
         addLeaves(root->right,res);
         formRightBoundary(root->right,res);
         return res;
