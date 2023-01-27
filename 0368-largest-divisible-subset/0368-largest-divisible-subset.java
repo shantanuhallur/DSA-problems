@@ -9,7 +9,7 @@ class Solution {
              prevIdx[i] = -1; 
          }
         for(int i=0;i<n;i++) {
-            for(int j=i-1;j>=0;j--) {
+            for(int j=0;j<i;j++) {
                 if(nums[i]%nums[j]==0) {
                     if(dp[j]+1>dp[i]) {
                         dp[i] = dp[j]+1;
