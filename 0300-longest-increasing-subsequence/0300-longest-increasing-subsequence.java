@@ -1,20 +1,24 @@
-class Solution { 
+class Solution {
     public int lengthOfLIS(int[] nums) {
-       int[] dp = new int[nums.length];
         int n = nums.length;
-        int maxAns=0;
+        int[] tails = new int[n];
+        tails[0] = nums[0];
+        int len = 1;
+        
         for(int i=0;i<n;i++) {
-            int maxLen =0;
-            for(int j=0;j<i;j++) {
-                if(nums[i]>nums[j]) {
-                    if(dp[j]+1>maxLen) {
-                        maxLen = dp[j];
-                    }
-                }
+            if(nums[i] > tails[len-1]) {
+                tails[len] = nums[i];
+                len++;
             }
-            dp[i] = maxLen+1;
-            maxAns = Math.max(maxAns, dp[i]);
+            else {
+                int idx = Arrays.binarySearch(tails,0,len-1,nums[i]);
+                if(idx<0) {
+                    idx = -idx;
+                    idx = idx-1;
+                }
+                tails[idx] = nums[i];
+            }
         }
-        return maxAns;
+        return len;
     }
 }
