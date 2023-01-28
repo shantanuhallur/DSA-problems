@@ -1,31 +1,30 @@
 class Solution {
-public int binarySearch(int[] dp, int val){
-        int lo=0,hi=dp.length-1,res=0;
-        while(lo<=hi){
-            int mid=(lo+hi)/2;
-            if(dp[mid]<val){
-                res=mid;
-                lo=mid+1;
-            }else{
-                hi=mid-1;
-            }
-        }
-        return res+1;
-    }
     public int maxEnvelopes(int[][] envelopes) {
-        Arrays.sort(envelopes,(a,b)->a[0]==b[0]?b[1]-a[1]:a[0]-b[0]);
-        int[] LIS=new int[envelopes.length+1];
-        Arrays.fill(LIS,Integer.MAX_VALUE);
-        LIS[0]=Integer.MIN_VALUE;
-        int ans=0;
-        for(int i=0;i<envelopes.length;i++){
-            int val=envelopes[i][1];
-            int insertIndex=binarySearch(LIS,val);
-            ans=Math.max(ans,insertIndex);
-            if(LIS[insertIndex]>=val){
-                LIS[insertIndex]=val;
+              Arrays.sort(envelopes,(e1,e2) -> {
+            if(e1[0]!=e2[0]){
+                return e1[0]-e2[0]; //increasing in width
+            }
+            else{
+                return e2[1]-e1[1]; //decreasing in height
+            }
+        });
+        int[] tails = new int[envelopes.length];
+        tails[0] = envelopes[0][1];
+        int len = 1;
+        for(int i=1;i<envelopes.length;i++){
+            if(envelopes[i][1]>tails[len-1]){
+                len++;
+                tails[len-1] = envelopes[i][1];
+            }
+            else{
+                int idx = Arrays.binarySearch(tails,0,len-1,envelopes[i][1]);
+                if(idx<0){
+                    idx = -idx;
+                    idx = idx-1;
+                }
+                tails[idx] = envelopes[i][1];
             }
         }
-        return ans;
+        return len;
     }
 }
