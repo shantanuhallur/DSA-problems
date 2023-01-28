@@ -1,4 +1,7 @@
 class Solution {
+    /*
+    Return Type: index of the search key, if it is contained in the array; otherwise, (-(insertion point) – 1). The insertion point is defined as the point at which the key would be inserted into the array: the index of the first element greater than the key, or a.length if all elements in the array are less than the specified key. Note that this guarantees that the return value will be >= 0 if and only if the key is found.
+    */
     public int maxEnvelopes(int[][] envelopes) {
               Arrays.sort(envelopes,(e1,e2) -> {
             if(e1[0]!=e2[0]){
