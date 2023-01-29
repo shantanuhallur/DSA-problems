@@ -10,12 +10,14 @@ class Solution {
         }
         int OmaxLen = 0; int idx = -1;
         for(int i=0;i<n;i++) {
+            int maxLen =0;
             for(int j=0;j<i;j++) {
-                if(nums[i]%nums[j]==0 && dp[j]+1>dp[i]) {
-                    dp[i] = 1 + dp[j];
+                if(nums[i]%nums[j]==0 && dp[j]+1>maxLen) {
+                    maxLen = dp[j];
                     prev_idx[i] = j;
                 }
             }
+            dp[i] = maxLen+1;
             if(OmaxLen<dp[i]) {
                 OmaxLen = dp[i];
                 idx = i;
