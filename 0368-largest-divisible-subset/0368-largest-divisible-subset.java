@@ -8,6 +8,7 @@ class Solution {
             dp[i] = 1;
             prev_idx[i] = -1;
         }
+        int OmaxLen = 0; int idx = -1;
         for(int i=0;i<n;i++) {
             for(int j=0;j<i;j++) {
                 if(nums[i]%nums[j]==0 && dp[j]+1>dp[i]) {
@@ -15,14 +16,12 @@ class Solution {
                     prev_idx[i] = j;
                 }
             }
-        }
-        int maxLen = 0; int idx = -1;
-        for(int i=0;i<n;i++) {
-            if(maxLen<dp[i]) {
-                maxLen = dp[i];
+            if(OmaxLen<dp[i]) {
+                OmaxLen = dp[i];
                 idx = i;
             }
         }
+
         ArrayList<Integer> ans = new ArrayList<>();
         while(idx!=-1) {
             ans.add(nums[idx]);
