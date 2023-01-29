@@ -10,22 +10,19 @@ class Solution {
         }
         for(int i=0;i<n;i++) {
             for(int j=0;j<i;j++) {
-                if(nums[i]%nums[j]==0) {
-                    if(dp[j]+1 > dp[i]) {
-                        dp[i] = dp[j]+1;
-                        prev_idx[i] = j;
-                    }
+                if(nums[i]%nums[j]==0 && dp[j]+1>dp[i]) {
+                    dp[i] = 1 + dp[j];
+                    prev_idx[i] = j;
                 }
             }
         }
-        int maxLis = 0; int idx = -1;
+        int maxLen = 0; int idx = -1;
         for(int i=0;i<n;i++) {
-            if(maxLis<dp[i]) {
-                maxLis = dp[i];
+            if(maxLen<dp[i]) {
+                maxLen = dp[i];
                 idx = i;
             }
         }
-        
         ArrayList<Integer> ans = new ArrayList<>();
         while(idx!=-1) {
             ans.add(nums[idx]);
