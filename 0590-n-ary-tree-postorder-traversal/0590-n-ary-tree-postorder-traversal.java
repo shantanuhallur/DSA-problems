@@ -19,21 +19,24 @@ class Node {
 
 class Solution {
     public List<Integer> postorder(Node root) {
+        //Create stack and return answer variables.
         LinkedList<Integer> ans = new LinkedList<>();
-        if(root== null) return ans;
-        
+        //Handling root == null case
+        if(root==null) return ans;
+        // add in stack root 
         LinkedList<Node> st = new LinkedList<>();
         st.addLast(root);
-        
+        // keep adding removenode children in stack
         while(st.size()!=0) {
-            Node rn = st.removeLast();
+            Node removeN = st.removeLast();
             
-            for(Node child : rn.children) {
+            for(Node child : removeN.children) {
                 st.addLast(child);
             }
-            
-            ans.addFirst(rn.val);
+            // keep adding remove Node at 0th idx in our ans;
+            ans.addFirst(removeN.val);
         }
+        
         return ans;
     }
 }
