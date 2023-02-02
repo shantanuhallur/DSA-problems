@@ -43,11 +43,13 @@ class Solution {
             if(nums[i] == 0) noOfZeros++;
         } 
         // Because the sum of a subset can't be in decimals
+        /*The above if condition is used because:
+(sum-target)< 0 => When the target is more than the total sum, we can never reach that.*/
         if(arrSum<Math.abs(target)||(arrSum+target)%2==1) return 0;
         // This is the given sum, of which we have to find the number of count of               subsets with sum equal to given sum
         int sumForCountOfSS = (target + arrSum)/2;
         // Since we are dealing with only positive integers, so sum of a subset can't           be negative
-        //if(sumForCountOfSS<0) return 0;
+        //if(sumForCountOfSS<0) return 0; WE CAN NEVER REACH THIS COUNT WITH ALL THE SUM
         return countSS(nums,sumForCountOfSS,noOfZeros);
     }
 }
