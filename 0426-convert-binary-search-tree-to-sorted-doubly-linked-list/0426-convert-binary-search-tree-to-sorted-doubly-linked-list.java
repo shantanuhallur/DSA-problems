@@ -20,6 +20,13 @@ class Node {
 */
 
 class Solution {
+    //left and right recursive call for DFS
+            //INORDER AREA ->>>>>>>>>
+        //save first node
+    //add links in between nodes
+     //save last node
+      //INORDER AREA ->>>>>>>>>
+    // complete 2 links of first and last nodes
     Node prev = null;
     Node first = null;
     Node last = null;
