@@ -12,7 +12,7 @@ class Solution {
 //         }
 //     }
     public int longestCommonSubsequence(String text1, String text2) {
-        for(int i=0;i<t.length;i++) {
+        for(int i=0;i<text1.length();i++) {
             for(int j=0;j<t[0].length;j++) {
                 if(i==0||j==0)t[i][j] = 0;
             }
