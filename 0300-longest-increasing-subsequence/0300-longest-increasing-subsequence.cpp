@@ -1,22 +1,23 @@
 class Solution {
-public:
-int solveOptimal(int n,vector<int>& nums) {
-    if(n==0) return 0;
-    vector<int> ans;
-    ans.push_back(nums[0]);
-    for(int i=0;i<n;i++) {
-        if(nums[i] > ans.back()) {
-            ans.push_back(nums[i]);
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[] tails = new int[n];
+        tails[0] = nums[0];
+        int len =1;
+        for(int i=0;i<n;i++) {
+            if(nums[i]>tails[len-1]) {
+                tails[len] = nums[i];
+                len++;
+            }
+            else {
+               int idx = Arrays.binarySearch(tails,0,len-1,nums[i]);
+                if(idx<0) {
+                    idx = -idx;
+                    idx = idx-1;
+                }
+                tails[idx] = nums[i];
+            }
         }
-        else {
-            int idx = lower_bound(ans.begin(),ans.end(),nums[i]) - ans.begin();
-            ans[idx] = nums[i];
-        }
+        return len;
     }
-    return ans.size();
 }
-    int lengthOfLIS(vector<int>& nums) {
-        int n =nums.size();
-        return solveOptimal(n,nums);
-    }
-};
