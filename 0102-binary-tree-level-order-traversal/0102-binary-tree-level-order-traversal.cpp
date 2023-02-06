@@ -1,46 +1,43 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
 class Solution {
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        if(root == null) return new ArrayList<>();
-      //Create an answer List
-        List<List<Integer>> ans = new ArrayList<>();
-        //Create a Queue
-        LinkedList<TreeNode> que = new LinkedList<>();
-        que.addLast(root);
-        //WHILE LOOP
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+         vector<vector<int>> ans;
+        ///Declaration of que
+        queue<TreeNode*> que;
+        que.push(root);
+        
+        //WHILE LOOPS
         while(que.size()!=0) {
-            List<Integer> levelAns = new ArrayList<>();
             int size = que.size();
-            //Processing of Nodes in the same Level
+            vector<int> levelAns;
+            // Processing for each different level
             while(size-->0) {
-                TreeNode removeN = que.removeFirst();
-                //SET UP THE NEXT LEVEL.
-                if(removeN.left != null){
-                    que.addLast(removeN.left);
+                TreeNode* removeN = que.front(); que.pop();
+                //setting up the next level in the que
+                if(removeN->left) {
+                    que.push(removeN->left);
                 }
                 
-                if(removeN.right != null){
-                    que.addLast(removeN.right);
+                if(removeN->right) {
+                    que.push(removeN->right);
                 }
                 
-                levelAns.add(removeN.val);
+                levelAns.push_back(removeN->val);
             }
-            ans.add(levelAns);
+            ans.push_back(levelAns);
         }
         return ans;
     }
-}
+};
