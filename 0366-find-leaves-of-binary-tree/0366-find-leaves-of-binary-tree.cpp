@@ -1,43 +1,46 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    vector<int> leaves;
-    TreeNode* removeLeaves(TreeNode* node) {
-        //Base Case  for leaves.
-        if(!node->left && !node->right){
-            leaves.push_back(node->val);
-            return nullptr;
+    List<Integer> leaves;
+    public TreeNode removeLeaves(TreeNode node) {
+        //Base condition for leaf
+        if(node.left==null && node.right == null) {
+            leaves.add(node.val);
+            return null;
         }
         
-        //Left & right recursive call
-        if(node->left) node->left = removeLeaves(node->left);
-        if(node->right) node->right = removeLeaves(node->right);
+        //Left & Right recursive call
+        if(node.left!=null)node.left = removeLeaves(node.left);
+        if(node.right!=null)node.right = removeLeaves(node.right);
         
         return node;
     }
-    vector<vector<int>> findLeaves(TreeNode* root) {
-        vector<vector<int>> ans;
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
         
         while(true) {
-            leaves.clear();
-            //if Tree exists or root still exists
-            if(root) {
+            leaves = new ArrayList<>();
+            //if tree exists
+            if(root!=null) {
                 root = removeLeaves(root);
             }
-            //else tree is now null
+            //Tree has finished removing every level
             else break;
-            ans.push_back(leaves);
+            ans.add(leaves);
         }
         return ans;
     }
-};
+}
