@@ -16,6 +16,9 @@
 class Solution {
     public TreeNode correctBinaryTree(TreeNode root) {
         //create a set and que for seen node and BFS
+         //LEVEL ORDER TRAVERSAL
+         //start preocessing childs from right to left
+        //if my child exists then search for its right pointing node
         HashSet<Integer> set = new HashSet<>();
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
