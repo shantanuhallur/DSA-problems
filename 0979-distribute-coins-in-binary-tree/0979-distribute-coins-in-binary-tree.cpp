@@ -1,31 +1,35 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    int moves = 0;
-    int distribute(TreeNode* node) {
-        //Base Case if node is null we dont have any excessive or deficit coins
-        if(!node) return 0;
+    int moves =0;
+    int distribute(TreeNode node) {
+        //base case
+        if(node == null) return 0;
         
-        //get left & right node/subtree excessive deficit coins by recursive faith of call
-        int leftExDef = distribute(node->left);
-        int rightExDef = distribute(node->right);
-        //count our total min moves
-        moves += abs(leftExDef) + abs(rightExDef);
-        //return our net ex def coins to parent
-        return leftExDef + rightExDef + node->val - 1;
+        //left and right recursive call of faith for getting ex/Def coins
+        int leftExDef = distribute(node.left);
+        int rightExDef = distribute(node.right);
+        //as moves has no convention we will add all the compulsory moves from left and right
+        moves += Math.abs(leftExDef) + Math.abs(rightExDef);
+        
+        //return all the  excessive or deficit number of coins remained or to offer to our parent.
+        return leftExDef+rightExDef+node.val - 1;
     }
-    int distributeCoins(TreeNode* root) {
+    public int distributeCoins(TreeNode root) {
         distribute(root);
         return moves;
     }
-};
+}
