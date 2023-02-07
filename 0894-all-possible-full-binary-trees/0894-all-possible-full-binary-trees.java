@@ -22,6 +22,7 @@ class Solution {
         }
         List<TreeNode> ans = new ArrayList<>();
         for(int i=1;i<n;i+=2) {
+            //Distribution of Nodes in left and right to create FBT.
             List<TreeNode> leftSubtreeList = allPossibleFBT(i);
             List<TreeNode> rightSubtreeList = allPossibleFBT(n-i-1);
             
