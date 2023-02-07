@@ -9,7 +9,6 @@
  */
 class Solution {
     TreeNode LCA = null;
-    
     public int getLCA(TreeNode node,HashSet<Integer> set) {
         //Base Case
         if(node == null) return 0;
