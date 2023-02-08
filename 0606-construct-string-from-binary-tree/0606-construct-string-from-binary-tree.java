@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+class Solution { 
     public String tree2str(TreeNode root) {
         String ans = "";
         //left recursive call
