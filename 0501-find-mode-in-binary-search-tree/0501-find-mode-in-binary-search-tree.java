@@ -1,58 +1,44 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
 class Solution {
+public:
+    TreeNode* prev = NULL;
     int maxFreq = -1;
-    TreeNode prev = null;
     int nodeFreq = 1;
-    void inOrder(TreeNode node,ArrayList<Integer> ans) {
+    
+    void inOrder(TreeNode* node,vector<int>& ans) {
         //BaseCase
-        if(node==null) return;
-        
+        if(!node) return;
         //left and right recursive calls
-        inOrder(node.left,ans);
-        if(prev != null) {
-            if(prev.val == node.val) {
-                nodeFreq++; // increase node freq because we have got a node with same value
-            }
-            else { // we have got a new value node set its freq to 1
-                nodeFreq = 1;
-            }
+        inOrder(node->left,ans);
+        if(prev) {
+            // increase node freq because we have got a node with same value
+            if(node->val == prev->val)  nodeFreq++;
+            else nodeFreq = 1; // we have got a new value node set its freq to 1
         }
-        //if our nodeFreq > maaxFreq
+        //there can be already element added with a previous maxFreq
         if(maxFreq<nodeFreq) {
-            ans.clear(); //there can be already element added with a previous maxFreq
-            ans.add(node.val);
-            maxFreq=nodeFreq;
+            ans.clear(); ans.push_back(node->val); maxFreq = nodeFreq;
         }
-        else if(maxFreq == nodeFreq) { //there will be multiple answers
-            ans.add(node.val);
-        }
-        
+        else if(maxFreq == nodeFreq)//there will be multiple answers 
+            ans.push_back(node->val); 
         prev = node;
-        inOrder(node.right,ans);
+        inOrder(node->right,ans);
         
     }
-    public int[] findMode(TreeNode root) {
-        ArrayList<Integer> ans = new ArrayList<>();
+    
+    vector<int> findMode(TreeNode* root) {
+        vector<int> ans;
         inOrder(root,ans);
-        //convert the answer in int[]
-        int[] retAns = new int[ans.size()];
-        for(int i=0;i<retAns.length;i++) {
-            retAns[i] = ans.get(i);
-        }
-        return retAns;
+        return ans;
     }
-}
+};
