@@ -1,60 +1,66 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
-public class Codec {
-
-    void serialize(TreeNode node, StringBuilder sb) {
-        //Bsae Case
-        if(node==null) {
-            sb.append("#,");
+class Codec {
+public:
+    
+    void serialize(TreeNode* node,string & sb) {
+        //Base Case
+        if(!node) {
+            sb+= "#,";
             return;
         }
         
-        sb.append(node.val+",");
-        //preorder traversal
-        serialize(node.left,sb);
-        serialize(node.right,sb);
+        sb+= to_string(node->val) +",";
+        //dfs
+        serialize(node->left,sb);
+        serialize(node->right,sb);
     }
     // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
-        //create a stringbuilder sb and traverse and create preorder string;
-        StringBuilder sb = new StringBuilder();
+    string serialize(TreeNode* root) {
+        string sb;
         serialize(root,sb);
-        System.out.print(sb);
-        return sb.toString();
+        return sb;
     }
-    int st = 0;
-    public TreeNode deserialize(String[] arr ,int end) {
+    int st =0;
+    TreeNode* desrialize(vector<string>& arr,int end) {
         //Base Case
-        if(st>end) return null;
-        if(arr[st].equals("#")) {
+        if(st>end) return NULL;
+        if(arr[st]=="#"){
             st++;
-            return null;
+            return NULL;
         }
-        TreeNode root = new TreeNode(Integer.parseInt(arr[st++]));
-        //recursively build tree in left and right
-        root.left = deserialize(arr,end);
-        root.right = deserialize(arr,end);
+        //build root
+        TreeNode* root = new TreeNode(stoi(arr[st++]));
+        //recursively build tree
+        root->left = desrialize(arr,end);
+        root->right = desrialize(arr,end);
         return root;
     }
     // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
-        //create String array
-        String[] arr = data.split(",");
-        TreeNode root = deserialize(arr,arr.length-1);
+    TreeNode* deserialize(string data) {
+        vector<string> arr;
+        stringstream ss(data);
+        string word;
+        while(!ss.eof()) {
+            getline(ss,word,',');
+            arr.push_back(word);
+        }
+        //returns a build tree
+        TreeNode* root = desrialize(arr,arr.size()-1);
         return root;
     }
-}
+};
 
 // Your Codec object will be instantiated and called as such:
-// Codec ser = new Codec();
-// Codec deser = new Codec();
-// String tree = ser.serialize(root);
-// TreeNode ans = deser.deserialize(tree);
+// Codec* ser = new Codec();
+// Codec* deser = new Codec();
+// string tree = ser->serialize(root);
+// TreeNode* ans = deser->deserialize(tree);
 // return ans;
