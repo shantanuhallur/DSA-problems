@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+
     int sum = 0;
     public void getSum(TreeNode node,int currNum) {
         //Base Case
