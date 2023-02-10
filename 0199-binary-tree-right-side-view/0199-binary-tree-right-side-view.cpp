@@ -29,6 +29,7 @@ public:
                 
                 if(removeN->right) que.push(removeN->right);
                 
+                
                 //last node save in ans;
                 if(size==0) ans.push_back(removeN->val);
             }
