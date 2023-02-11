@@ -9,7 +9,7 @@ class Solution {
                     dp[i][j] = true;
                 }
                 else if (gap==1) {
-                    dp[i][j] = s.charAt(i)==s.charAt(j)?true:false;
+                    dp[i][j] = s.charAt(i)==s.charAt(j);
                 }
                 else {
                     if(s.charAt(i)==s.charAt(j) && dp[i+1][j-1]) {
