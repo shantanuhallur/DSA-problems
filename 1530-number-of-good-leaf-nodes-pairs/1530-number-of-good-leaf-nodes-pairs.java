@@ -15,9 +15,10 @@
  */
 class Solution {
     //count pairs
+    //Base Case
+    //leaf case
     int countPairs = 0;
     int[] getLeafDist(TreeNode node,int d) {
-        //Base Case
         if(node == null) return new int[]{};
         //leaf case
         if(node.left == null && node.right == null) {
