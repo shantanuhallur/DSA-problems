@@ -30,7 +30,7 @@ public:
     TreeNode* lowestCommonAncestor(TreeNode* root, vector<TreeNode*> &nodes) {
         unordered_set<int> set;
         for(TreeNode* node : nodes) set.insert(node->val);
-        getLCA(root,set);
+        cout<<getLCA(root,set);
         return LCA;
     }
 };
