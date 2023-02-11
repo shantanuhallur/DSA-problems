@@ -44,10 +44,10 @@ class Solution {
             if(arr[i].idx == i || vis[i] == true) continue;
             int cycleC = 0;
             int j = i;
-            while(vis[i]==false) {
-                vis[i] = true;
+            while(vis[j]==false) {
+                vis[j] = true;
                 cycleC++;
-                i = arr[i].idx;
+                j = arr[j].idx;
             }
             totalSwaps += cycleC -1;
         }
