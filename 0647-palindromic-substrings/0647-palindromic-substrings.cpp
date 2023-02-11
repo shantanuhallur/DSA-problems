@@ -1,24 +1,25 @@
 class Solution {
 public:
- int countSubstrings(string& s) {
-       return recursive(s);
-    }
-    
-    // 1. recursive
-    // Time: O(n ^ 3)
-    int recursive(string& s) {
-        int count = 0;
-        for(int i = 0; i < s.size(); ++i) {
-            for(int j = i; j < s.size(); ++j) {
-                count += helper(s, i, j);
+    int countSubstrings(string s) {
+        vector<vector<bool>> dp(s.size(),vector<bool>(s.size(),false));
+        int count =0;
+        
+        for(int gap=0;gap<s.size();gap++) {
+            for(int i=0,j=gap; j<s.size();i++,j++) {
+                if(gap==0) {
+                    dp[i][j] = true;
+                }
+                else if (gap==1) {
+                    dp[i][j] = s[i]==s[j];
+                }
+                else {
+                    if(s[i]==s[j] && dp[i+1][j-1]) {
+                        dp[i][j] = true;
+                    }
+                }
+                if(dp[i][j]) count++;
             }
         }
         return count;
-    }
-    
-    // return 1 if s[i..j] is palindromic, 0 otherwise.
-    int helper(string& s, int i, int j) {
-        if (i >= j) return 1;
-        return s[i] == s[j] ? helper(s, i+1, j-1) : 0;
     }
 };
