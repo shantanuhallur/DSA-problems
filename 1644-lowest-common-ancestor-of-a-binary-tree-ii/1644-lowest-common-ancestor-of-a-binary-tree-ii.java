@@ -8,9 +8,15 @@
  * }
  */
 class Solution {
-    //to track if both p and q are found in tree
     int totalFound = 0;
-    
+      //to track if both p and q are found in tree
+    //Base case
+    //left and right recursive call of faith asking if p or q is present in subtree
+    //if current node is equal to p or q
+     // if p q are found in left and right then i am the LCA ill return myself
+    //return statement covering all the 3 cases of leftF,!rightF | rightF,!leftF | !leftF,!rightF
+    //onlyy if both p and q are found in my overall tree then ill return lca or else the
+        //returned lca is a fake one.
     public TreeNode LCA(TreeNode node,int p , int q) {
         //Base case
         if(node == null) return null;
