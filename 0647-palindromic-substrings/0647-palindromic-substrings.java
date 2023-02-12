@@ -1,18 +1,19 @@
 class Solution {
-    public int countSubstrings(String s) {
-        boolean[][] dp = new boolean[s.length()][s.length()];
+public:
+    int countSubstrings(string s) {
+        vector<vector<bool>> dp(s.size(),vector<bool>(s.size(),false));
         int count =0;
         
-        for(int gap=0;gap<s.length();gap++) {
-            for(int i=0,j=gap; j<dp.length;i++,j++) {
+        for(int gap=0;gap<s.size();gap++) {
+            for(int i=0,j=gap; j<s.size();i++,j++) {
                 if(gap==0) {
                     dp[i][j] = true;
                 }
                 else if (gap==1) {
-                    dp[i][j] = s.charAt(i)==s.charAt(j);
+                    dp[i][j] = s[i]==s[j];
                 }
                 else {
-                    if(s.charAt(i)==s.charAt(j) && dp[i+1][j-1]) {
+                    if(s[i]==s[j] && dp[i+1][j-1]) {
                         dp[i][j] = true;
                     }
                 }
@@ -21,5 +22,4 @@ class Solution {
         }
         return count;
     }
-    
-}
+};
