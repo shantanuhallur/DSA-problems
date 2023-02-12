@@ -15,7 +15,6 @@
  */
 class Solution {
     int ans = -1001;
-    
     public int getMaxPathSum(TreeNode node) {
         //Base Case
         if(node == null) return 0;
