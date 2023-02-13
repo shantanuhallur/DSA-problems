@@ -1,10 +1,10 @@
 class Solution {
     int[][] dp;
-    public int getA(int level,int c) {
+    public int getA(int level,int c,int n) {
         //pruning
         
         //baseCase
-        if(level==0) return 1;
+        if(level==n) return 1;
         //cache check
         if(dp[level][c]!=-1) return dp[level][c];
         //compute
@@ -12,7 +12,7 @@ class Solution {
         //pick alphabet
         for(int ch=0;ch<5;ch++) {
             if(ch>=c) {
-                ans+= getA(level-1,ch);
+                ans+= getA(level+1,ch,n);
             }
         }   
         //save and return
@@ -25,6 +25,6 @@ class Solution {
                 dp[i][j] = -1;
             }
         }
-        return getA(n,0);
+        return getA(0,0,n);
     }
 }
