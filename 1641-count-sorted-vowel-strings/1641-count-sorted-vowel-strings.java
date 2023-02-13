@@ -2,7 +2,7 @@ class Solution {
     int[][] dp;
     public int getA(int level,int c) {
         //pruning
-        if(c>=5) return 0;
+        
         //baseCase
         if(level==0) return 1;
         //cache check
