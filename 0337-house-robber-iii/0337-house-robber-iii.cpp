@@ -1,33 +1,52 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    //<isRob,notRob>
-    pair<int,int> getMaxMoney(TreeNode* node) {
+    class pair{
+        int isRob;
+        int notRob;
+        
+        pair(int isRob,int notRob) {
+            this.isRob = isRob;
+            this.notRob = notRob;
+        }
+    }
+    
+     //Base Case
+    //Recursive left and right call of faith
+    //when my current node is roobed
+    //when my current node is not robbed
+    pair getMaxMoney(TreeNode node) {
         //Base Case
-        if(!node) return {0,0};
+        if(node == null) return new pair(0,0);
         
-        pair leftAns = getMaxMoney(node->left);
-        pair rightAns = getMaxMoney(node->right);
-        
-        pair myAns = {0,0};
-        myAns.first = node->val + leftAns.second + rightAns.second;
-        myAns.second = max(leftAns.first,leftAns.second) + max(rightAns.first,rightAns.second);
+        pair myAns = new pair(0,0);
+        //Recursive left and right call of faith
+        pair leftAns = getMaxMoney(node.left);
+        pair rightAns = getMaxMoney(node.right);
+        //when my current node is roobed
+        myAns.isRob = leftAns.notRob + rightAns.notRob + node.val;
+        //when my current node is not robbed
+        myAns.notRob = Math.max(leftAns.notRob,leftAns.isRob) + 
+                       Math.max(rightAns.notRob,rightAns.isRob);
         
         return myAns;
     }
     
-    int rob(TreeNode* root) {
+    public int rob(TreeNode root) {
         pair rootAns = getMaxMoney(root);
-        return max(rootAns.first,rootAns.second);
+        return Math.max(rootAns.isRob,rootAns.notRob);
     }
-};
+}
