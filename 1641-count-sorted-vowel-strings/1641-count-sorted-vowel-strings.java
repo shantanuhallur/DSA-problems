@@ -10,9 +10,11 @@ class Solution {
         //compute
         int ans = 0;
         //pick alphabet
-        ans+= getA(level-1,c);
-        //not pick alphabet
-        ans+= getA(level,c+1);    
+        for(int ch=0;ch<5;ch++) {
+            if(ch>=c) {
+                ans+= getA(level-1,ch);
+            }
+        }   
         //save and return
         return dp[level][c] = ans;
     }
