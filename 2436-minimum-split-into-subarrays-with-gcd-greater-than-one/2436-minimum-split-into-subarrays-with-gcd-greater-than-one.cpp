@@ -1,5 +1,13 @@
 class Solution {
 public:
+    int gcd(int a, int b){
+        if (b == 0){
+            return a;
+        }
+
+        return gcd(b,a%b);
+    }
+    
     int minimumSplits(vector<int>& nums) {
         int currgcd = nums[0];
         int split = 1;
