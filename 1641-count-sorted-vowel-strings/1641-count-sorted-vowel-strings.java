@@ -26,5 +26,6 @@ class Solution {
             }
         }
         return getA(0,0,n);
+        
     }
 }
