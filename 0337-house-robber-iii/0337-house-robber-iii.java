@@ -24,6 +24,10 @@ class Solution {
         }
     }
     
+     //Base Case
+    //Recursive left and right call of faith
+    //when my current node is roobed
+    //when my current node is not robbed
     pair getMaxMoney(TreeNode node) {
         //Base Case
         if(node == null) return new pair(0,0);
