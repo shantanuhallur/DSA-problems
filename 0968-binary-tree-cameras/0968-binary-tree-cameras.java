@@ -17,6 +17,11 @@ class Solution {
     //-1 -> im not covered
     //0 -> im covered
     //1 -> im a camera and im also covered. 
+     //null nodes are alredy in covered state.
+    //one of my child node is not covered i will compulsory have to attach a camera to my node
+      //check if my child is a camera
+    // both left and right nodes are covered-> (0) but im not covered(my Node) return -1;
+    //check if root is covered or not
     int cameras = 0;
     public int getInfo(TreeNode node) {
         //null nodes are alredy in covered state.
