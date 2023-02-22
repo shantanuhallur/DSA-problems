@@ -1,7 +1,7 @@
 class Solution {
 public:
     int numOfSubarrays(vector<int>& arr) {
-                long ans=0;
+        long ans=0;
         int even=0;
         int odd =0; 
         int sum=0; 
