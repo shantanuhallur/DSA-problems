@@ -63,7 +63,7 @@ class Solution
          else {
              return dp[W][n] = getMax(wt,val,W,n+1);
          }
-         
+        
     }
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
