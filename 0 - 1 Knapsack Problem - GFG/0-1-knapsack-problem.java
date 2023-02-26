@@ -54,20 +54,20 @@ class Solution
         
          if(n==wt.length||W==0) return 0;
          
-         if(dp[n][W]!= -1) return dp[n][W];
+         if(dp[W][n]!= -1) return dp[W][n];
          
          if(wt[n]<=W) {
-             return  dp[n][W] = Math.max(val[n] + getMax(wt,val,W-wt[n],n+1) , 
+             return  dp[W][n] = Math.max(val[n] + getMax(wt,val,W-wt[n],n+1) , 
                             getMax(wt,val,W,n+1));
          }
          else {
-             return dp[n][W] = getMax(wt,val,W,n+1);
+             return dp[W][n] = getMax(wt,val,W,n+1);
          }
          
     }
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
-        dp = new int[n+1][W+1];
+        dp = new int[W+1][n+1];
         for(int[] row : dp) {
             Arrays.fill(row,-1);
          }
