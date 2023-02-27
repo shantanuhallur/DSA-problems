@@ -42,11 +42,11 @@ class Solution{
                 dp[n][sum] = 1;
                 return val[n][sum] = true;
             }
-            else if(n==0) {
+            else if(n==0) { //0 items with variable sums
                 dp[n][sum] = 1;
                 return val[n][sum] = false;
             }
-            else {
+            else { //0 sum with variable items
                 dp[n][sum] = 1;
                 return val[n][sum] = true;
             }
