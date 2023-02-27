@@ -34,24 +34,48 @@ class GFG
 //User function Template for Java
 
 class Solution{
-
-
+    static boolean[][] val;
+    static int[][] dp;
+    static Boolean getAns(int[] arr, int n, int sum) {
+        if(n==0 ||sum==0) return val[n][sum];
+        
+        if(dp[n][sum]!=-1) return val[n][sum];
+        
+        if(arr[n-1] <=sum) {
+            val[n][sum] = getAns(arr,n-1,sum-arr[n-1]) || getAns(arr,n-1,sum);
+            dp[n][sum] = 1;
+            return val[n][sum];
+        }
+        else {
+            val[n][sum] = getAns(arr,n-1,sum);
+            dp[n][sum] = 1;
+            return val[n][sum];
+        }
+        
+    }
     static Boolean isSubsetSum(int N, int arr[], int sum){
         // code here
-        boolean[][] dp= new boolean[N+1][sum+1] ;
-        for(int row=0;row<N+1;row++) {
-            dp[row][0] = true;
+        val = new boolean[N+1][sum+1];
+        dp = new int[N+1][sum+1];
+        for(int i=0;i<N+1;i++) {
+            for(int j=0;j<sum+1;j++) {
+                if(i==0) {
+                    dp[i][j] = 1;
+                    val[i][j] = false;
+                }
+                else{
+                    dp[i][j] = -1;
+                }
+                
+                if(j==0) {
+                    dp[i][j] = 1;
+                    val[i][j] = true;
+                }
+                else {
+                    dp[i][j] = -1;
+                }
+            }
         }
-         for(int i=1;i<=N;i++) {
-           for(int j=1;j<=sum;j++) {
-               if(arr[i-1]<=j) {
-                   dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j];
-               }
-               else {
-                   dp[i][j] = dp[i-1][j];
-               }
-           }
-       }
-       return dp[N][sum];
+        return getAns(arr,N,sum);
     }
 }
