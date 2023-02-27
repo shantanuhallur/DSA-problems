@@ -37,7 +37,20 @@ class Solution{
     static boolean[][] val;
     static int[][] dp;
     static Boolean getAns(int[] arr, int n, int sum) {
-        if(n==0 ||sum==0) return val[n][sum];
+        if(n==0 ||sum==0) {
+            if(n==0 && sum==0) {
+                dp[n][sum] = 1;
+                return val[n][sum] = true;
+            }
+            else if(n==0) {
+                dp[n][sum] = 1;
+                return val[n][sum] = false;
+            }
+            else {
+                dp[n][sum] = 1;
+                return val[n][sum] = true;
+            }
+        }
         
         if(dp[n][sum]!=-1) return val[n][sum];
         
@@ -59,21 +72,22 @@ class Solution{
         dp = new int[N+1][sum+1];
         for(int i=0;i<N+1;i++) {
             for(int j=0;j<sum+1;j++) {
-                if(i==0) {
-                    dp[i][j] = 1;
-                    val[i][j] = false;
-                }
-                else{
-                    dp[i][j] = -1;
-                }
+                // if(i==0) {
+                //     dp[i][j] = 1;
+                //     val[i][j] = false;
+                // }
+                // else{
+                //     dp[i][j] = -1;
+                // }
                 
-                if(j==0) {
-                    dp[i][j] = 1;
-                    val[i][j] = true;
-                }
-                else {
-                    dp[i][j] = -1;
-                }
+                // if(j==0) {
+                //     dp[i][j] = 1;
+                //     val[i][j] = true;
+                // }
+                // else {
+                //     dp[i][j] = -1;
+                // }
+                dp[i][j] = -1;
             }
         }
         return getAns(arr,N,sum);
