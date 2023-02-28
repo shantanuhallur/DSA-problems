@@ -28,7 +28,7 @@ public:
         
     int maxPathSum(TreeNode* root) {
         if(root==NULL) return 0;
-        getMaxPath(root);
+        cout<<getMaxPath(root);
         return ans;
     }
 };
