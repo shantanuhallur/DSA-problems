@@ -9,17 +9,19 @@ class Solution{
     int mod = 1e9 + 7;
 public:
     int subsetSum(int arr[], int n, int sum) {
-        if(n==0 && sum==0) return 1;
+        if(n==0&&sum==0) return 1;
+        
         if(n==0) return 0;
         
-        if(t[n][sum] != -1) return t[n][sum];
+        if(t[n][sum]!=-1) return t[n][sum];
         
-        if(arr[n-1] <= sum) {
-            return t[n][sum] = (subsetSum(arr, n-1, sum-arr[n-1]) + subsetSum(arr, n-1, sum))%mod;
+        if(arr[n-1]<=sum) {
+            return t[n][sum] = (subsetSum(arr,n-1,sum-arr[n-1]) + subsetSum(arr,n-1,sum))%mod;
         }
         else {
-            return t[n][sum] = subsetSum(arr, n-1, sum);
+            return t[n][sum] = subsetSum(arr,n-1,sum);
         }
+        
     }
     
     int perfectSum(int arr[], int n, int sum) {
