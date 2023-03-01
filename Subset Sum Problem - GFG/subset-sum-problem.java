@@ -37,34 +37,32 @@ class Solution{
     static boolean[][] val;
     static int[][] dp;
     static Boolean getAns(int[] arr, int n, int sum) {
-        if(n==0 ||sum==0) {
-            if(n==0 && sum==0) {
+        if(n==0 || sum==0) {
+            if(n==0 && sum==0){
                 dp[n][sum] = 1;
                 return val[n][sum] = true;
             }
-            else if(n==0) { //0 items with variable sums
+            else if (n==0) {
                 dp[n][sum] = 1;
                 return val[n][sum] = false;
             }
-            else { //0 sum with variable items
+            else {
                 dp[n][sum] = 1;
                 return val[n][sum] = true;
             }
+             
         }
-        
-        if(dp[n][sum]!=-1) return val[n][sum];
-        
-        if(arr[n-1] <=sum) {
+        if(dp[n][sum] != -1) return val[n][sum];
+            
+        if(arr[n-1]<=sum) {
             val[n][sum] = getAns(arr,n-1,sum-arr[n-1]) || getAns(arr,n-1,sum);
             dp[n][sum] = 1;
-            return val[n][sum];
         }
         else {
-            val[n][sum] = getAns(arr,n-1,sum);
-            dp[n][sum] = 1;
-            return val[n][sum];
+             val[n][sum] = getAns(arr,n-1,sum);
+             dp[n][sum] = 1;
         }
-        
+        return val[n][sum];
     }
     static Boolean isSubsetSum(int N, int arr[], int sum){
         // code here
