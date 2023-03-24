@@ -1,45 +1,44 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
 class Solution {
-    public int sumEvenGrandparent_01(TreeNode node) {
+public:
+    int sumEvenGrandparent_01(TreeNode* node) {
         //Base Case
-        if(node==null) return 0;
-        
+        if(!node) return 0;
+        //variables
         int mySum = 0;
         int leftChildrenSum = 0;
         int rightChildrenSum = 0;
-        //Recursive left and right calls asking sum of their grandchilren if exist
-        leftChildrenSum = sumEvenGrandparent_01(node.left);
-        rightChildrenSum = sumEvenGrandparent_01(node.right);
         
-        //if my node is even
-        if(node.val%2==0) {
-            //add LEFT grandchildren
-            if(node.left!=null && node.left.left !=null) mySum += node.left.left.val;
-            if(node.left!=null && node.left.right !=null) mySum += node.left.right.val;
+        //recursive left and right calls
+        leftChildrenSum = sumEvenGrandparent_01(node->left);
+        rightChildrenSum = sumEvenGrandparent_01(node->right);
+        
+        //IF MY NODE iS EVEN
+        if(node->val%2==0) {
+            //add left children
+            if(node->left && node->left->left) mySum += node->left->left->val;
+            if(node->left && node->left->right) mySum += node->left->right->val;
             
-            //add RIGHT grandchildren
-            if(node.right!=null && node.right.left!=null) mySum += node.right.left.val;
-            if(node.right!=null && node.right.right!=null) mySum += node.right.right.val;
+            //add right children
+            if(node->right && node->right->left) mySum += node->right->left->val;
+            if(node->right && node->right->right) mySum += node->right->right->val;
+            
         }
-        
-        return leftChildrenSum+rightChildrenSum+mySum;
+        //return total sumation of all the nodes grandchildren.
+        return mySum + leftChildrenSum + rightChildrenSum;
     }
     
-    public int sumEvenGrandparent(TreeNode root) {
+    int sumEvenGrandparent(TreeNode* root) {
         return sumEvenGrandparent_01(root);
     }
-}
+};
