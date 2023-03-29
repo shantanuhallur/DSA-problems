@@ -19,8 +19,8 @@ class Solution {
         
         TreeNode newRoot = upsideDownBinaryTree(root.left);
         
-        root.left.left = root.right;
         root.left.right = root;
+        root.left.left = root.right;
         root.left = null;
         root.right = null;
         
