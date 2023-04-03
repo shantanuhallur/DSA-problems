@@ -1,35 +1,39 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    void inorderTraversal_01(TreeNode* node,vector<int>& ans) {
+    public void inorderTraversal_01(TreeNode node,ArrayList<Integer> ans) {
         //Base Case
-        if(node == nullptr) return;
+        if(node == null) return;
         
-        //Left Recursive Call
-        inorderTraversal_01(node->left,ans);
-        // INORDER ------>>>>
+        //recursive left call
+        inorderTraversal_01(node.left,ans);
+        // INORDER ----------->
+       
+        ans.add(node.val);
         
-        ans.push_back(node->val);
+        // INORDER ----------->
+        //recursive right call
+        inorderTraversal_01(node.right,ans);
         
-        
-        // INORDER ------>>>>
-        //Right Recursive Call
-        inorderTraversal_01(node->right,ans);
     }
     
-    vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if(root == null) return ans;
         inorderTraversal_01(root,ans);
         return ans;
     }
-};
+}
