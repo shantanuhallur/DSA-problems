@@ -1,36 +1,39 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    bool isBST = true;
-    TreeNode* prev = nullptr;
-    void traverseInorder(TreeNode* node) {
-        //Base case
-        if(!node) return;
-        //preorder area
-        //Left recursive Call
-        traverseInorder(node->left);
-        //INORDER AREA --->>>>
-        //check condition the val of node should be greater than and not equal to smaller than prev.
-        if(prev && prev->val >= node->val) isBST = false;
+    boolean isBST = true;
+    TreeNode prev = null;
+    public void traverseInorder(TreeNode node) {
+        //base Case
+        if(node == null) return;
+        
+        //left recursive call
+        traverseInorder(node.left);
+        //Inorder area ---->>>>>>
+        //condition
+        if(prev!= null && prev.val >= node.val) isBST = false;
         //update prev
         prev = node;
-        //INORDER AREA --->>>>
-        //Right recursive call
-        traverseInorder(node->right);
-        //posorder area
+        //Inorder area ---->>>>>>
+        //right recursive call
+        traverseInorder(node.right);
+        
     }
-    bool isValidBST(TreeNode* root) {
+    public boolean isValidBST(TreeNode root) {
         traverseInorder(root);
         return isBST;
     }
-};
+}
