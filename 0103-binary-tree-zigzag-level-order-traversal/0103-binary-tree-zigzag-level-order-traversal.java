@@ -1,53 +1,52 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
 class Solution {
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        if(root==null) return new ArrayList<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        //prepare the que
-        LinkedList<TreeNode> que = new LinkedList<>();
-        que.addLast(root);
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root) return {};
+        
+        vector<vector<int>> ans;
+        queue<TreeNode*> que;
+        que.push(root);
         int level = 1;
-        //Begin Level Order Traversal
+        //Level Order Traversal
         while(que.size()!=0) {
-            LinkedList<Integer> levelAns = new LinkedList<>();
             int size = que.size();
+            vector<int> levelAns;
+            // process every level
             while(size-->0) {
-                TreeNode removeN = que.removeFirst();
-                //Set up next level in the que
-                if(removeN.left != null) {
-                    que.addLast(removeN.left);
+                TreeNode* removeN = que.front(); que.pop();
+                //Set up the next level
+                if(removeN->left) {
+                    que.push(removeN->left);
                 }
                 
-                if(removeN.right != null) {
-                    que.addLast(removeN.right);
+                if(removeN->right) {
+                    que.push(removeN->right);
                 }
-                //IF LEVEL EVEN ---->>>>
-                if(level%2==0) {
-                    levelAns.addFirst(removeN.val);
-                }//ELSE IF LEVEL ODD -->>>>>>
-                else{
-                    levelAns.addLast(removeN.val);
+                //UNIQUE PROCESS OF OUR LEVEL ANS
+                if(level%2 ==0) {
+                    //IF EVEN -->>
+                    levelAns.insert(levelAns.begin(),removeN->val);
+                }
+                else {
+                    levelAns.push_back(removeN->val);
                 }
             }
-            //Increament the level as the processing of this level is finished.
+            //INCREMENT OUR LEVEL
             level++;
-            //add the created level's ans in our main ans.
-            ans.add(levelAns);
+            //SAVE OUR PREOCESSED LEVEL ANS
+            ans.push_back(levelAns);
         }
         return ans;
     }
-}
+};
