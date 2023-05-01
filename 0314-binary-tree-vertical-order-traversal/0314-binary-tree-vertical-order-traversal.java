@@ -1,45 +1,52 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    vector<vector<int>> verticalOrder(TreeNode* root) {
-        vector<vector<int>> ans;
-        if(!root) return ans;
-        map<int,vector<int>> mp;
-        queue<TreeNode*> que;
-        queue<int> col;
-        que.push(root); col.push(0);
-        int minEle = 0, maxEle = 0;
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root == null) return ans;
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        LinkedList<TreeNode> que = new LinkedList<>();
+        LinkedList<Integer> col = new LinkedList<>();
+        que.addLast(root); col.addLast(0);
+        int min = 0 , max = 0;
         while(que.size()!=0) {
-            TreeNode* rn = que.front(); que.pop();
-            int rc = col.front(); col.pop();
+            TreeNode rn = que.removeFirst();
+            int rc = col.removeFirst();
             
-            if(rn->left) {
-                que.push(rn->left);
-                col.push(rc-1);
-                minEle = min(minEle,rc-1);
+            if(!map.containsKey(rc)) {
+                map.put(rc,new ArrayList<Integer>());
             }
             
-            if(rn->right) {
-                que.push(rn->right);
-                col.push(rc+1);
-                maxEle = max(maxEle,rc+1);
+            if(rn.left!=null) {
+                que.addLast(rn.left);
+                col.addLast(rc-1);
+                min = Math.min(min,rc-1);
             }
             
-            mp[rc].push_back(rn->val);
+            if(rn.right!=null) {
+                que.addLast(rn.right);
+                col.addLast(rc+1);
+                max = Math.max(max,rc+1);
+            }
+            //add curr node in curr rc's lsit
+            map.get(rc).add(rn.val);
         }
-        for(int i=minEle ; i<=maxEle ;i++) {
-            ans.push_back(mp[i]);
+        for(int i=min;i<=max;i++) {
+            ans.add(map.get(i));
         }
         return ans;
     }
-};
+}
