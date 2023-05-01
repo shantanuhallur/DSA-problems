@@ -1,35 +1,31 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
 class Solution {
+public:
     int ans = 1;
     
-    public void getLongestSequence(TreeNode node,int parVal,int parStreak) {
-        //Base Case
-        if(node == null) return;
-        //current nodes fresh streak
+    void getLongestStreak(TreeNode* node,int parVal,int parStreak) {
+        if(!node) return;
+        //start my Streak
         int currStreak = 1;
-        if(node.val == parVal + 1) currStreak += parStreak;
-        //Recursive left and right call
-        ans = Math.max(ans,currStreak);
-        getLongestSequence(node.left,node.val,currStreak);
-        getLongestSequence(node.right,node.val,currStreak);
+        if(node->val == parVal+1) currStreak += parStreak;
+        //maximize current ans
+        ans = max(ans,currStreak);
+        //left and right recursive call
+        getLongestStreak(node->left,node->val,currStreak);
+        getLongestStreak(node->right,node->val,currStreak);
     }
-    public int longestConsecutive(TreeNode root) {
-        if(root == null) return 0;
-        getLongestSequence(root,root.val,0);
+    int longestConsecutive(TreeNode* root) {
+        getLongestStreak(root,root->val,0);
         return ans;
     }
-}
+};
