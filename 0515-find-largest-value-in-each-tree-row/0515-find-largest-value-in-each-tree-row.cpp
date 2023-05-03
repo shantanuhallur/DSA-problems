@@ -1,36 +1,41 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    vector<int> largestValues(TreeNode* root) {
-        if(!root) return {};
-        vector<int> ans;
-        queue<TreeNode*> que;
-        que.push(root);
-        //LVL ORFER TRAVERSAL
+    public List<Integer> largestValues(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if(root == null) return ans;
+        
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.addLast(root);
+        //LVL ORDER TRAVERSAL
         while(que.size()!=0) {
             int size = que.size();
-            int largest = que.front()->val;
+            int largest = que.peek().val;
             while(size-->0) {
-                TreeNode* removeN = que.front(); que.pop();
+                //Remove Node
+                TreeNode removeN = que.removeFirst();
                 
-                if(removeN->left) que.push(removeN->left);
+                if(removeN.left != null) que.addLast(removeN.left);
                 
-                if(removeN->right) que.push(removeN->right);
-                //UPDATE LARGEST
-                if(removeN->val >= largest) largest = removeN->val;
+                if(removeN.right != null) que.addLast(removeN.right);
+                
+                if(removeN.val >= largest) largest = removeN.val;
             }
-            ans.push_back(largest);
+           ans.add(largest); 
         }
         return ans;
     }
-};
+}
