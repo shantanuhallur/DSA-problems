@@ -1,13 +1,13 @@
 class Solution {
-    public boolean isValidSerialization(String preorder) {
-        String[] nodes = preorder.split(",");
-        //difference of Edges( Outdegree - Indegree);
-        //root special case diff=1;
+public:
+    bool isValidSerialization(string preorder) {
+        stringstream ss(preorder);
+        string element;
         int diff = 1;
-        for(String node : nodes) {
-            if(--diff<0)return false;
-            if(!node.equals("#")) diff+=2;
+        while(getline(ss,element,',')) {
+            if(--diff<0) return false;
+            if(element!="#")diff+=2;
         }
         return diff==0;
     }
-}
+};
